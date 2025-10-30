@@ -1,0 +1,15 @@
+{
+  "name": "cliente-node-inventario",
+  "version": "0.1.0",
+  "description": "Cliente rápido para probar el servicio SOAP Inventario",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "node index.js"
+  },
+  "author": "auto-generated",
+  "license": "MIT",
+  "dependencies": {
+    "soap": "^0.42.0"
+  }
+}
