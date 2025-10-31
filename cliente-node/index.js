@@ -50,6 +50,135 @@ function limpiarLogSiEsNecesario() {
 limpiarLogSiEsNecesario();
 escribirLog('Iniciando cliente SOAP', 'INFO');
 
+// Configuración de reintentos
+const DEFAULT_RETRIES = 3;
+const RETRY_DELAY = 1000; // 1 segundo
+
+// Función para verificar si una respuesta está truncada
+function isTruncatedResponse(data) {
+  if (!data) return true;
+  const str = typeof data === 'string' ? data : JSON.stringify(data);
+  return str.includes('<S:Envelope') && !str.includes('</S:Envelope>');
+}
+
+// Función para esperar un tiempo determinado
+function wait(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+// Función para ejecutar operaciones SOAP con manejo de errores y reintentos
+async function executeWithLogging(methodName, args = {}, retries = DEFAULT_RETRIES) {
+  let lastError;
+  
+  for (let attempt = 1; attempt <= retries; attempt++) {
+    const spinner = ['|', '/', '-', '\\'];
+    let spinnerIndex = 0;
+    const spinnerInterval = setInterval(() => {
+      process.stdout.write(`\r${spinner[spinnerIndex++ % spinner.length]} Procesando (Intento ${attempt}/${retries})...`);
+    }, 100);
+    
+    try {
+      log(`\n=== Intento ${attempt} de ${retries} - ${methodName} ===`, 'debug');
+      
+      // Configuración de la petición SOAP
+      const options = {
+        disableCache: true,
+        forceSoap12Headers: true,
+        envelopeKey: 'soap',
+        escapeXML: false,
+        timeout: 10000 + (attempt * 2000), // Aumentar timeout en cada reintento
+        returnFault: true
+      };
+      
+      // Registrar la petición
+      logSoapRequest(client, methodName, args);
+      
+      // Ejecutar la operación con promesas
+      const result = await new Promise((resolve, reject) => {
+        client[methodName](args, options, (error, result, rawResponse) => {
+          if (error) {
+            // Verificar si es un error de timeout
+            if (error.code === 'ESOCKETTIMEDOUT' || error.code === 'ETIMEDOUT') {
+              error.message = `Timeout al conectar con el servidor (${options.timeout}ms)`;
+            }
+            
+            // Verificar si la respuesta está truncada
+            if (error.response?.data && isTruncatedResponse(error.response.data)) {
+              error.isTruncated = true;
+              error.message = 'La respuesta del servidor está incompleta (truncada)';
+            }
+            
+            reject(error);
+          } else if (isTruncatedResponse(rawResponse)) {
+            const error = new Error('La respuesta del servidor está incompleta (truncada)');
+            error.isTruncated = true;
+            reject(error);
+          } else {
+            resolve({ result, rawResponse });
+          }
+        });
+      });
+      
+      // Si llegamos aquí, la operación fue exitosa
+      clearInterval(spinnerInterval);
+      process.stdout.write('\r' + ' '.repeat(50) + '\r');
+      
+      // Registrar la respuesta exitosa
+      logSoapResponse(methodName, result.result, false);
+      log(`\n✅ Operación ${methodName} completada exitosamente\n`, 'success');
+      
+      return result.result;
+      
+    } catch (error) {
+      clearInterval(spinnerInterval);
+      process.stdout.write('\r' + ' '.repeat(50) + '\r');
+      
+      // Guardar el último error
+      lastError = error;
+      
+      // Registrar el error
+      log(`\n❌ Error en ${methodName} (Intento ${attempt}/${retries}):`, 'error');
+      log(`Mensaje: ${error.message}`, 'error');
+      
+      if (error.isTruncated) {
+        log('La respuesta del servidor está incompleta (truncada)', 'warn');
+      }
+      
+      // Mostrar detalles adicionales del error
+      if (error.response) {
+        log(`Estado: ${error.response.statusCode || 'Desconocido'}`, 'error');
+        log(`Mensaje: ${error.response.statusText || 'Sin mensaje de error'}`, 'error');
+        
+        // Mostrar encabezados de respuesta
+        if (error.response.headers) {
+          log('Encabezados de respuesta:', 'debug');
+          log(JSON.stringify(error.response.headers, null, 2), 'debug');
+        }
+        
+        // Mostrar datos de respuesta si están disponibles
+        if (error.response.data) {
+          log('Datos de respuesta (primeros 500 caracteres):', 'debug');
+          const responseData = typeof error.response.data === 'string' 
+            ? error.response.data 
+            : JSON.stringify(error.response.data);
+          log(responseData.substring(0, 500) + (responseData.length > 500 ? '...' : ''), 'debug');
+        }
+      }
+      
+      // Si no es el último intento, esperar antes de reintentar
+      if (attempt < retries) {
+        const delay = RETRY_DELAY * attempt; // Backoff exponencial
+        log(`\n🔄 Reintentando en ${delay/1000} segundos... (${attempt + 1}/${retries})\n`, 'warn');
+        await wait(delay);
+      }
+    }
+  }
+  
+  // Si llegamos aquí, todos los intentos fallaron
+  log(`\n❌ Se agotaron los ${retries} intentos para ${methodName}\n`, 'error');
+  throw lastError;
+}
+
 const rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout
@@ -63,15 +192,51 @@ function getTimestamp() {
 }
 
 // Función para registrar mensajes con timestamp
-function log(message, type = 'info') {
+function log(message, type = 'info', error = null) {
   const timestamp = getTimestamp();
+  const typeUpper = type.toUpperCase();
   const typeColor = type === 'error' ? '\x1b[31m' : '\x1b[36m';
-  console.log(`[${timestamp}] ${typeColor}${type.toUpperCase()}\x1b[0m: ${message}`);
   
-  // Si es un error, también mostrarlo en stderr
-  if (type === 'error') {
-    console.error(`[${timestamp}] ERROR: ${message}`);
+  // Mensaje base
+  const logMessage = `[${timestamp}] ${typeColor}${typeUpper}\x1b[0m: ${message}`;
+  
+  // Si hay un error, agregar detalles adicionales
+  if (error) {
+    const errorDetails = {
+      message: error.message,
+      name: error.name,
+      stack: error.stack,
+      code: error.code,
+      response: error.response ? {
+        status: error.response.statusCode,
+        statusText: error.response.statusText,
+        headers: error.response.headers,
+        data: error.response.data
+      } : undefined,
+      request: error.request ? {
+        method: error.request.method,
+        path: error.request.path,
+        headers: error.request.getHeaders()
+      } : undefined
+    };
+    
+    console.error(logMessage);
+    console.error('Detalles del error:', JSON.stringify(errorDetails, null, 2));
+    
+    // Registrar en el archivo de log
+    fs.appendFileSync(LOG_FILE, `${logMessage}\nDetalles del error: ${JSON.stringify(errorDetails, null, 2)}\n\n`, 'utf8');
+    return;
   }
+  
+  // Para mensajes que no son de error
+  if (type === 'error') {
+    console.error(logMessage);
+  } else {
+    console.log(logMessage);
+  }
+  
+  // Registrar en el archivo de log
+  fs.appendFileSync(LOG_FILE, `${logMessage}\n`, 'utf8');
 }
 
 // Función para registrar peticiones SOAP
@@ -257,16 +422,78 @@ function showMenu(client) {
 }
 
 async function getCategorias(client) {
+  escribirLog('=== INICIANDO CONSULTA DE CATEGORÍAS ===', 'INFO');
+  console.log('\n\x1b[36m=== OBTENIENDO CATEGORÍAS ===\x1b[0m');
+  
   return new Promise((resolve) => {
+    const options = {
+      method: 'listarCategorias',
+      params: {},
+      headers: {
+        'Content-Type': 'text/xml;charset=UTF-8',
+        'Accept': 'text/xml',
+        'SOAPAction': ''
+      },
+      timeout: 10000,
+      disableCache: true,
+      forceSoap12Headers: true
+    };
+    
+    // Registrar la petición
+    escribirLog(`Enviando petición SOAP para listar categorías`, 'DEBUG');
+    
     client.listarCategorias({}, (err, result) => {
-      if (err || !result?.return?.datos) {
-        console.log('\x1b[33mNo se pudieron obtener categorías\x1b[0m');
-        if (err) console.error('Error:', err.message);
-        resolve([]);
-      } else {
-        // Asegurarse de que sea un array
-        const categorias = Array.isArray(result.return.datos) ? result.return.datos : [result.return.datos];
+      if (err) {
+        console.error('\n\x1b[31m✗ Error al obtener categorías\x1b[0m');
+        console.error(`  ${err.message || 'Error desconocido'}`);
+        escribirLog(`Error al obtener categorías: ${err.message}`, 'ERROR');
+        return resolve([]);
+      }
+      
+      try {
+        escribirLog(`Respuesta cruda de listarCategorias: ${JSON.stringify(result, null, 2)}`, 'DEBUG');
+        
+        // Manejar diferentes formatos de respuesta
+        let categorias = [];
+        
+        // Caso 1: Nueva estructura CategoriaListResponse (similar a ProveedorListResponse)
+        if (result?.return?.categorias) {
+          categorias = Array.isArray(result.return.categorias) 
+            ? result.return.categorias 
+            : [result.return.categorias];
+        } 
+        // Caso 2: Respuesta directa en result.return.datos (formato anterior)
+        else if (result?.return?.datos) {
+          categorias = Array.isArray(result.return.datos) 
+            ? result.return.datos 
+            : [result.return.datos];
+        } 
+        // Caso 3: Respuesta en result.return
+        else if (result?.return) {
+          categorias = Array.isArray(result.return) 
+            ? result.return 
+            : [result.return];
+        }
+        // Caso 4: Respuesta directa
+        else if (Array.isArray(result)) {
+          categorias = result;
+        }
+        
+        escribirLog(`Categorías obtenidas: ${categorias.length}`, 'INFO');
+        
+        if (categorias.length === 0) {
+          console.log('\x1b[33mℹ No se encontraron categorías.\x1b[0m');
+        } else {
+          console.log(`\x1b[32m✓ Se encontraron ${categorias.length} categorías\x1b[0m`);
+        }
+        
         resolve(categorias);
+        
+      } catch (error) {
+        console.error('\n\x1b[31m✗ Error al procesar las categorías\x1b[0m');
+        console.error(`  ${error.message || 'Error desconocido'}`);
+        escribirLog(`Error al procesar categorías: ${error.message}\n${error.stack}`, 'ERROR');
+        resolve([]);
       }
     });
   });
@@ -293,160 +520,165 @@ async function getProveedores(client) {
       forceSoap12Headers: true
     };
     
+    return new Promise((resolve) => {
     // Registrar la petición
-    escribirLog(`Enviando petición SOAP a ${client.wsdl.uri}`, 'DEBUG');
-    escribirLog(`Opciones: ${JSON.stringify(options, null, 2)}`, 'DEBUG');
+    escribirLog(`Enviando petición SOAP para listar proveedores`, 'DEBUG');
     
-    // Función para limpiar y mostrar el resultado
-    const handleResponse = (proveedores, mensaje = '') => {
-      clearInterval(loadingInterval);
-      
-      if (proveedores.length > 0) {
-        const mensajeExito = `Se encontraron ${proveedores.length} proveedores`;
-        console.log(`\n\x1b[32m✓ ${mensajeExito}\x1b[0m`);
-        escribirLog(mensajeExito, 'INFO');
-        
-        if (mensaje) {
-          console.log(`\x1b[36mℹ ${mensaje}\x1b[0m`);
-          escribirLog(`Mensaje adicional: ${mensaje}`, 'INFO');
-        }
-        
-        // Mostrar y registrar los proveedores encontrados
-        proveedores.forEach((prov, index) => {
-          const detalleProveedor = `Proveedor #${index + 1}: ID=${prov.id}, Nombre=${prov.nombre || 'N/A'}`;
-          console.log(`\n\x1b[33m${detalleProveedor}\x1b[0m`);
-          escribirLog(detalleProveedor, 'DEBUG');
-          
-          // Detalles adicionales en el log
-          escribirLog(`Detalles: ${JSON.stringify({
-            contacto: prov.contacto,
-            telefono: prov.telefono,
-            email: prov.email,
-            direccion: prov.direccion
-          }, null, 2)}`, 'DEBUG');
-          
-          // Mostrar en consola
-          console.log(`  ID: ${prov.id}`);
-          console.log(`  Nombre: ${prov.nombre || 'No disponible'}`);
-          console.log(`  Contacto: ${prov.contacto || 'No disponible'}`);
-          console.log(`  Teléfono: ${prov.telefono || 'No disponible'}`);
-          console.log(`  Email: ${prov.email || 'No disponible'}`);
-        });
-        
-      } else {
-        const mensajeVacio = 'No se encontraron proveedores';
-        console.log(`\n\x1b[33mℹ ${mensajeVacio}.\x1b[0m`);
-        escribirLog(mensajeVacio, 'INFO');
-      }
-      
-      resolve(proveedores);
-    };
+    // Mostrar indicador de carga
+    const loadingChars = ['|', '/', '-', '\\'];
+    let i = 0;
+    const loadingInterval = setInterval(() => {
+      process.stdout.write(`\rCargando ${loadingChars[i++ % loadingChars.length]}`);
+    }, 100);
     
-    // Función para extraer proveedores de la respuesta
-    const extraerProveedores = (data) => {
-      if (!data) return [];
-      
-      // Si es un array, verificar si contiene proveedores
-      if (Array.isArray(data)) {
-        return data.length > 0 && data[0].id !== undefined ? data : [];
-      }
-      
-      // Si es un objeto, buscar arrays que puedan contener proveedores
-      if (typeof data === 'object') {
-        // Buscar en las propiedades del objeto
-        for (const key in data) {
-          if (Array.isArray(data[key]) && data[key].length > 0) {
-            // Verificar si el primer elemento parece un proveedor
-            if (data[key][0].id !== undefined) {
-              return data[key];
-            }
-            
-            // Si no, buscar recursivamente
-            const found = extraerProveedores(data[key]);
-            if (found.length > 0) return found;
-          } else if (typeof data[key] === 'object' && data[key] !== null) {
-            // Buscar recursivamente en objetos anidados
-            const found = extraerProveedores(data[key]);
-            if (found.length > 0) return found;
-          }
-        }
-      }
-      
-      return [];
-    };
-    
-    // Realizar la petición SOAP
     try {
+      // Realizar la llamada SOAP
       client.listarProveedores({}, (err, result) => {
-        // Si hay un error en la conexión
+        clearInterval(loadingInterval);
+        process.stdout.write('\r' + ' '.repeat(50) + '\r'); // Limpiar la línea de carga
+        
         if (err) {
-          clearInterval(loadingInterval);
-          
-          // Manejar errores SOAP
-          let errorMessage = 'Error desconocido';
-          
-          if (err.root?.Envelope?.Body?.Fault) {
-            const fault = err.root.Envelope.Body.Fault;
-            errorMessage = `Error del servidor: ${fault.faultstring || 'Error desconocido'}`;
-            console.log(`\n\x1b[31m✖ ${errorMessage}\x1b[0m`);
-            
-            if (fault.detail) {
-              console.log(`\x1b[31mDetalles: ${fault.detail}\x1b[0m`);
-              errorMessage += ` | Detalles: ${fault.detail}`;
-            }
-          } else {
-            errorMessage = `Error en la conexión: ${err.message || 'Error desconocido'}`;
-            console.log(`\n\x1b[31m✖ ${errorMessage}\x1b[0m`);
-          }
-          
-          escribirLog(errorMessage, 'ERROR');
-          resolve([]);
-          return;
+          console.error('\n\x1b[31m✗ Error al obtener proveedores\x1b[0m');
+          console.error(`  ${err.message || 'Error desconocido'}`);
+          escribirLog(`Error al obtener proveedores: ${err.message}`, 'ERROR');
+          return resolve([]);
         }
         
         try {
-          // Extraer los proveedores de la respuesta
-          const proveedores = extraerProveedores(result);
+          escribirLog(`Respuesta cruda de listarProveedores: ${JSON.stringify(result, null, 2)}`, 'DEBUG');
           
-          // Procesar y mostrar los proveedores
-          handleResponse(proveedores, 'Consulta completada exitosamente');
+          // Manejar diferentes formatos de respuesta
+          let proveedores = [];
           
+          // Caso 1: Respuesta directa en result.return.datos
+          if (result?.return?.datos) {
+            proveedores = Array.isArray(result.return.datos) 
+              ? result.return.datos 
+              : [result.return.datos];
+          } 
+          // Caso 2: Respuesta en result.return
+          else if (result?.return) {
+            proveedores = Array.isArray(result.return) 
+              ? result.return 
+              : [result.return];
+          }
+          // Caso 3: Respuesta directa
+          else if (Array.isArray(result)) {
+            proveedores = result;
+          }
+          
+          escribirLog(`Proveedores obtenidos: ${proveedores.length}`, 'INFO');
+          
+          if (proveedores.length === 0) {
+            console.log('\x1b[33mℹ No se encontraron proveedores.\x1b[0m');
+            escribirLog('No se encontraron proveedores', 'INFO');
+          } else {
+            console.log(`\x1b[32m✓ Se encontraron ${proveedores.length} proveedores\x1b[0m`);
+            
+            // Mostrar mensaje adicional si está disponible
+            if (result?.return?.mensaje) {
+              console.log(`\x1b[36mℹ ${result.return.mensaje}\x1b[0m`);
+              escribirLog(`Mensaje adicional: ${result.return.mensaje}`, 'INFO');
+            }
+            
+            // Mostrar y registrar los proveedores encontrados
+            proveedores.forEach((prov, index) => {
+              const detalleProveedor = `Proveedor #${index + 1}: ID=${prov.id}, Nombre=${prov.nombre || 'N/A'}`;
+              console.log(`\n\x1b[33m${detalleProveedor}\x1b[0m`);
+              escribirLog(detalleProveedor, 'DEBUG');
+              
+              // Detalles adicionales en el log
+              escribirLog(`Detalles: ${JSON.stringify({
+                contacto: prov.contacto,
+                telefono: prov.telefono,
+                email: prov.email,
+                direccion: prov.direccion
+              }, null, 2)}`, 'DEBUG');
+              
+              // Mostrar en consola
+              console.log(`  ID: ${prov.id}`);
+              console.log(`  Nombre: ${prov.nombre || 'No disponible'}`);
+              console.log(`  Contacto: ${prov.contacto || 'No disponible'}`);
+              console.log(`  Teléfono: ${prov.telefono || 'No disponible'}`);
+              console.log(`  Email: ${prov.email || 'No disponible'}`);
+              console.log(`  Dirección: ${prov.direccion || 'No disponible'}`);
+            });
+          }
+          
+          resolve(proveedores);
         } catch (parseError) {
-          clearInterval(loadingInterval);
-          console.error('\x1b[31m✗ Error al procesar la respuesta del servidor:\x1b[0m', parseError.message);
+          console.error('\n\x1b[31m✗ Error al procesar la respuesta del servidor\x1b[0m');
           escribirLog(`Error al procesar la respuesta: ${parseError.message}`, 'ERROR');
-          escribirLog(`Stack trace: ${parseError.stack}`, 'DEBUG');
-          console.log('\x1b[36mRespuesta recibida:\x1b[0m', JSON.stringify(result, null, 2));
-          resolve([]);
+          resolve([]); // Resolver con array vacío en caso de error
         }
       });
     } catch (error) {
       clearInterval(loadingInterval);
-      console.error('\x1b[31m✗ Error inesperado al realizar la petición:\x1b[0m', error.message);
+      console.error('\n\x1b[31m✗ Error inesperado al obtener proveedores\x1b[0m');
       escribirLog(`Error inesperado: ${error.message}`, 'ERROR');
-      escribirLog(`Stack trace: ${error.stack}`, 'DEBUG');
-      resolve([]);
+      resolve([]); // Resolver con array vacío en caso de error
     }
+  });
   });
 }
 
-async function selectFromList(items, prompt) {
-  console.log('\n\x1b[36m=== ' + prompt.toUpperCase() + ' ===\x1b[0m');
-  items.forEach((item, index) => {
-    console.log(`\x1b[33m${index + 1}\x1b[0m. ${item.nombre || item.razonSocial} (ID: ${item.id})`);
-  });
-  console.log('\n\x1b[33m0\x1b[0m. Ninguno');
-  
+function selectFromList(items, prompt) {
   return new Promise((resolve) => {
-    rl.question(`Seleccione ${prompt} (número): `, (choice) => {
-      const index = parseInt(choice) - 1;
-      if (choice === '0') resolve(null);
-      else if (index >= 0 && index < items.length) resolve(items[index].id);
-      else {
-        console.log('\x1b[31mOpción inválida\x1b[0m');
-        resolve(selectFromList(items, prompt));
+    try {
+      // Validar parámetros de entrada
+      if (!Array.isArray(items)) {
+        console.error('\x1b[31mError: items debe ser un array\x1b[0m');
+        return resolve(null);
       }
-    });
+      
+      if (typeof prompt !== 'string') {
+        console.error('\x1b[31mError: prompt debe ser un string\x1b[0m');
+        return resolve(null);
+      }
+      
+      // Mostrar opciones
+      console.log('\n\x1b[36m=== ' + prompt.toUpperCase() + ' ===\x1b[0m');
+      
+      // Mostrar cada ítem
+      items.forEach((item, index) => {
+        const name = item.nombre || item.razonSocial || 'Sin nombre';
+        console.log(`\x1b[33m${index + 1}\x1b[0m. ${name} (ID: ${item.id || 'N/A'})`);
+      });
+      
+      console.log('\n\x1b[33m0\x1b[0m. Ninguno');
+      
+      // Manejar la selección del usuario
+      rl.question(`Seleccione ${prompt} (número): `, (choice) => {
+        try {
+          const index = parseInt(choice, 10);
+          
+          if (isNaN(index)) {
+            console.log('\x1b[31mPor favor ingrese un número válido\x1b[0m');
+            return resolve(selectFromList(items, prompt));
+          }
+          
+          if (index === 0) {
+            return resolve(null);
+          }
+          
+          const selectedIndex = index - 1;
+          if (selectedIndex >= 0 && selectedIndex < items.length) {
+            return resolve(items[selectedIndex].id);
+          }
+          
+          console.log('\x1b[31mOpción inválida. Intente de nuevo.\x1b[0m');
+          resolve(selectFromList(items, prompt));
+          
+        } catch (error) {
+          console.error('\x1b[31mError al procesar la selección\x1b[0m');
+          resolve(selectFromList(items, prompt));
+        }
+      });
+      
+    } catch (error) {
+      console.error('\x1b[31mError inesperado en selectFromList\x1b[0m');
+      resolve(null);
+    }
   });
 }
 
@@ -454,33 +686,10 @@ async function executeOperation(client, operation) {
   log(`\nIniciando operación: ${operation}`, 'info');
   
   const handleOperationError = (err, operationName) => {
-    log(`Error en ${operationName}: ${err.message || 'Error desconocido'}`, 'error');
+    log(`Error en ${operationName}: ${err?.message || 'Error desconocido'}`, 'error');
     
-    // Función segura para stringify que maneja referencias circulares
-    const safeStringify = (obj, space = 2) => {
-      const cache = new Set();
-      return JSON.stringify(obj, (key, value) => {
-        if (typeof value === 'object' && value !== null) {
-          if (cache.has(value)) return '[Circular]';
-          cache.add(value);
-          
-          // Filtrar propiedades problemáticas comunes
-          if (value.constructor && value.constructor.name === 'IncomingMessage') {
-            return `[${value.constructor.name}: ${value.statusCode || 'No status'}]`;
-          }
-          if (value.constructor && value.constructor.name === 'ClientRequest') {
-            return `[${value.constructor.name}: ${value.method} ${value.path}]`;
-          }
-        }
-        return value;
-      }, space);
-    };
-
     // Registrar detalles del error de manera segura
     if (err) {
-      log('Detalles del error:', 'error');
-      
-      // Registrar propiedades estándar de error
       const errorInfo = {
         name: err.name,
         message: err.message,
@@ -496,9 +705,11 @@ async function executeOperation(client, operation) {
         })
       };
       
-      log(safeStringify(errorInfo), 'error');
+      const errorDetails = safeStringify(errorInfo, null, 2);
+      log(`Detalles del error: ${errorDetails}`, 'debug');
     }
     
+    // Mostrar menú nuevamente
     showMenu(client);
   };
 
@@ -519,148 +730,223 @@ async function executeOperation(client, operation) {
     case 'verificarEstado':
       executeWithLogging('verificarEstado', {}, () => {
         log('Verificación de estado completada', 'success');
-        showMenu(client);
       });
       break;
       
     case 'consultarArticulo':
-      rl.question('Ingrese código del artículo: ', (codigo) => {
-        log(`Consultando artículo con código: ${codigo}`, 'info');
-        executeWithLogging('consultarArticulo', { codigo }, (result) => {
-          handleResponse(null, result);
-          showMenu(client);
-        });
-      });
-      break;
+      log('Consultando artículo...', 'info');
       
-    case 'actualizarStock':
-      rl.question('Ingrese código del artículo: ', (codigo) => {
-        rl.question('Ingrese nuevo stock: ', (nuevoStock) => {
-          const stockNum = parseInt(nuevoStock, 10);
-          log(`Actualizando stock del artículo ${codigo} a ${stockNum}`, 'info');
+      // Función para mostrar el menú de ayuda
+      const mostrarAyuda = () => {
+        console.log('\n\x1b[36m=== AYUDA: CONSULTA DE ARTÍCULO ===\x1b[0m');
+        console.log('  Ingrese el código del artículo que desea consultar.');
+        console.log('  Ejemplos de códigos válidos:');
+        console.log('  - MART001');
+        console.log('  - HERR025');
+        console.log('  - PINT100');
+        console.log('\n  Escriba \'salir\' para volver al menú principal.\n');
+      };
+      
+      const procesarConsultaArticulo = (codigo) => {
+        // Validar el código
+        if (!codigo || codigo.trim() === '') {
+          console.log('\n\x1b[33m⚠ Por favor ingrese un código de artículo.\x1b[0m\n');
+          return false;
+        }
+        
+        codigo = codigo.trim();
+        log(`Consultando artículo con código: ${codigo}`, 'info');
+        
+        // Mostrar indicador de carga
+        const spinner = ['|', '/', '-', '\\'];
+        let spinnerIndex = 0;
+        const loadingInterval = setInterval(() => {
+          process.stdout.write(`\r${spinner[spinnerIndex++ % spinner.length]} Buscando artículo...`);
+        }, 100);
+        
+        // Realizar la consulta
+        client.consultarArticulo({ codigo }, (err, result) => {
+          // Limpiar el indicador de carga
+          clearInterval(loadingInterval);
+          process.stdout.write('\r' + ' '.repeat(30) + '\r');
           
-          // Configurar opciones adicionales para la petición SOAP
-          const options = {
-            disableCache: true,
-            forceSoap12Headers: true,
-            envelopeKey: 'soap',
-            escapeXML: false
-          };
-          
-          // Realizar la petición con manejo de errores mejorado
-          client.actualizarStock({ codigo, nuevoStock: stockNum }, options, (error, result, rawResponse, soapHeader, rawRequest) => {
-            if (error) {
-              console.log('\n\x1b[31m✖ Error al actualizar el stock:\x1b[0m');
-              
-              // Registrar el error en el log
-              log(`Error en actualizarStock: ${error.message || 'Error desconocido'}`, 'ERROR');
-              
-              // Mostrar detalles del error si están disponibles
-              if (error.response) {
-                console.log(`  Estado: ${error.response.statusCode || 'Desconocido'}`);
-                console.log(`  Mensaje: ${error.response.statusMessage || 'Sin mensaje de error'}`);
-                
-                // Mostrar encabezados de respuesta
-                if (error.response.headers) {
-                  console.log('\n  Encabezados de respuesta:');
-                  Object.entries(error.response.headers).forEach(([key, value]) => {
-                    console.log(`  ${key}: ${value}`);
-                  });
-                }
-                
-                // Mostrar datos de respuesta si están disponibles
-                if (error.response.data) {
-                  console.log('\n  Datos de respuesta:');
-                  console.log(`  ${error.response.data}`);
-                }
-              } else if (error.request) {
-                console.log('  No se recibió respuesta del servidor');
-                console.log('  Verifica que el servicio esté en ejecución y accesible');
-              } else {
-                console.log(`  Error: ${error.message || 'Error desconocido'}`);
-              }
-              
-              // Registrar el error completo en el log de depuración
-              log('Detalles completos del error:', 'ERROR');
-              log(JSON.stringify({
-                message: error.message,
-                code: error.code,
-                response: error.response ? {
-                  status: error.response.statusCode,
-                  headers: error.response.headers,
-                  data: error.response.data
-                } : null,
-                request: error.request ? 'Request object available' : null
-              }, null, 2), 'DEBUG');
-              
-            } else if (!result) {
-              console.log('\n\x1b[33mℹ No se recibió respuesta del servidor o la respuesta está vacía\x1b[0m');
-              log('No se recibió respuesta del servidor o la respuesta está vacía', 'WARN');
-            } else {
-              // Procesar respuesta exitosa
-              handleResponse(null, result, 'actualizarStock');
-            }
+          if (err) {
+            console.log('\n\x1b[31m✖ Error al consultar el artículo:\x1b[0m');
+            console.log(`  ${err.message || 'Error desconocido'}`);
+            
+            // Mostrar sugerencias para el usuario
+            console.log('\n\x1b[33mSugerencias:\x1b[0m');
+            console.log('  1. Verifique que el código del artículo sea correcto');
+            console.log('  2. Verifique su conexión a internet');
+            console.log('  3. Asegúrese de que el servidor esté en ejecución\n');
             
             showMenu(client);
-          });
+            return;
+          }
+          
+          // Procesar la respuesta exitosa
+          try {
+            console.log('\n\x1b[32m✓ Artículo encontrado\x1b[0m\n');
+            
+            // Mostrar los detalles del artículo
+            if (result.return) {
+              const articulo = result.return;
+              console.log('\x1b[36m=== DETALLES DEL ARTÍCULO ===\x1b[0m');
+              console.log(`  • Código: ${articulo.codigo || 'No disponible'}`);
+              console.log(`  • Nombre: ${articulo.nombre || 'No disponible'}`);
+              
+              if (articulo.descripcion) {
+                console.log(`  • Descripción: ${articulo.descripcion}`);
+              }
+              
+              if (articulo.precioVenta) {
+                console.log(`  • Precio: $${articulo.precioVenta.toFixed(2)}`);
+              }
+              
+              if (articulo.stockActual !== undefined) {
+                console.log(`  • Stock actual: ${articulo.stockActual}`);
+              }
+              
+              if (articulo.stockMinimo !== undefined) {
+                console.log(`  • Stock mínimo: ${articulo.stockMinimo}`);
+              }
+              
+              // Mostrar categoría si está disponible
+              if (articulo.categoria) {
+                console.log(`  • Categoría: ${articulo.categoria.nombre || 'No disponible'}`);
+              }
+              
+              // Mostrar proveedor si está disponible
+              if (articulo.proveedor) {
+                console.log(`  • Proveedor: ${articulo.proveedor.nombre || articulo.proveedor.razonSocial || 'No disponible'}`);
+              }
+              
+              console.log('\n\x1b[32mOperación completada con éxito.\x1b[0m\n');
+            } else {
+              console.log('\x1b[33mEl artículo no fue encontrado o no hay información disponible.\x1b[0m\n');
+            }
+            
+            // Preguntar si desea consultar otro artículo
+            rl.question('¿Desea consultar otro artículo? (s/n): ', (respuesta) => {
+              if (respuesta.toLowerCase() === 's') {
+                solicitarCodigo();
+              } else {
+                console.log('\nVolviendo al menú principal...\n');
+                showMenu(client);
+              }
+            });
+            
+          } catch (error) {
+            console.log('\n\x1b[31m✖ Error al procesar la respuesta del servidor:\x1b[0m');
+            console.log(`  ${error.message || 'Error desconocido'}`);
+            console.log('\n\x1b[33mPor favor, intente nuevamente.\x1b[0m\n');
+            
+            // Registrar el error en el log
+            escribirLog(`Error al procesar respuesta: ${error.message}\n${error.stack}`, 'ERROR');
+            
+            // Volver al menú principal
+            showMenu(client);
+          }
         });
-      });
+        
+        return true;
+      };
+      
+      // Mostrar ayuda inicial
+      mostrarAyuda();
+      
+      // Iniciar la interacción con el usuario
+      const solicitarCodigo = () => {
+        rl.question('\nIngrese código del artículo (o \'ayuda\' para ver ejemplos): ', (codigo) => {
+          // Mostrar ayuda si el usuario lo solicita
+          if (codigo.toLowerCase() === 'ayuda') {
+            mostrarAyuda();
+            return solicitarCodigo();
+          }
+          
+          // Permitir salir
+          if (codigo.toLowerCase() === 'salir') {
+            console.log('\nVolviendo al menú principal...\n');
+            showMenu(client);
+            return;
+          }
+          
+          // Procesar la consulta
+          if (!procesarConsultaArticulo(codigo)) {
+            // Si hubo un error de validación, volver a solicitar el código
+            return solicitarCodigo();
+          }
+        });
+      };
+      
+      // Iniciar el proceso
+      solicitarCodigo();
       break;
       
     case 'insertarArticulo':
-      const getArticuloData = async () => {
-        try {
-          const categorias = await getCategorias(client);
-          const categoriaId = await selectFromList(categorias, 'categoría');
-          const proveedores = await getProveedores(client);
-          const proveedorId = await selectFromList(proveedores, 'proveedor');
-          
-          return new Promise((resolve) => {
+      // Función auxiliar para obtener datos del artículo
+      const obtenerDatosArticulo = () => {
+        return new Promise(async (resolve, reject) => {
+          try {
+            const categorias = await getCategorias(client);
+            const categoriaId = await selectFromList(categorias, 'categoría');
+            const proveedores = await getProveedores(client);
+            const proveedorId = await selectFromList(proveedores, 'proveedor');
+            
             rl.question('Precio de compra: ', (precioCompra) => {
               rl.question('Precio de venta: ', (precioVenta) => {
-                rl.question('Stock actual: ', (stockActual) => {
+                rl.question('Stock inicial: ', (stockInicial) => {
                   rl.question('Stock mínimo: ', (stockMinimo) => {
                     resolve({
-                      codigo,
-                      nombre,
-                      descripcion: descripcion || "",
-                      categoriaId: categoriaId || null,
-                      proveedorId: proveedorId || null,
-                      precioCompra: parseFloat(precioCompra) || 0,
-                      precioVenta: parseFloat(precioVenta) || 0,
-                      stockActual: parseInt(stockActual, 10) || 0,
+                      categoria: { id: categoriaId },
+                      proveedor: { id: proveedorId },
+                      precioCompra: parseFloat(precioCompra),
+                      precioVenta: parseFloat(precioVenta),
+                      stockActual: parseInt(stockInicial, 10) || 0,
                       stockMinimo: parseInt(stockMinimo, 10) || 0
                     });
                   });
                 });
               });
             });
+          } catch (error) {
+            log(`Error al obtener datos del artículo: ${error.message}`, 'error');
+            reject(error);
+          }
+        });
+      };
+
+      // Función para insertar el artículo
+      const insertarArticulo = async () => {
+        try {
+          const codigo = await new Promise(resolve => rl.question('Código del artículo: ', resolve));
+          const nombre = await new Promise(resolve => rl.question('Nombre: ', resolve));
+          const descripcion = await new Promise(resolve => rl.question('Descripción: ', resolve));
+          
+          const articuloData = await obtenerDatosArticulo();
+          
+          // Construir el objeto de artículo
+          const articulo = {
+            codigo,
+            nombre,
+            descripcion,
+            ...articuloData
+          };
+          
+          log(JSON.stringify(articulo, null, 2), 'debug');
+          
+          executeWithLogging('insertarArticulo', articulo, (result) => {
+            handleResponse(null, result);
+            showMenu(client);
           });
         } catch (error) {
-          log(`Error al obtener datos del artículo: ${error.message}`, 'error');
-          return null;
+          log(`Error al insertar artículo: ${error.message}`, 'error');
+          showMenu(client);
         }
       };
 
-      rl.question('Código del artículo: ', async (codigo) => {
-        rl.question('Nombre: ', async (nombre) => {
-          rl.question('Descripción: ', async (descripcion) => {
-            const articuloData = await getArticuloData();
-            if (!articuloData) {
-              log('No se pudo obtener la información del artículo', 'error');
-              return showMenu(client);
-            }
-            
-            log('Insertando nuevo artículo:', 'info');
-            log(JSON.stringify(articuloData, null, 2), 'debug');
-            
-            executeWithLogging('insertarArticulo', articuloData, (result) => {
-              handleResponse(null, result);
-              showMenu(client);
-            });
-          });
-        });
-      });
+      // Iniciar el proceso de inserción
+      insertarArticulo();
       break;
       
     case 'listarCategorias':
@@ -686,47 +972,92 @@ async function executeOperation(client, operation) {
 }
 
 function handleResponse(err, result, operation = '') {
-  log('\n=== INICIO RESPUESTA ===', 'debug');
+  const timestamp = new Date().toISOString();
+  log(`\n=== INICIO RESPUESTA [${timestamp}] ===`, 'debug');
+  
+  // Registrar la operación actual
+  log(`Operación: ${operation || 'No especificada'}`, 'debug');
   
   if (err) {
-    log(`Error en la operación ${operation || 'desconocida'}`, 'error');
+    // Crear un objeto de error detallado
+    const errorDetails = {
+      timestamp,
+      operation,
+      error: {
+        name: err.name || 'Error',
+        message: err.message || 'Error desconocido',
+        code: err.code,
+        stack: err.stack,
+        response: err.response ? {
+          status: err.response.statusCode,
+          statusText: err.response.statusText,
+          headers: err.response.headers,
+          data: err.response.data
+        } : undefined,
+        request: err.request ? {
+          method: err.request.method,
+          path: err.request.path,
+          headers: err.request.getHeaders()
+        } : undefined
+      },
+      rawError: err
+    };
     
     // Manejar errores SOAP
     if (err.root?.Envelope?.Body?.Fault) {
       const fault = err.root.Envelope.Body.Fault;
-      const errorCode = fault.faultcode || 'Desconocido';
-      const errorMsg = fault.faultstring || 'Sin mensaje de error';
+      const errorCode = fault.faultcode || 'SOAP_FAULT';
+      const errorMsg = fault.faultstring || 'Error en el servicio SOAP';
+      
+      // Agregar detalles del error SOAP
+      errorDetails.soapFault = {
+        faultCode: errorCode,
+        faultString: errorMsg,
+        detail: fault.detail
+      };
       
       // Mostrar mensaje de error en consola
-      console.log('\n\x1b[31m✖ Error en la operación:\x1b[0m');
+      console.log('\n\x1b[31m✖ ERROR EN EL SERVICIO SOAP:\x1b[0m');
+      console.log(`  Operación: ${operation || 'No especificada'}`);
       console.log(`  Código: ${errorCode}`);
       console.log(`  Mensaje: ${errorMsg}`);
-      
-      log(`Código de error SOAP: ${errorCode}`, 'error');
-      log(`Mensaje: ${errorMsg}`, 'error');
       
       if (fault.detail) {
         console.log('\n\x1b[33mDetalles del error:\x1b[0m');
         mostrarObjeto(fault.detail, 1, true);
-        log('Detalles del error:', 'error');
-        mostrarObjeto(fault.detail, 1);
       }
+      
+      // Registrar en el log
+      log(`Error SOAP en ${operation}: ${errorCode} - ${errorMsg}`, 'error', err);
+      log(`Detalles del error SOAP: ${JSON.stringify(errorDetails, null, 2)}`, 'debug');
+      
     } else {
       // Manejar otros tipos de errores
-      const errorType = err.name || 'Error';
-      const errorMessage = err.message || 'Sin mensaje de error';
+      console.log('\n\x1b[31m✖ ERROR EN LA OPERACIÓN:\x1b[0m');
+      console.log(`  Operación: ${operation || 'No especificada'}`);
+      console.log(`  Tipo: ${errorDetails.error.name}`);
+      console.log(`  Mensaje: ${errorDetails.error.message}`);
       
-      console.log('\n\x1b[31m✖ Error en la operación:\x1b[0m');
-      console.log(`  Tipo: ${errorType}`);
-      console.log(`  Mensaje: ${errorMessage}`);
-      
-      log(`Tipo de error: ${errorType}`, 'error');
-      log(`Mensaje: ${errorMessage}`, 'error');
-      
-      if (err.stack) {
-        log('Stack trace:', 'debug');
-        log(err.stack, 'debug');
+      if (err.response) {
+        console.log(`\n  \x1b[33mRespuesta del servidor (${err.response.statusCode}):\x1b[0m`);
+        console.log(`  URL: ${err.config?.url || 'No disponible'}`);
+        console.log(`  Método: ${err.config?.method?.toUpperCase() || 'No disponible'}`);
+        
+        if (err.response.data) {
+          console.log('\n  Datos de respuesta:');
+          console.log(`  ${JSON.stringify(err.response.data, null, 2).replace(/\n/g, '\n  ')}`);
+        }
       }
+      
+      // Registrar en el log
+      log(`Error en ${operation}: ${errorDetails.error.name} - ${errorDetails.error.message}`, 'error', err);
+      log(`Detalles completos del error: ${JSON.stringify(errorDetails, null, 2)}`, 'debug');
+    }
+    
+    // Mostrar stack trace si está disponible
+    if (process.env.DEBUG && err.stack) {
+      log('Stack trace:', 'debug');
+      log(err.stack, 'debug');
     }
     
     log('=== FIN RESPUESTA CON ERROR ===\n', 'debug');
@@ -931,4 +1262,5 @@ function mostrarObjeto(obj, nivel = 0, esConsola = false) {
   });
 }
 
+// Iniciar la aplicación
 main();

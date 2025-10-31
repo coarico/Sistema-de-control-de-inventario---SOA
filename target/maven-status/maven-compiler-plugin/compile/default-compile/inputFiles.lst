@@ -19,5 +19,6 @@ C:\Users\User\Desktop\Inventario_SOA\src\main\java\com\ferreteria\inventario\dto
 C:\Users\User\Desktop\Inventario_SOA\src\main\java\com\ferreteria\inventario\service\ArticuloService.java
 C:\Users\User\Desktop\Inventario_SOA\src\main\java\com\ferreteria\inventario\util\LocalDateTimeAdapter.java
 C:\Users\User\Desktop\Inventario_SOA\src\main\java\com\ferreteria\inventario\model\MovimientoInventario.java
+C:\Users\User\Desktop\Inventario_SOA\src\main\java\com\ferreteria\inventario\dto\CategoriaListResponse.java
 C:\Users\User\Desktop\Inventario_SOA\src\main\java\com\ferreteria\inventario\model\Proveedor.java
 C:\Users\User\Desktop\Inventario_SOA\src\main\java\com\ferreteria\inventario\dao\ProveedorDAO.java

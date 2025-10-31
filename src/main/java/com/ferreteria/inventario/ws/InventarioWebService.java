@@ -12,6 +12,7 @@ import com.ferreteria.inventario.dao.ProveedorDAO;
 import com.ferreteria.inventario.model.Categoria;
 import com.ferreteria.inventario.model.Proveedor;
 import com.ferreteria.inventario.dto.ProveedorListResponse;
+import com.ferreteria.inventario.dto.CategoriaListResponse;
 import com.ferreteria.inventario.util.ArticuloMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -373,32 +374,62 @@ public RespuestaOperacion verificarEstado() {
  * @return RespuestaOperacion con la lista de categorías o mensaje de error
  */
 @WebMethod(operationName = "listarCategorias")
-@WebResult(name = "respuesta")
-public RespuestaOperacion listarCategorias() {
-    logger.info("SOAP: Solicitando lista de categorías");
-    
-    RespuestaOperacion respuesta = new RespuestaOperacion();
+@WebResult(name = "categoriaListResponse", targetNamespace = "http://ws.inventario.ferreteria.com/")
+@XmlMimeType("application/xml")
+public CategoriaListResponse listarCategorias() {
+    final String METHOD_NAME = "listarCategorias";
+    logger.info("SOAP: Iniciando operación {}", METHOD_NAME);
     
     try {
+        // 1. Obtener lista de categorías
+        logger.debug("Obteniendo lista de categorías desde la base de datos...");
         List<Categoria> categorias = categoriaDAO.listarTodas();
+        
+        // 2. Validar y preparar la respuesta
+        if (categorias == null) {
+            logger.warn("La lista de categorías retornó null");
+            categorias = Collections.emptyList();
+        }
+        
         logger.info("SOAP: Se encontraron {} categorías", categorias.size());
         
-        // Configurar la respuesta manualmente
-        respuesta.setExitoso(true);
-        respuesta.setMensaje("Categorías obtenidas exitosamente");
-        respuesta.setDatos(categorias);
+        // 3. Log detallado (solo en modo debug)
+        logCategorias(categorias);
+        
+        // 4. Crear y validar la respuesta
+        CategoriaListResponse response = new CategoriaListResponse(categorias);
+        if (response.getCategorias() == null) {
+            logger.warn("La respuesta no puede contener una lista de categorías nula");
+            response.setCategorias(Collections.emptyList());
+        }
+        
+        logger.debug("SOAP: {} - Respuesta preparada con {} categorías", 
+                   METHOD_NAME, 
+                   response.getCategorias().size());
+        
+        return response;
         
     } catch (Exception e) {
-        String errorMsg = "Error al obtener la lista de categorías: " + e.getMessage();
-        logger.error("SOAP: {}", errorMsg, e);
-        
-        respuesta.setExitoso(false);
-        respuesta.setMensaje(errorMsg);
-        respuesta.setCodigoError("CATEGORIAS_ERROR");
-        respuesta.setTipoError("NEGOCIO");
+        // 5. Manejo de errores
+        logger.error("Error en {}: {}", METHOD_NAME, e.getMessage(), e);
+        return new CategoriaListResponse(Collections.emptyList());
     }
-    
-    return respuesta;
+}
+
+/**
+ * Registra información detallada de las categorías en el log (solo en modo debug)
+ */
+private void logCategorias(List<Categoria> categorias) {
+    if (logger.isDebugEnabled() && categorias != null && !categorias.isEmpty()) {
+        logger.debug("=== DETALLE DE CATEGORÍAS ENCONTRADAS ===");
+        for (int i = 0; i < Math.min(categorias.size(), 5); i++) {
+            Categoria c = categorias.get(i);
+            logger.debug("Categoria[{}] - ID: {}, Nombre: {}", i, c.getId(), c.getNombre());
+        }
+        if (categorias.size() > 5) {
+            logger.debug("... y {} más", categorias.size() - 5);
+        }
+    }
 }
 
 }
