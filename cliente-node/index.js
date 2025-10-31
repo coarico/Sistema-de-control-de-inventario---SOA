@@ -54,63 +54,138 @@ escribirLog('Iniciando cliente SOAP', 'INFO');
 const DEFAULT_RETRIES = 3;
 const RETRY_DELAY = 1000; // 1 segundo
 
-// Función para parsear respuestas XML manualmente
+// Función mejorada para parsear respuestas XML manualmente
 function parseXMLResponse(xmlData, methodName) {
   if (!xmlData || typeof xmlData !== 'string') {
+    console.log(`❌ XML data no válido: ${typeof xmlData}`);
     return null;
   }
   
   console.log(`🔍 Parseando XML para ${methodName}...`);
+  console.log(`📄 XML completo (${xmlData.length} chars): ${xmlData}`);
   
-  // Buscar la respuesta dentro del XML
-  const responsePattern = new RegExp(`<ns2:${methodName}Response[^>]*>([\\s\\S]*?)</ns2:${methodName}Response>`, 'i');
-  const match = xmlData.match(responsePattern);
-  
-  if (!match) {
-    console.log(`❌ No se encontró patrón de respuesta para ${methodName}`);
-    return null;
-  }
-  
-  const responseContent = match[1];
-  console.log(`✅ Contenido de respuesta extraído: ${responseContent.substring(0, 200)}...`);
-  
-  // Para consultarArticulo, buscar estructura específica
-  if (methodName === 'consultarArticulo') {
-    try {
-      // Buscar campos específicos en el XML
-      const extractValue = (field) => {
-        const regex = new RegExp(`<${field}[^>]*>([^<]*)</${field}>`, 'i');
-        const match = responseContent.match(regex);
-        return match ? match[1].trim() : null;
-      };
+  // Si el XML está incompleto pero tiene información parcial, intentar extraerla
+  if (xmlData.includes('<?xml') && xmlData.includes('<S:Envelope')) {
+    console.log(`⚠️ XML SOAP detectado, aunque posiblemente incompleto`);
+    
+    // Buscar diferentes patrones de respuesta más flexibles
+    const responsePatterns = [
+      new RegExp(`<ns2:${methodName}Response[^>]*>([\\s\\S]*?)</ns2:${methodName}Response>`, 'i'),
+      new RegExp(`<${methodName}Response[^>]*>([\\s\\S]*?)</${methodName}Response>`, 'i'),
+      new RegExp(`<return[^>]*>([\\s\\S]*?)</return>`, 'i'),
+      new RegExp(`<ns1:${methodName}Response[^>]*>([\\s\\S]*?)</ns1:${methodName}Response>`, 'i')
+    ];
+    
+    let match = null;
+    let responseContent = '';
+    
+    for (const pattern of responsePatterns) {
+      match = xmlData.match(pattern);
+      if (match) {
+        responseContent = match[1];
+        console.log(`✅ Patrón encontrado: ${pattern.source}`);
+        break;
+      }
+    }
+    
+    if (!match) {
+      console.log(`❌ No se encontró patrón de respuesta válido para ${methodName}`);
+      console.log(`🔍 Intentando buscar elementos de respuesta directamente...`);
       
-      const exitoso = extractValue('exitoso') === 'true';
-      const mensaje = extractValue('mensaje');
-      
-      if (!exitoso) {
-        return { exitoso: false, mensaje: mensaje || 'Artículo no encontrado' };
+      // Intentar buscar elementos de respuesta directamente en el XML
+      if (methodName === 'consultarArticulo') {
+        // Buscar directamente campos esperados
+        const codigoMatch = xmlData.match(/<codigo[^>]*>([^<]*)<\/codigo>/i);
+        const nombreMatch = xmlData.match(/<nombre[^>]*>([^<]*)<\/nombre>/i);
+        
+        if (codigoMatch || nombreMatch) {
+          console.log(`⚠️ Encontrados elementos de artículo parciales, construyendo respuesta...`);
+          return {
+            exitoso: true,
+            datos: {
+              codigo: codigoMatch?.[1] || 'N/A',
+              nombre: nombreMatch?.[1] || 'N/A',
+              descripcion: xmlData.match(/<descripcion[^>]*>([^<]*)<\/descripcion>/i)?.[1] || '',
+              precio: parseFloat(xmlData.match(/<precioVenta[^>]*>([^<]*)<\/precioVenta>/i)?.[1] || 0),
+              stock: parseInt(xmlData.match(/<stockActual[^>]*>([^<]*)<\/stockActual>/i)?.[1] || 0)
+            }
+          };
+        }
       }
       
-      // Buscar datos del artículo
-      const articuloMatch = responseContent.match(/<datos[^>]*>([\s\S]*?)<\/datos>/i);
-      if (!articuloMatch) {
-        return { exitoso: false, mensaje: 'No se encontraron datos del artículo' };
+      return { exitoso: false, mensaje: 'No se pudo parsear la respuesta XML incompleta' };
+    }
+    
+    console.log(`✅ Contenido de respuesta extraído: ${responseContent.substring(0, 200)}...`);
+    
+    // Para consultarArticulo, buscar estructura específica
+    if (methodName === 'consultarArticulo') {
+      try {
+        // Función para extraer valores de manera más robusta
+        const extractValue = (field) => {
+          const patterns = [
+            new RegExp(`<${field}[^>]*>([^<]*)</${field}>`, 'i'),
+            new RegExp(`<ns\\d*:${field}[^>]*>([^<]*)</ns\\d*:${field}>`, 'i')
+          ];
+          
+          for (const pattern of patterns) {
+            const match = responseContent.match(pattern);
+            if (match) return match[1].trim();
+          }
+          return null;
+        };
+        
+        const exitoso = extractValue('exitoso') === 'true';
+        const mensaje = extractValue('mensaje');
+        
+        if (!exitoso && mensaje) {
+          return { exitoso: false, mensaje };
+        }
+        
+        // Buscar datos del artículo con múltiples patrones
+        const datosPatterns = [
+          /<datos[^>]*>([\s\S]*?)<\/datos>/i,
+          /<ns\d*:datos[^>]*>([\s\S]*?)<\/ns\d*:datos>/i,
+          responseContent // Si no hay wrapper de datos, usar todo el contenido
+        ];
+        
+        let articuloXML = '';
+        for (const pattern of datosPatterns) {
+          if (typeof pattern === 'string') {
+            articuloXML = pattern;
+            break;
+          } else {
+            const match = responseContent.match(pattern);
+            if (match) {
+              articuloXML = match[1];
+              break;
+            }
+          }
+        }
+        
+        if (!articuloXML) {
+          articuloXML = responseContent;
+        }
+        
+        const articulo = {
+          codigo: extractValue('codigo') || (articuloXML.match(/<codigo[^>]*>([^<]*)<\/codigo>/i)?.[1]),
+          nombre: extractValue('nombre') || (articuloXML.match(/<nombre[^>]*>([^<]*)<\/nombre>/i)?.[1]),
+          descripcion: extractValue('descripcion') || (articuloXML.match(/<descripcion[^>]*>([^<]*)<\/descripcion>/i)?.[1]) || '',
+          precio: parseFloat(extractValue('precioVenta') || articuloXML.match(/<precioVenta[^>]*>([^<]*)<\/precioVenta>/i)?.[1] || 0),
+          stock: parseInt(extractValue('stockActual') || articuloXML.match(/<stockActual[^>]*>([^<]*)<\/stockActual>/i)?.[1] || 0),
+        };
+        
+        // Verificar si al menos tenemos información básica
+        if (articulo.codigo || articulo.nombre) {
+          return { exitoso: true, datos: articulo };
+        } else {
+          return { exitoso: false, mensaje: mensaje || 'No se encontraron datos del artículo' };
+        }
+        
+      } catch (error) {
+        console.log(`❌ Error parseando consultarArticulo: ${error.message}`);
+        return { exitoso: false, mensaje: 'Error procesando respuesta' };
       }
-      
-      const articuloXML = articuloMatch[1];
-      const articulo = {
-        codigo: extractValue('codigo') || (articuloXML.match(/<codigo[^>]*>([^<]*)<\/codigo>/i)?.[1]),
-        nombre: extractValue('nombre') || (articuloXML.match(/<nombre[^>]*>([^<]*)<\/nombre>/i)?.[1]),
-        descripcion: extractValue('descripcion') || (articuloXML.match(/<descripcion[^>]*>([^<]*)<\/descripcion>/i)?.[1]),
-        precio: parseFloat(extractValue('precioVenta') || articuloXML.match(/<precioVenta[^>]*>([^<]*)<\/precioVenta>/i)?.[1] || 0),
-        stock: parseInt(extractValue('stockActual') || articuloXML.match(/<stockActual[^>]*>([^<]*)<\/stockActual>/i)?.[1] || 0),
-      };
-      
-      return { exitoso: true, datos: articulo };
-      
-    } catch (error) {
-      console.log(`❌ Error parseando consultarArticulo: ${error.message}`);
-      return { exitoso: false, mensaje: 'Error procesando respuesta' };
     }
   }
   
@@ -118,7 +193,7 @@ function parseXMLResponse(xmlData, methodName) {
   return { exitoso: true, mensaje: 'Operación procesada' };
 }
 
-// Función simplificada para verificar si una respuesta está truncada
+// Función mejorada para verificar si una respuesta está truncada
 function isTruncatedResponse(data) {
   if (!data) return true;
   
@@ -132,21 +207,39 @@ function isTruncatedResponse(data) {
     return false;
   }
   
-  // Para respuestas XML, solo verificar si tiene una etiqueta de cierre de envelope
+  // Para respuestas XML, verificar si tiene una etiqueta de cierre de envelope
   const hasValidEnding = str.includes('</S:Envelope>') || 
                         str.includes('</soap:Envelope>') ||
                         str.includes('</soapenv:Envelope>');
   
-  // Verificar si la respuesta es muy corta (probablemente truncada)
-  const tooShort = str.length < 50;
+  // Verificar si la respuesta es muy corta para ser válida
+  const tooShort = str.length < 200; // Aumentamos el umbral
   
-  // Log simple para debug
-  if (!hasValidEnding || tooShort) {
-    console.log(`🚨 Posible respuesta truncada: length=${str.length}, hasEnding=${hasValidEnding}`);
-    console.log(`📄 Respuesta: ${str.substring(0, 300)}...`);
+  // Si tiene al menos el body completo, no considerarla truncada
+  const hasCompleteBody = str.includes('</S:Body>') || 
+                         str.includes('</soap:Body>') ||
+                         str.includes('</soapenv:Body>');
+  
+  // Si termina abruptamente en una etiqueta incompleta, es truncada
+  const endsAbruptly = str.endsWith('<S:Body>') || 
+                      str.endsWith('<soap:Body>') ||
+                      str.endsWith('<soapenv:Body>') ||
+                      str.match(/<[^>]*$/); // Termina con etiqueta incompleta
+  
+  const isTruncated = (!hasValidEnding && !hasCompleteBody) || tooShort || endsAbruptly;
+  
+  // Log para debug con más información
+  if (isTruncated) {
+    console.log(`🚨 Respuesta truncada detectada:`);
+    console.log(`   - Longitud: ${str.length}`);
+    console.log(`   - Tiene ending válido: ${hasValidEnding}`);
+    console.log(`   - Tiene body completo: ${hasCompleteBody}`);
+    console.log(`   - Termina abruptamente: ${endsAbruptly}`);
+    console.log(`   - Muy corta: ${tooShort}`);
+    console.log(`📄 Contenido: ${str.substring(0, 300)}...`);
   }
   
-  return !hasValidEnding || tooShort;
+  return isTruncated;
 }
 
 // Función para esperar un tiempo determinado
@@ -155,7 +248,7 @@ function wait(ms) {
 }
 
 // Función para ejecutar operaciones SOAP con manejo de errores y reintentos
-async function executeWithLogging(methodName, args = {}, retries = DEFAULT_RETRIES) {
+async function executeWithLogging(client, methodName, args = {}, retries = DEFAULT_RETRIES) {
   let lastError;
   
   for (let attempt = 1; attempt <= retries; attempt++) {
@@ -168,26 +261,34 @@ async function executeWithLogging(methodName, args = {}, retries = DEFAULT_RETRI
     try {
       log(`\n=== Intento ${attempt} de ${retries} - ${methodName} ===`, 'debug');
       
-      // Configuración de la petición SOAP con timeouts más largos
+      // Configuración de la petición SOAP con timeouts más largos y mejor manejo
+      const baseTimeout = 10000; // Timeout base más corto para detectar problemas antes
       const options = {
         disableCache: true,
-        forceSoap12Headers: false, // Cambiar a SOAP 1.1 para mejor compatibilidad
+        forceSoap12Headers: false, // Usar SOAP 1.1 para mejor compatibilidad
         envelopeKey: 'soap',
         escapeXML: false,
-        timeout: 30000 + (attempt * 5000), // Timeouts más largos: 30s base + 5s por reintento
+        timeout: baseTimeout + (attempt * 5000), // Timeout incremental
         returnFault: true,
         // Configuraciones adicionales para manejar respuestas grandes
         maxBodyLength: Infinity,
         maxContentLength: Infinity,
-        // Configuraciones HTTP adicionales
+        // Configuraciones HTTP más específicas
         agent: false,
         forever: false,
         pool: false,
-        // Headers personalizados
+        // Headers optimizados
         headers: {
-          'Connection': 'keep-alive',
+          'Connection': 'close', // Cambiar a close para evitar problemas de keep-alive
           'Content-Type': 'text/xml; charset=utf-8',
-          'Accept': 'text/xml, application/xml, application/soap+xml'
+          'Accept': 'text/xml, application/xml, application/soap+xml',
+          'User-Agent': 'Node-SOAP-Client/1.0',
+          'Cache-Control': 'no-cache'
+        },
+        // Configuraciones adicionales de axios
+        maxRedirects: 0,
+        validateStatus: function (status) {
+          return status >= 200 && status < 600; // Aceptar más códigos de estado
         }
       };
       
@@ -222,11 +323,26 @@ async function executeWithLogging(methodName, args = {}, retries = DEFAULT_RETRI
             if (error.response?.data) {
               const errorData = error.response.data;
               
-              // Si la respuesta está claramente truncada, rechazar
-              if (isTruncatedResponse(errorData)) {
+              console.log(`⚠️ Error con datos de respuesta (${errorData.length} chars), analizando...`);
+              
+              // Si la respuesta parece ser un SOAP válido pero posiblemente truncado,
+              // intentar procesarla de todas formas
+              if (errorData.includes('<?xml') && errorData.includes('<S:Envelope')) {
+                console.log(`⚠️ Respuesta SOAP detectada en error, intentando procesar...`);
+                resolve({ result: null, rawResponse: errorData, hasError: true });
+                return;
+              }
+              
+              // Si la respuesta está claramente truncada y no procesable, solo rechazar en el último intento
+              if (isTruncatedResponse(errorData) && attempt === retries) {
                 error.isTruncated = true;
-                error.message = 'La respuesta del servidor está incompleta (truncada)';
+                error.message = 'La respuesta del servidor está incompleta (truncada) después de todos los intentos';
                 reject(error);
+                return;
+              } else if (isTruncatedResponse(errorData)) {
+                // En intentos anteriores, continuar con reintentos
+                console.log(`⚠️ Respuesta truncada en intento ${attempt}, reintentando...`);
+                reject(new Error(`Respuesta truncada en intento ${attempt}, reintentando`));
                 return;
               }
               
@@ -484,6 +600,43 @@ function logSoapResponse(methodName, response, isError = false) {
 async function main() {
   log('Iniciando cliente SOAP...');
   log(`Conectando a: ${WSDL_URL}`);
+  
+  // Función para verificar si el servidor está disponible
+  const checkServerAvailability = async () => {
+    try {
+      const http = require('http');
+      const url = require('url');
+      const parsedUrl = url.parse(WSDL_URL);
+      
+      return new Promise((resolve, reject) => {
+        const req = http.request({
+          hostname: parsedUrl.hostname,
+          port: parsedUrl.port || 80,
+          path: parsedUrl.path,
+          method: 'GET',
+          timeout: 5000
+        }, (res) => {
+          resolve(res.statusCode < 500);
+        });
+        
+        req.on('error', () => resolve(false));
+        req.on('timeout', () => {
+          req.destroy();
+          resolve(false);
+        });
+        req.end();
+      });
+    } catch (error) {
+      return false;
+    }
+  };
+  
+  // Verificar disponibilidad del servidor antes de crear el cliente
+  log('Verificando disponibilidad del servidor...');
+  const serverAvailable = await checkServerAvailability();
+  if (!serverAvailable) {
+    log('⚠️ El servidor puede no estar disponible o responder lentamente', 'warn');
+  }
   
   try {
     soap.createClient(WSDL_URL, {
@@ -869,7 +1022,7 @@ async function executeOperation(client, operation) {
     showMenu(client);
   };
 
-  const executeWithLogging = (operationName, args, callback) => {
+  const executeWithLoggingSync = (operationName, args, callback) => {
     logSoapRequest(client, operationName, args);
     client[operationName](args, (err, result) => {
       if (err) {
@@ -884,7 +1037,7 @@ async function executeOperation(client, operation) {
   
   switch(operation) {
     case 'verificarEstado':
-      executeWithLogging('verificarEstado', {}, () => {
+      executeWithLoggingSync('verificarEstado', {}, () => {
         log('Verificación de estado completada', 'success');
       });
       break;
@@ -903,7 +1056,7 @@ async function executeOperation(client, operation) {
         console.log('\n  Escriba \'salir\' para volver al menú principal.\n');
       };
       
-      const procesarConsultaArticulo = (codigo) => {
+      const procesarConsultaArticulo = async (codigo) => {
         // Validar el código
         if (!codigo || codigo.trim() === '') {
           console.log('\n\x1b[33m⚠ Por favor ingrese un código de artículo.\x1b[0m\n');
@@ -913,97 +1066,129 @@ async function executeOperation(client, operation) {
         codigo = codigo.trim();
         log(`Consultando artículo con código: ${codigo}`, 'info');
         
-        // Mostrar indicador de carga
-        const spinner = ['|', '/', '-', '\\'];
-        let spinnerIndex = 0;
-        const loadingInterval = setInterval(() => {
-          process.stdout.write(`\r${spinner[spinnerIndex++ % spinner.length]} Buscando artículo...`);
-        }, 100);
-        
-        // Realizar la consulta
-        client.consultarArticulo({ codigo }, (err, result) => {
-          // Limpiar el indicador de carga
-          clearInterval(loadingInterval);
-          process.stdout.write('\r' + ' '.repeat(30) + '\r');
-          
-          if (err) {
-            console.log('\n\x1b[31m✖ Error al consultar el artículo:\x1b[0m');
-            console.log(`  ${err.message || 'Error desconocido'}`);
-            
-            // Mostrar sugerencias para el usuario
-            console.log('\n\x1b[33mSugerencias:\x1b[0m');
-            console.log('  1. Verifique que el código del artículo sea correcto');
-            console.log('  2. Verifique su conexión a internet');
-            console.log('  3. Asegúrese de que el servidor esté en ejecución\n');
-            
-            showMenu(client);
-            return;
-          }
+        try {
+          // Usar executeWithLogging para mejor manejo de errores
+          const result = await executeWithLogging(client, 'consultarArticulo', { codigo });
           
           // Procesar la respuesta exitosa
-          try {
-            console.log('\n\x1b[32m✓ Artículo encontrado\x1b[0m\n');
+          console.log('\n\x1b[32m✓ Consulta completada\x1b[0m\n');
+          
+          // Manejar diferentes formatos de respuesta
+          let articulo = null;
+          let exitoso = false;
+          let mensaje = '';
+          
+          // Caso 1: Nueva estructura ConsultarArticuloResponse
+          if (result && result.consultarArticuloResponse) {
+            const response = result.consultarArticuloResponse;
+            exitoso = response.exitoso === 'true' || response.exitoso === true;
+            mensaje = response.mensaje || '';
+            articulo = response.articulo;
+          }
+          // Caso 2: Respuesta parseada por parseXMLResponse
+          else if (result && result.exitoso !== undefined) {
+            exitoso = result.exitoso;
+            mensaje = result.mensaje || '';
+            articulo = result.datos;
+          }
+          // Caso 3: Respuesta directa del servicio
+          else if (result && result.return) {
+            articulo = result.return;
+            exitoso = true;
+          }
+          // Caso 4: Respuesta directa como artículo
+          else if (result && result.codigo) {
+            articulo = result;
+            exitoso = true;
+          }
+          
+          if (exitoso && articulo) {
+            console.log('\x1b[36m=== DETALLES DEL ARTÍCULO ===\x1b[0m');
+            console.log(`  • Código: ${articulo.codigo || 'No disponible'}`);
+            console.log(`  • Nombre: ${articulo.nombre || 'No disponible'}`);
             
-            // Mostrar los detalles del artículo
-            if (result.return) {
-              const articulo = result.return;
-              console.log('\x1b[36m=== DETALLES DEL ARTÍCULO ===\x1b[0m');
-              console.log(`  • Código: ${articulo.codigo || 'No disponible'}`);
-              console.log(`  • Nombre: ${articulo.nombre || 'No disponible'}`);
-              
-              if (articulo.descripcion) {
-                console.log(`  • Descripción: ${articulo.descripcion}`);
-              }
-              
-              if (articulo.precioVenta) {
-                console.log(`  • Precio: $${articulo.precioVenta.toFixed(2)}`);
-              }
-              
-              if (articulo.stockActual !== undefined) {
-                console.log(`  • Stock actual: ${articulo.stockActual}`);
-              }
-              
-              if (articulo.stockMinimo !== undefined) {
-                console.log(`  • Stock mínimo: ${articulo.stockMinimo}`);
-              }
-              
-              // Mostrar categoría si está disponible
-              if (articulo.categoria) {
-                console.log(`  • Categoría: ${articulo.categoria.nombre || 'No disponible'}`);
-              }
-              
-              // Mostrar proveedor si está disponible
-              if (articulo.proveedor) {
-                console.log(`  • Proveedor: ${articulo.proveedor.nombre || articulo.proveedor.razonSocial || 'No disponible'}`);
-              }
-              
-              console.log('\n\x1b[32mOperación completada con éxito.\x1b[0m\n');
-            } else {
-              console.log('\x1b[33mEl artículo no fue encontrado o no hay información disponible.\x1b[0m\n');
+            if (articulo.descripcion) {
+              console.log(`  • Descripción: ${articulo.descripcion}`);
             }
             
-            // Preguntar si desea consultar otro artículo
-            rl.question('¿Desea consultar otro artículo? (s/n): ', (respuesta) => {
-              if (respuesta.toLowerCase() === 's') {
-                solicitarCodigo();
-              } else {
-                console.log('\nVolviendo al menú principal...\n');
-                showMenu(client);
-              }
-            });
+            if (articulo.precioVenta || articulo.precio) {
+              const precio = articulo.precioVenta || articulo.precio;
+              console.log(`  • Precio: $${typeof precio === 'number' ? precio.toFixed(2) : precio}`);
+            }
             
-          } catch (error) {
-            console.log('\n\x1b[31m✖ Error al procesar la respuesta del servidor:\x1b[0m');
-            console.log(`  ${error.message || 'Error desconocido'}`);
-            console.log('\n\x1b[33mPor favor, intente nuevamente.\x1b[0m\n');
+            if (articulo.stockActual !== undefined || articulo.stock !== undefined) {
+              const stock = articulo.stockActual !== undefined ? articulo.stockActual : articulo.stock;
+              console.log(`  • Stock actual: ${stock}`);
+            }
             
-            // Registrar el error en el log
-            escribirLog(`Error al procesar respuesta: ${error.message}\n${error.stack}`, 'ERROR');
+            if (articulo.stockMinimo !== undefined) {
+              console.log(`  • Stock mínimo: ${articulo.stockMinimo}`);
+            }
             
-            // Volver al menú principal
-            showMenu(client);
+            // Mostrar categoría si está disponible
+            if (articulo.categoria) {
+              console.log(`  • Categoría: ${articulo.categoria.nombre || articulo.categoria || 'No disponible'}`);
+            }
+            
+            // Mostrar proveedor si está disponible
+            if (articulo.proveedor) {
+              console.log(`  • Proveedor: ${articulo.proveedor.nombre || articulo.proveedor.razonSocial || articulo.proveedor || 'No disponible'}`);
+            }
+            
+            console.log('\n\x1b[32mOperación completada con éxito.\x1b[0m\n');
+          } else {
+            console.log(`\n\x1b[33m${mensaje || 'El artículo no fue encontrado o no hay información disponible.'}\x1b[0m\n`);
           }
-        });
+          
+          // Preguntar si desea consultar otro artículo
+          rl.question('¿Desea consultar otro artículo? (s/n): ', (respuesta) => {
+            if (respuesta.toLowerCase() === 's') {
+              solicitarCodigo();
+            } else {
+              console.log('\nVolviendo al menú principal...\n');
+              showMenu(client);
+            }
+          });
+          
+        } catch (error) {
+          console.log('\n\x1b[31m✖ Error al consultar el artículo:\x1b[0m');
+          
+          // Mostrar información detallada del error
+          if (error.message) {
+            console.log(`  Mensaje: ${error.message}`);
+          }
+          
+          if (error.code) {
+            console.log(`  Código: ${error.code}`);
+          }
+          
+          if (error.response) {
+            console.log(`  Estado HTTP: ${error.response.statusCode || 'Desconocido'}`);
+            if (error.response.data) {
+              console.log(`  Datos de respuesta: ${JSON.stringify(error.response.data).substring(0, 200)}...`);
+            }
+          }
+          
+          // Mostrar sugerencias para el usuario
+          console.log('\n\x1b[33mSugerencias:\x1b[0m');
+          console.log('  1. Verifique que el código del artículo sea correcto');
+          console.log('  2. Verifique su conexión a internet');
+          console.log('  3. Asegúrese de que el servidor esté en ejecución');
+          console.log('  4. Revise los logs para más detalles\n');
+          
+          // Registrar el error en el log
+          escribirLog(`Error al consultar artículo ${codigo}: ${error.message}\n${error.stack}`, 'ERROR');
+          
+          // Preguntar si desea intentar de nuevo
+          rl.question('¿Desea intentar con otro código? (s/n): ', (respuesta) => {
+            if (respuesta.toLowerCase() === 's') {
+              solicitarCodigo();
+            } else {
+              console.log('\nVolviendo al menú principal...\n');
+              showMenu(client);
+            }
+          });
+        }
         
         return true;
       };
@@ -1013,7 +1198,7 @@ async function executeOperation(client, operation) {
       
       // Iniciar la interacción con el usuario
       const solicitarCodigo = () => {
-        rl.question('\nIngrese código del artículo (o \'ayuda\' para ver ejemplos): ', (codigo) => {
+        rl.question('\nIngrese código del artículo (o \'ayuda\' para ver ejemplos): ', async (codigo) => {
           // Mostrar ayuda si el usuario lo solicita
           if (codigo.toLowerCase() === 'ayuda') {
             mostrarAyuda();
@@ -1027,8 +1212,9 @@ async function executeOperation(client, operation) {
             return;
           }
           
-          // Procesar la consulta
-          if (!procesarConsultaArticulo(codigo)) {
+          // Procesar la consulta (ahora es async)
+          const procesado = await procesarConsultaArticulo(codigo);
+          if (!procesado) {
             // Si hubo un error de validación, volver a solicitar el código
             return solicitarCodigo();
           }
@@ -1092,7 +1278,7 @@ async function executeOperation(client, operation) {
           log(JSON.stringify(articulo, null, 2), 'debug');
           
           // Enviar parámetros individuales en lugar de un objeto
-          executeWithLogging('insertarArticulo', {
+          executeWithLoggingSync('insertarArticulo', {
             codigo: articulo.codigo,
             nombre: articulo.nombre, 
             descripcion: articulo.descripcion,
@@ -1118,7 +1304,7 @@ async function executeOperation(client, operation) {
       
     case 'listarCategorias':
       log('Obteniendo lista de categorías...', 'info');
-      executeWithLogging('listarCategorias', {}, (result) => {
+      executeWithLoggingSync('listarCategorias', {}, (result) => {
         handleResponse(null, result);
         showMenu(client);
       });
@@ -1126,7 +1312,7 @@ async function executeOperation(client, operation) {
       
     case 'listarProveedores':
       log('Obteniendo lista de proveedores...', 'info');
-      executeWithLogging('listarProveedores', {}, (result) => {
+      executeWithLoggingSync('listarProveedores', {}, (result) => {
         handleResponse(null, result);
         showMenu(client);
       });
@@ -1170,7 +1356,7 @@ async function executeOperation(client, operation) {
         }, 100);
         
         // Usar executeWithLogging para manejo consistente
-        executeWithLogging('actualizarStock', { codigo, nuevoStock: stock }, (result) => {
+        executeWithLoggingSync('actualizarStock', { codigo, nuevoStock: stock }, (result) => {
           // Limpiar el indicador de carga
           clearInterval(loadingInterval);
           process.stdout.write('\r' + ' '.repeat(30) + '\r');

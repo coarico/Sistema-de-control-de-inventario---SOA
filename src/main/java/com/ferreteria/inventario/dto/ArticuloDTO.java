@@ -1,26 +1,70 @@
 package com.ferreteria.inventario.dto;
 
 import java.math.BigDecimal;
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlType;
 
 /**
  * Data Transfer Object para el servicio SOAP de artículos
  * Simplifica la transferencia de datos y evita exponer la entidad completa
  */
+@XmlRootElement(name = "articulo", namespace = "http://ws.inventario.ferreteria.com/")
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "articuloType", propOrder = {
+    "id", "codigo", "nombre", "descripcion", 
+    "categoriaId", "categoriaNombre", 
+    "proveedorId", "proveedorNombre",
+    "precioCompra", "precioVenta", 
+    "stockActual", "stockMinimo", 
+    "activo", "fechaCreacion", "fechaActualizacion"
+})
 public class ArticuloDTO {
+    @XmlElement(namespace = "http://ws.inventario.ferreteria.com/")
     private Integer id;
+    
+    @XmlElement(namespace = "http://ws.inventario.ferreteria.com/")
     private String codigo;
+    
+    @XmlElement(namespace = "http://ws.inventario.ferreteria.com/")
     private String nombre;
+    
+    @XmlElement(namespace = "http://ws.inventario.ferreteria.com/")
     private String descripcion;
+    
+    @XmlElement(namespace = "http://ws.inventario.ferreteria.com/")
     private Integer categoriaId;
+    
+    @XmlElement(namespace = "http://ws.inventario.ferreteria.com/")
     private String categoriaNombre;
+    
+    @XmlElement(namespace = "http://ws.inventario.ferreteria.com/")
     private Integer proveedorId;
+    
+    @XmlElement(namespace = "http://ws.inventario.ferreteria.com/")
     private String proveedorNombre;
+    
+    @XmlElement(namespace = "http://ws.inventario.ferreteria.com/")
     private BigDecimal precioCompra;
+    
+    @XmlElement(namespace = "http://ws.inventario.ferreteria.com/")
     private BigDecimal precioVenta;
+    
+    @XmlElement(namespace = "http://ws.inventario.ferreteria.com/")
     private Integer stockActual;
+    
+    @XmlElement(namespace = "http://ws.inventario.ferreteria.com/")
     private Integer stockMinimo;
+    
+    @XmlElement(namespace = "http://ws.inventario.ferreteria.com/")
     private Boolean activo;
+    
+    @XmlElement(namespace = "http://ws.inventario.ferreteria.com/")
     private String fechaCreacion;
+    
+    @XmlElement(namespace = "http://ws.inventario.ferreteria.com/")
     private String fechaActualizacion;
 
     // Constructor por defecto

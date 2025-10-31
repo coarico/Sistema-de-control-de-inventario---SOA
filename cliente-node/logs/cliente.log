@@ -4933,3 +4933,534 @@ Iniciando operación: consultarArticulo
 [2025-10-31T06:41:36.230Z] [36mINFO[0m: Consultando artículo...
 [2025-10-31T06:41:37.976Z] [36mINFO[0m: Consultando artículo con código: MART001
 [2025-10-31T06:41:37.995Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T06:47:49.017Z] [INFO] Iniciando cliente SOAP
+[2025-10-31T06:47:49.023Z] [36mINFO[0m: Iniciando cliente SOAP...
+[2025-10-31T06:47:49.024Z] [36mINFO[0m: Conectando a: http://192.168.0.109:8080/InventarioService?wsdl
+[2025-10-31T06:47:49.294Z] [36mSUCCESS[0m: Conexión exitosa al servicio SOAP
+[2025-10-31T06:47:49.295Z] [36mINFO[0m: Operaciones disponibles:
+[2025-10-31T06:47:49.296Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T06:47:49.297Z] [36mINFO[0m: - listarProveedores
+[2025-10-31T06:47:49.298Z] [36mINFO[0m: - actualizarStock
+[2025-10-31T06:47:49.298Z] [36mINFO[0m: - listarCategorias
+[2025-10-31T06:47:49.299Z] [36mINFO[0m: - consultarArticulo
+[2025-10-31T06:47:49.299Z] [36mINFO[0m: - insertarArticulo
+[2025-10-31T06:47:49.300Z] [36mINFO[0m: - verificarEstado
+[2025-10-31T06:47:49.301Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T06:47:52.879Z] [36mINFO[0m: 
+Iniciando operación: consultarArticulo
+[2025-10-31T06:47:52.880Z] [36mINFO[0m: Consultando artículo...
+[2025-10-31T06:47:56.566Z] [36mINFO[0m: Consultando artículo con código: MART001
+[2025-10-31T06:47:56.586Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T06:51:18.011Z] [INFO] Iniciando cliente SOAP
+[2025-10-31T06:51:18.016Z] [36mINFO[0m: Iniciando cliente SOAP...
+[2025-10-31T06:51:18.016Z] [36mINFO[0m: Conectando a: http://192.168.0.109:8080/InventarioService?wsdl
+[2025-10-31T06:51:18.249Z] [36mSUCCESS[0m: Conexión exitosa al servicio SOAP
+[2025-10-31T06:51:18.250Z] [36mINFO[0m: Operaciones disponibles:
+[2025-10-31T06:51:18.252Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T06:51:18.254Z] [36mINFO[0m: - listarProveedores
+[2025-10-31T06:51:18.255Z] [36mINFO[0m: - actualizarStock
+[2025-10-31T06:51:18.255Z] [36mINFO[0m: - listarCategorias
+[2025-10-31T06:51:18.257Z] [36mINFO[0m: - consultarArticulo
+[2025-10-31T06:51:18.258Z] [36mINFO[0m: - insertarArticulo
+[2025-10-31T06:51:18.259Z] [36mINFO[0m: - verificarEstado
+[2025-10-31T06:51:18.261Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T06:51:20.624Z] [36mINFO[0m: 
+Iniciando operación: consultarArticulo
+[2025-10-31T06:51:20.625Z] [36mINFO[0m: Consultando artículo...
+[2025-10-31T06:51:26.212Z] [36mINFO[0m: Consultando artículo con código: MART001
+[2025-10-31T06:51:26.214Z] [36mDEBUG[0m: 
+=== Intento 1 de 3 - consultarArticulo ===
+[2025-10-31T06:51:26.215Z] [36mDEBUG[0m: Enviando petición SOAP: consultarArticulo
+[2025-10-31T06:51:26.216Z] [36mDEBUG[0m: Argumentos: {
+  "codigo": "MART001"
+}
+[2025-10-31T06:51:26.243Z] [31mERROR[0m: 
+❌ Error en consultarArticulo (Intento 1/3):
+[2025-10-31T06:51:26.244Z] [31mERROR[0m: Mensaje: La respuesta del servidor está incompleta (truncada)
+[2025-10-31T06:51:26.245Z] [36mWARN[0m: La respuesta del servidor está incompleta (truncada)
+[2025-10-31T06:51:26.246Z] [31mERROR[0m: Estado: Desconocido
+[2025-10-31T06:51:26.248Z] [31mERROR[0m: Mensaje: OK
+[2025-10-31T06:51:26.249Z] [36mDEBUG[0m: Encabezados de respuesta:
+[2025-10-31T06:51:26.250Z] [36mDEBUG[0m: {
+  "date": "Fri, 31 Oct 2025 06:51:26 GMT",
+  "transfer-encoding": "chunked",
+  "content-type": "text/xml; charset=utf-8"
+}
+[2025-10-31T06:51:26.251Z] [36mDEBUG[0m: Datos de respuesta (primeros 500 caracteres):
+[2025-10-31T06:51:26.252Z] [36mDEBUG[0m: <?xml version='1.0' encoding='UTF-8'?><S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/"><S:Body>
+[2025-10-31T06:51:26.253Z] [36mWARN[0m: 
+🔄 Reintentando en 1 segundos... (2/3)
+
+[2025-10-31T06:51:27.268Z] [36mDEBUG[0m: 
+=== Intento 2 de 3 - consultarArticulo ===
+[2025-10-31T06:51:27.270Z] [36mDEBUG[0m: Enviando petición SOAP: consultarArticulo
+[2025-10-31T06:51:27.271Z] [36mDEBUG[0m: Argumentos: {
+  "codigo": "MART001"
+}
+[2025-10-31T06:51:27.285Z] [31mERROR[0m: 
+❌ Error en consultarArticulo (Intento 2/3):
+[2025-10-31T06:51:27.286Z] [31mERROR[0m: Mensaje: La respuesta del servidor está incompleta (truncada)
+[2025-10-31T06:51:27.286Z] [36mWARN[0m: La respuesta del servidor está incompleta (truncada)
+[2025-10-31T06:51:27.287Z] [31mERROR[0m: Estado: Desconocido
+[2025-10-31T06:51:27.288Z] [31mERROR[0m: Mensaje: OK
+[2025-10-31T06:51:27.288Z] [36mDEBUG[0m: Encabezados de respuesta:
+[2025-10-31T06:51:27.289Z] [36mDEBUG[0m: {
+  "date": "Fri, 31 Oct 2025 06:51:27 GMT",
+  "transfer-encoding": "chunked",
+  "content-type": "text/xml; charset=utf-8"
+}
+[2025-10-31T06:51:27.289Z] [36mDEBUG[0m: Datos de respuesta (primeros 500 caracteres):
+[2025-10-31T06:51:27.290Z] [36mDEBUG[0m: <?xml version='1.0' encoding='UTF-8'?><S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/"><S:Body>
+[2025-10-31T06:51:27.291Z] [36mWARN[0m: 
+🔄 Reintentando en 2 segundos... (3/3)
+
+[2025-10-31T06:51:29.304Z] [36mDEBUG[0m: 
+=== Intento 3 de 3 - consultarArticulo ===
+[2025-10-31T06:51:29.306Z] [36mDEBUG[0m: Enviando petición SOAP: consultarArticulo
+[2025-10-31T06:51:29.308Z] [36mDEBUG[0m: Argumentos: {
+  "codigo": "MART001"
+}
+[2025-10-31T06:51:29.323Z] [31mERROR[0m: 
+❌ Error en consultarArticulo (Intento 3/3):
+[2025-10-31T06:51:29.324Z] [31mERROR[0m: Mensaje: La respuesta del servidor está incompleta (truncada)
+[2025-10-31T06:51:29.325Z] [36mWARN[0m: La respuesta del servidor está incompleta (truncada)
+[2025-10-31T06:51:29.326Z] [31mERROR[0m: Estado: Desconocido
+[2025-10-31T06:51:29.328Z] [31mERROR[0m: Mensaje: OK
+[2025-10-31T06:51:29.329Z] [36mDEBUG[0m: Encabezados de respuesta:
+[2025-10-31T06:51:29.331Z] [36mDEBUG[0m: {
+  "date": "Fri, 31 Oct 2025 06:51:29 GMT",
+  "transfer-encoding": "chunked",
+  "content-type": "text/xml; charset=utf-8"
+}
+[2025-10-31T06:51:29.333Z] [36mDEBUG[0m: Datos de respuesta (primeros 500 caracteres):
+[2025-10-31T06:51:29.334Z] [36mDEBUG[0m: <?xml version='1.0' encoding='UTF-8'?><S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/"><S:Body>
+[2025-10-31T06:51:29.336Z] [31mERROR[0m: 
+❌ Se agotaron los 3 intentos para consultarArticulo
+
+[2025-10-31T06:51:29.340Z] [ERROR] Error al consultar artículo MART001: La respuesta del servidor está incompleta (truncada)
+undefined
+[2025-10-31T06:51:44.504Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T06:53:01.426Z] [INFO] Iniciando cliente SOAP
+[2025-10-31T06:53:01.431Z] [36mINFO[0m: Iniciando cliente SOAP...
+[2025-10-31T06:53:01.432Z] [36mINFO[0m: Conectando a: http://192.168.0.109:8080/InventarioService?wsdl
+[2025-10-31T06:53:01.432Z] [36mINFO[0m: Verificando disponibilidad del servidor...
+[2025-10-31T06:53:01.813Z] [36mSUCCESS[0m: Conexión exitosa al servicio SOAP
+[2025-10-31T06:53:01.815Z] [36mINFO[0m: Operaciones disponibles:
+[2025-10-31T06:53:01.816Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T06:53:01.818Z] [36mINFO[0m: - listarProveedores
+[2025-10-31T06:53:01.819Z] [36mINFO[0m: - actualizarStock
+[2025-10-31T06:53:01.820Z] [36mINFO[0m: - listarCategorias
+[2025-10-31T06:53:01.822Z] [36mINFO[0m: - consultarArticulo
+[2025-10-31T06:53:01.824Z] [36mINFO[0m: - insertarArticulo
+[2025-10-31T06:53:01.825Z] [36mINFO[0m: - verificarEstado
+[2025-10-31T06:53:01.826Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T06:53:02.676Z] [36mINFO[0m: 
+Iniciando operación: listarProveedores
+[2025-10-31T06:53:02.677Z] [36mINFO[0m: Obteniendo lista de proveedores...
+[2025-10-31T06:53:02.678Z] [36mDEBUG[0m: Enviando petición SOAP: listarProveedores
+[2025-10-31T06:53:02.679Z] [36mDEBUG[0m: Argumentos: {}
+[2025-10-31T06:53:02.696Z] [36mDEBUG[0m: Respuesta de listarProveedores:
+[2025-10-31T06:53:02.698Z] [36mDEBUG[0m: Respuesta recibida (listarProveedores):
+[2025-10-31T06:53:02.699Z] [36mDEBUG[0m: {
+  "proveedorListResponse": {
+    "proveedores": {
+      "proveedor": [
+        {
+          "id": 1,
+          "nombre": "Distribuidora Central",
+          "contacto": "Juan Pérez",
+          "telefono": "555-0101",
+          "email": "ventas@distcentral.com",
+          "direccion": "Av. Industrial 123"
+        },
+        {
+          "id": 2,
+          "nombre": "Ferretería Mayorista",
+          "contacto": "María García",
+          "telefono": "555-0102",
+          "email": "pedidos@ferremayorista.com",
+          "direccion": "Calle Comercio 456"
+        },
+        {
+          "id": 3,
+          "nombre": "Suministros Técnicos",
+          "contacto": "Carlos López",
+          "telefono": "555-0103",
+          "email": "info@sumtecnicos.com",
+          "direccion": "Zona Industrial Norte"
+        }
+      ]
+    }
+  }
+}
+[2025-10-31T06:53:02.701Z] [36mDEBUG[0m: 
+=== INICIO RESPUESTA [2025-10-31T06:53:02.701Z] ===
+[2025-10-31T06:53:02.702Z] [36mDEBUG[0m: Operación: No especificada
+[2025-10-31T06:53:02.710Z] [36mSUCCESS[0m: ✅ Operación completada exitosamente
+[2025-10-31T06:53:02.711Z] [36mDEBUG[0m: 
+📊 Metadatos adicionales:
+[2025-10-31T06:53:02.712Z] [36mDEBUG[0m: proveedorListResponse:
+[2025-10-31T06:53:02.713Z] [36mDEBUG[0m:   proveedores:
+[2025-10-31T06:53:02.713Z] [36mDEBUG[0m:     proveedor:
+[2025-10-31T06:53:02.714Z] [36mDEBUG[0m:       [0]:
+[2025-10-31T06:53:02.715Z] [36mDEBUG[0m:         id: 1
+[2025-10-31T06:53:02.715Z] [36mDEBUG[0m:         nombre: Distribuidora Central
+[2025-10-31T06:53:02.716Z] [36mDEBUG[0m:         contacto: Juan Pérez
+[2025-10-31T06:53:02.717Z] [36mDEBUG[0m:         telefono: 555-0101
+[2025-10-31T06:53:02.717Z] [36mDEBUG[0m:         email: ventas@distcentral.com
+[2025-10-31T06:53:02.718Z] [36mDEBUG[0m:         direccion: Av. Industrial 123
+[2025-10-31T06:53:02.718Z] [36mDEBUG[0m:       [1]:
+[2025-10-31T06:53:02.719Z] [36mDEBUG[0m:         id: 2
+[2025-10-31T06:53:02.720Z] [36mDEBUG[0m:         nombre: Ferretería Mayorista
+[2025-10-31T06:53:02.720Z] [36mDEBUG[0m:         contacto: María García
+[2025-10-31T06:53:02.721Z] [36mDEBUG[0m:         telefono: 555-0102
+[2025-10-31T06:53:02.722Z] [36mDEBUG[0m:         email: pedidos@ferremayorista.com
+[2025-10-31T06:53:02.722Z] [36mDEBUG[0m:         direccion: Calle Comercio 456
+[2025-10-31T06:53:02.723Z] [36mDEBUG[0m:       [2]:
+[2025-10-31T06:53:02.723Z] [36mDEBUG[0m:         id: 3
+[2025-10-31T06:53:02.724Z] [36mDEBUG[0m:         nombre: Suministros Técnicos
+[2025-10-31T06:53:02.725Z] [36mDEBUG[0m:         contacto: Carlos López
+[2025-10-31T06:53:02.725Z] [36mDEBUG[0m:         telefono: 555-0103
+[2025-10-31T06:53:02.726Z] [36mDEBUG[0m:         email: info@sumtecnicos.com
+[2025-10-31T06:53:02.726Z] [36mDEBUG[0m:         direccion: Zona Industrial Norte
+[2025-10-31T06:53:02.727Z] [36mDEBUG[0m: === FIN RESPUESTA EXITOSA ===
+
+[2025-10-31T06:53:02.727Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T06:53:04.587Z] [36mINFO[0m: 
+Iniciando operación: actualizarStock
+[2025-10-31T06:53:04.588Z] [36mINFO[0m: Actualizando stock de artículo...
+[2025-10-31T06:53:12.226Z] [36mINFO[0m: Actualizando stock del artículo MART001 a 33 unidades
+[2025-10-31T06:53:12.227Z] [36mDEBUG[0m: Enviando petición SOAP: actualizarStock
+[2025-10-31T06:53:12.228Z] [36mDEBUG[0m: Argumentos: {
+  "codigo": "MART001",
+  "nuevoStock": 33
+}
+[2025-10-31T06:53:12.259Z] [36mDEBUG[0m: Respuesta de actualizarStock:
+[2025-10-31T06:53:12.260Z] [36mDEBUG[0m: Respuesta recibida (actualizarStock):
+[2025-10-31T06:53:12.261Z] [36mDEBUG[0m: {
+  "stockUpdateResponse": {
+    "exitoso": true,
+    "mensaje": "Stock actualizado exitosamente para el artículo MART001",
+    "articulo": {
+      "activo": true,
+      "categoriaId": 1,
+      "categoriaNombre": "Herramientas Manuales",
+      "codigo": "MART001",
+      "descripcion": "Martillo con mango de madera, cabeza de acero",
+      "fechaActualizacion": null,
+      "fechaCreacion": null,
+      "id": 1,
+      "nombre": "Martillo de Carpintero 16oz",
+      "precioCompra": 15.5,
+      "precioVenta": 25,
+      "proveedorId": 1,
+      "proveedorNombre": "Distribuidora Central",
+      "stockActual": 33,
+      "stockMinimo": 10
+    },
+    "stockAnterior": 45,
+    "stockNuevo": 33
+  }
+}
+[2025-10-31T06:53:12.262Z] [DEBUG] Respuesta de actualizarStock: {
+  "stockUpdateResponse": {
+    "exitoso": true,
+    "mensaje": "Stock actualizado exitosamente para el artículo MART001",
+    "articulo": {
+      "activo": true,
+      "categoriaId": 1,
+      "categoriaNombre": "Herramientas Manuales",
+      "codigo": "MART001",
+      "descripcion": "Martillo con mango de madera, cabeza de acero",
+      "fechaActualizacion": null,
+      "fechaCreacion": null,
+      "id": 1,
+      "nombre": "Martillo de Carpintero 16oz",
+      "precioCompra": 15.5,
+      "precioVenta": 25,
+      "proveedorId": 1,
+      "proveedorNombre": "Distribuidora Central",
+      "stockActual": 33,
+      "stockMinimo": 10
+    },
+    "stockAnterior": 45,
+    "stockNuevo": 33
+  }
+}
+[2025-10-31T06:53:13.779Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T06:53:17.158Z] [36mINFO[0m: 
+Iniciando operación: listarCategorias
+[2025-10-31T06:53:17.159Z] [36mINFO[0m: Obteniendo lista de categorías...
+[2025-10-31T06:53:17.160Z] [36mDEBUG[0m: Enviando petición SOAP: listarCategorias
+[2025-10-31T06:53:17.160Z] [36mDEBUG[0m: Argumentos: {}
+[2025-10-31T06:53:17.172Z] [36mDEBUG[0m: Respuesta de listarCategorias:
+[2025-10-31T06:53:17.174Z] [36mDEBUG[0m: Respuesta recibida (listarCategorias):
+[2025-10-31T06:53:17.175Z] [36mDEBUG[0m: {
+  "categoriaListResponse": {
+    "categorias": {
+      "categoria": [
+        {
+          "id": 3,
+          "nombre": "Electricidad",
+          "descripcion": "Cables, interruptores, enchufes, etc."
+        },
+        {
+          "id": 2,
+          "nombre": "Ferretería General",
+          "descripcion": "Tornillos, tuercas, clavos, etc."
+        },
+        {
+          "id": 1,
+          "nombre": "Herramientas Manuales",
+          "descripcion": "Martillos, destornilladores, llaves, etc."
+        },
+        {
+          "id": 5,
+          "nombre": "Pintura",
+          "descripcion": "Pinturas, brochas, rodillos, etc."
+        },
+        {
+          "id": 4,
+          "nombre": "Plomería",
+          "descripcion": "Tuberías, llaves, accesorios de baño, etc."
+        }
+      ]
+    }
+  }
+}
+[2025-10-31T06:53:17.176Z] [36mDEBUG[0m: 
+=== INICIO RESPUESTA [2025-10-31T06:53:17.176Z] ===
+[2025-10-31T06:53:17.177Z] [36mDEBUG[0m: Operación: No especificada
+[2025-10-31T06:53:17.182Z] [36mSUCCESS[0m: ✅ Operación completada exitosamente
+[2025-10-31T06:53:17.183Z] [36mDEBUG[0m: 
+📊 Metadatos adicionales:
+[2025-10-31T06:53:17.184Z] [36mDEBUG[0m: categoriaListResponse:
+[2025-10-31T06:53:17.185Z] [36mDEBUG[0m:   categorias:
+[2025-10-31T06:53:17.186Z] [36mDEBUG[0m:     categoria:
+[2025-10-31T06:53:17.187Z] [36mDEBUG[0m:       [0]:
+[2025-10-31T06:53:17.189Z] [36mDEBUG[0m:         id: 3
+[2025-10-31T06:53:17.190Z] [36mDEBUG[0m:         nombre: Electricidad
+[2025-10-31T06:53:17.191Z] [36mDEBUG[0m:         descripcion: Cables, interruptores, enchufes, etc.
+[2025-10-31T06:53:17.192Z] [36mDEBUG[0m:       [1]:
+[2025-10-31T06:53:17.193Z] [36mDEBUG[0m:         id: 2
+[2025-10-31T06:53:17.194Z] [36mDEBUG[0m:         nombre: Ferretería General
+[2025-10-31T06:53:17.195Z] [36mDEBUG[0m:         descripcion: Tornillos, tuercas, clavos, etc.
+[2025-10-31T06:53:17.196Z] [36mDEBUG[0m:       [2]:
+[2025-10-31T06:53:17.197Z] [36mDEBUG[0m:         id: 1
+[2025-10-31T06:53:17.198Z] [36mDEBUG[0m:         nombre: Herramientas Manuales
+[2025-10-31T06:53:17.198Z] [36mDEBUG[0m:         descripcion: Martillos, destornilladores, llaves, etc.
+[2025-10-31T06:53:17.199Z] [36mDEBUG[0m:       [3]:
+[2025-10-31T06:53:17.200Z] [36mDEBUG[0m:         id: 5
+[2025-10-31T06:53:17.201Z] [36mDEBUG[0m:         nombre: Pintura
+[2025-10-31T06:53:17.202Z] [36mDEBUG[0m:         descripcion: Pinturas, brochas, rodillos, etc.
+[2025-10-31T06:53:17.203Z] [36mDEBUG[0m:       [4]:
+[2025-10-31T06:53:17.204Z] [36mDEBUG[0m:         id: 4
+[2025-10-31T06:53:17.204Z] [36mDEBUG[0m:         nombre: Plomería
+[2025-10-31T06:53:17.205Z] [36mDEBUG[0m:         descripcion: Tuberías, llaves, accesorios de baño, etc.
+[2025-10-31T06:53:17.206Z] [36mDEBUG[0m: === FIN RESPUESTA EXITOSA ===
+
+[2025-10-31T06:53:17.207Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T06:53:20.905Z] [36mINFO[0m: 
+Iniciando operación: consultarArticulo
+[2025-10-31T06:53:20.906Z] [36mINFO[0m: Consultando artículo...
+[2025-10-31T06:53:23.580Z] [36mINFO[0m: Consultando artículo con código: MART001
+[2025-10-31T06:53:23.582Z] [36mDEBUG[0m: 
+=== Intento 1 de 3 - consultarArticulo ===
+[2025-10-31T06:53:23.583Z] [36mDEBUG[0m: Enviando petición SOAP: consultarArticulo
+[2025-10-31T06:53:23.584Z] [36mDEBUG[0m: Argumentos: {
+  "codigo": "MART001"
+}
+[2025-10-31T06:53:23.604Z] [31mERROR[0m: Respuesta de consultarArticulo:
+[2025-10-31T06:53:23.605Z] [31mERROR[0m: Error: Sin mensaje de error
+[2025-10-31T06:53:23.606Z] [36mDEBUG[0m: Tipo: Error desconocido
+[2025-10-31T06:53:23.606Z] [36mSUCCESS[0m: 
+✅ Operación consultarArticulo completada (con advertencias)
+
+[2025-10-31T06:53:40.033Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T06:56:10.893Z] [INFO] Iniciando cliente SOAP
+[2025-10-31T06:56:10.898Z] [36mINFO[0m: Iniciando cliente SOAP...
+[2025-10-31T06:56:10.899Z] [36mINFO[0m: Conectando a: http://192.168.0.109:8080/InventarioService?wsdl
+[2025-10-31T06:56:10.899Z] [36mINFO[0m: Verificando disponibilidad del servidor...
+[2025-10-31T06:56:11.258Z] [36mSUCCESS[0m: Conexión exitosa al servicio SOAP
+[2025-10-31T06:56:11.260Z] [36mINFO[0m: Operaciones disponibles:
+[2025-10-31T06:56:11.261Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T06:56:11.262Z] [36mINFO[0m: - listarProveedores
+[2025-10-31T06:56:11.263Z] [36mINFO[0m: - actualizarStock
+[2025-10-31T06:56:11.264Z] [36mINFO[0m: - consultarArticulo
+[2025-10-31T06:56:11.265Z] [36mINFO[0m: - listarCategorias
+[2025-10-31T06:56:11.267Z] [36mINFO[0m: - insertarArticulo
+[2025-10-31T06:56:11.268Z] [36mINFO[0m: - verificarEstado
+[2025-10-31T06:56:11.269Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T06:56:15.237Z] [36mINFO[0m: 
+Iniciando operación: consultarArticulo
+[2025-10-31T06:56:15.239Z] [36mINFO[0m: Consultando artículo...
+[2025-10-31T06:56:18.883Z] [36mINFO[0m: Consultando artículo con código: MART001
+[2025-10-31T06:56:18.885Z] [36mDEBUG[0m: 
+=== Intento 1 de 3 - consultarArticulo ===
+[2025-10-31T06:56:18.886Z] [36mDEBUG[0m: Enviando petición SOAP: consultarArticulo
+[2025-10-31T06:56:18.886Z] [36mDEBUG[0m: Argumentos: {
+  "codigo": "MART001"
+}
+[2025-10-31T06:56:19.053Z] [31mERROR[0m: Respuesta de consultarArticulo:
+[2025-10-31T06:56:19.054Z] [31mERROR[0m: Error: Sin mensaje de error
+[2025-10-31T06:56:19.054Z] [36mDEBUG[0m: Tipo: Error desconocido
+[2025-10-31T06:56:19.055Z] [36mSUCCESS[0m: 
+✅ Operación consultarArticulo completada (con advertencias)
+
+[2025-10-31T06:56:38.015Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T06:57:17.044Z] [INFO] Iniciando cliente SOAP
+[2025-10-31T06:57:17.049Z] [36mINFO[0m: Iniciando cliente SOAP...
+[2025-10-31T06:57:17.050Z] [36mINFO[0m: Conectando a: http://192.168.0.109:8080/InventarioService?wsdl
+[2025-10-31T06:57:17.050Z] [36mINFO[0m: Verificando disponibilidad del servidor...
+[2025-10-31T06:57:17.278Z] [36mSUCCESS[0m: Conexión exitosa al servicio SOAP
+[2025-10-31T06:57:17.279Z] [36mINFO[0m: Operaciones disponibles:
+[2025-10-31T06:57:17.280Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T06:57:17.282Z] [36mINFO[0m: - listarProveedores
+[2025-10-31T06:57:17.283Z] [36mINFO[0m: - actualizarStock
+[2025-10-31T06:57:17.284Z] [36mINFO[0m: - consultarArticulo
+[2025-10-31T06:57:17.285Z] [36mINFO[0m: - listarCategorias
+[2025-10-31T06:57:17.286Z] [36mINFO[0m: - insertarArticulo
+[2025-10-31T06:57:17.287Z] [36mINFO[0m: - verificarEstado
+[2025-10-31T06:57:17.289Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T06:57:30.945Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T06:58:00.250Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T06:58:10.427Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T07:03:59.018Z] [INFO] Iniciando cliente SOAP
+[2025-10-31T07:03:59.026Z] [36mINFO[0m: Iniciando cliente SOAP...
+[2025-10-31T07:03:59.026Z] [36mINFO[0m: Conectando a: http://192.168.0.109:8080/InventarioService?wsdl
+[2025-10-31T07:03:59.026Z] [36mINFO[0m: Verificando disponibilidad del servidor...
+[2025-10-31T07:03:59.214Z] [36mSUCCESS[0m: Conexión exitosa al servicio SOAP
+[2025-10-31T07:03:59.215Z] [36mINFO[0m: Operaciones disponibles:
+[2025-10-31T07:03:59.216Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T07:03:59.216Z] [36mINFO[0m: - listarProveedores
+[2025-10-31T07:03:59.217Z] [36mINFO[0m: - actualizarStock
+[2025-10-31T07:03:59.218Z] [36mINFO[0m: - consultarArticulo
+[2025-10-31T07:03:59.219Z] [36mINFO[0m: - listarCategorias
+[2025-10-31T07:03:59.219Z] [36mINFO[0m: - insertarArticulo
+[2025-10-31T07:03:59.220Z] [36mINFO[0m: - verificarEstado
+[2025-10-31T07:03:59.221Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T07:04:01.252Z] [36mINFO[0m: 
+Iniciando operación: consultarArticulo
+[2025-10-31T07:04:01.253Z] [36mINFO[0m: Consultando artículo...
+[2025-10-31T07:04:05.066Z] [36mINFO[0m: Consultando artículo con código: MART001
+[2025-10-31T07:04:05.067Z] [36mDEBUG[0m: 
+=== Intento 1 de 3 - consultarArticulo ===
+[2025-10-31T07:04:05.068Z] [36mDEBUG[0m: Enviando petición SOAP: consultarArticulo
+[2025-10-31T07:04:05.068Z] [36mDEBUG[0m: Argumentos: {
+  "codigo": "MART001"
+}
+[2025-10-31T07:04:05.093Z] [31mERROR[0m: Respuesta de consultarArticulo:
+[2025-10-31T07:04:05.094Z] [31mERROR[0m: Error: Sin mensaje de error
+[2025-10-31T07:04:05.094Z] [36mDEBUG[0m: Tipo: Error desconocido
+[2025-10-31T07:04:05.095Z] [36mSUCCESS[0m: 
+✅ Operación consultarArticulo completada (con advertencias)
+
+[2025-10-31T07:05:52.326Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T07:08:35.413Z] [INFO] Iniciando cliente SOAP
+[2025-10-31T07:08:35.416Z] [36mINFO[0m: Iniciando cliente SOAP...
+[2025-10-31T07:08:35.417Z] [36mINFO[0m: Conectando a: http://192.168.0.109:8080/InventarioService?wsdl
+[2025-10-31T07:08:35.417Z] [36mINFO[0m: Verificando disponibilidad del servidor...
+[2025-10-31T07:08:35.729Z] [36mSUCCESS[0m: Conexión exitosa al servicio SOAP
+[2025-10-31T07:08:35.730Z] [36mINFO[0m: Operaciones disponibles:
+[2025-10-31T07:08:35.730Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T07:08:35.731Z] [36mINFO[0m: - actualizarStock
+[2025-10-31T07:08:35.731Z] [36mINFO[0m: - listarProveedores
+[2025-10-31T07:08:35.732Z] [36mINFO[0m: - consultarArticulo
+[2025-10-31T07:08:35.732Z] [36mINFO[0m: - insertarArticulo
+[2025-10-31T07:08:35.733Z] [36mINFO[0m: - verificarEstado
+[2025-10-31T07:08:35.733Z] [36mINFO[0m: - listarCategorias
+[2025-10-31T07:08:35.734Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T07:08:37.748Z] [36mINFO[0m: 
+Iniciando operación: consultarArticulo
+[2025-10-31T07:08:37.749Z] [36mINFO[0m: Consultando artículo...
+[2025-10-31T07:08:41.430Z] [36mINFO[0m: Consultando artículo con código: MART001
+[2025-10-31T07:08:41.431Z] [36mDEBUG[0m: 
+=== Intento 1 de 3 - consultarArticulo ===
+[2025-10-31T07:08:41.432Z] [36mDEBUG[0m: Enviando petición SOAP: consultarArticulo
+[2025-10-31T07:08:41.433Z] [36mDEBUG[0m: Argumentos: {
+  "codigo": "MART001"
+}
+[2025-10-31T07:08:41.554Z] [36mDEBUG[0m: Respuesta de consultarArticulo:
+[2025-10-31T07:08:41.555Z] [36mDEBUG[0m: Respuesta recibida (consultarArticulo):
+[2025-10-31T07:08:41.555Z] [36mDEBUG[0m: {
+  "consultarArticuloResponse": {
+    "exitoso": "true",
+    "mensaje": "Artículo encontrado: Martillo de Carpintero 16oz",
+    "articulo": {
+      "id": "1",
+      "codigo": "MART001",
+      "nombre": "Martillo de Carpintero 16oz",
+      "descripcion": "Martillo con mango de madera, cabeza de acero",
+      "categoriaId": "1",
+      "categoriaNombre": "Herramientas Manuales",
+      "proveedorId": "1",
+      "proveedorNombre": "Distribuidora Central",
+      "precioCompra": "15.50",
+      "precioVenta": "25.00",
+      "stockActual": "33",
+      "stockMinimo": "10",
+      "activo": "true",
+      "fechaCreacion": "2025-10-30 14:09:12",
+      "fechaActualizacion": "2025-10-30 20:53:12"
+    },
+    "advertencias": null
+  }
+}
+[2025-10-31T07:08:41.556Z] [36mSUCCESS[0m: 
+✅ Operación consultarArticulo completada exitosamente
+
+[2025-10-31T07:09:04.034Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T07:09:34.592Z] [INFO] Iniciando cliente SOAP
+[2025-10-31T07:09:34.595Z] [36mINFO[0m: Iniciando cliente SOAP...
+[2025-10-31T07:09:34.595Z] [36mINFO[0m: Conectando a: http://192.168.0.109:8080/InventarioService?wsdl
+[2025-10-31T07:09:34.595Z] [36mINFO[0m: Verificando disponibilidad del servidor...
+[2025-10-31T07:09:34.794Z] [36mSUCCESS[0m: Conexión exitosa al servicio SOAP
+[2025-10-31T07:09:34.795Z] [36mINFO[0m: Operaciones disponibles:
+[2025-10-31T07:09:34.795Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T07:09:34.796Z] [36mINFO[0m: - actualizarStock
+[2025-10-31T07:09:34.796Z] [36mINFO[0m: - listarProveedores
+[2025-10-31T07:09:34.797Z] [36mINFO[0m: - consultarArticulo
+[2025-10-31T07:09:34.797Z] [36mINFO[0m: - insertarArticulo
+[2025-10-31T07:09:34.797Z] [36mINFO[0m: - verificarEstado
+[2025-10-31T07:09:34.798Z] [36mINFO[0m: - listarCategorias
+[2025-10-31T07:09:34.798Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T07:09:36.904Z] [36mINFO[0m: 
+Iniciando operación: consultarArticulo
+[2025-10-31T07:09:36.905Z] [36mINFO[0m: Consultando artículo...
+[2025-10-31T07:09:41.170Z] [36mINFO[0m: Consultando artículo con código: MART001
+[2025-10-31T07:09:41.171Z] [36mDEBUG[0m: 
+=== Intento 1 de 3 - consultarArticulo ===
+[2025-10-31T07:09:41.173Z] [36mDEBUG[0m: Enviando petición SOAP: consultarArticulo
+[2025-10-31T07:09:41.173Z] [36mDEBUG[0m: Argumentos: {
+  "codigo": "MART001"
+}
+[2025-10-31T07:09:41.197Z] [36mDEBUG[0m: Respuesta de consultarArticulo:
+[2025-10-31T07:09:41.198Z] [36mDEBUG[0m: Respuesta recibida (consultarArticulo):
+[2025-10-31T07:09:41.200Z] [36mDEBUG[0m: {
+  "consultarArticuloResponse": {
+    "exitoso": "true",
+    "mensaje": "Artículo encontrado: Martillo de Carpintero 16oz",
+    "articulo": {
+      "id": "1",
+      "codigo": "MART001",
+      "nombre": "Martillo de Carpintero 16oz",
+      "descripcion": "Martillo con mango de madera, cabeza de acero",
+      "categoriaId": "1",
+      "categoriaNombre": "Herramientas Manuales",
+      "proveedorId": "1",
+      "proveedorNombre": "Distribuidora Central",
+      "precioCompra": "15.50",
+      "precioVenta": "25.00",
+      "stockActual": "33",
+      "stockMinimo": "10",
+      "activo": "true",
+      "fechaCreacion": "2025-10-30 14:09:12",
+      "fechaActualizacion": "2025-10-30 20:53:12"
+    },
+    "advertencias": null
+  }
+}
+[2025-10-31T07:09:41.201Z] [36mSUCCESS[0m: 
+✅ Operación consultarArticulo completada exitosamente
+
+[2025-10-31T07:10:50.148Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...

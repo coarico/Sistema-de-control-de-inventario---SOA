@@ -1,6 +1,7 @@
 package com.ferreteria.inventario.ws;
 
 import com.ferreteria.inventario.dto.ArticuloDTO;
+import com.ferreteria.inventario.dto.ConsultarArticuloResponse;
 import com.ferreteria.inventario.dto.RespuestaOperacion;
 import com.ferreteria.inventario.exception.ArticuloNotFoundException;
 import com.ferreteria.inventario.exception.InventarioException;
@@ -166,8 +167,8 @@ public class InventarioWebService {
      * @return RespuestaOperacion con el artículo encontrado o mensaje de error
      */
     @WebMethod(operationName = "consultarArticulo")
-    @WebResult(name = "respuesta")
-    public RespuestaOperacion consultarArticulo(
+    @WebResult(name = "consultarArticuloResponse", targetNamespace = "http://ws.inventario.ferreteria.com/")
+    public ConsultarArticuloResponse consultarArticulo(
             @WebParam(name = "codigo") String codigo) {
 
         logger.info("SOAP: Solicitud de consulta de artículo - Código: {}", codigo);
@@ -182,26 +183,26 @@ public class InventarioWebService {
             logger.info("SOAP: Artículo consultado exitosamente - Código: {}, Nombre: {}", 
                        articulo.getCodigo(), articulo.getNombre());
 
-            return RespuestaOperacion.exito(
+            return ConsultarArticuloResponse.exito(
                 "Artículo encontrado: " + articulo.getNombre(), 
                 articuloDTO
             );
 
         } catch (ArticuloNotFoundException e) {
             logger.info("SOAP: Artículo no encontrado - Código: {}", codigo);
-            return RespuestaOperacion.error(e.getMessage(), e.getCodigo(), e.getTipoError());
+            return ConsultarArticuloResponse.error(e.getMessage(), e.getCodigo(), e.getTipoError());
 
         } catch (ValidationException e) {
             logger.warn("SOAP: Error de validación al consultar artículo: {}", e.getMessage());
-            return RespuestaOperacion.error(e.getMessage(), e.getCodigo(), e.getTipoError());
+            return ConsultarArticuloResponse.error(e.getMessage(), e.getCodigo(), e.getTipoError());
 
         } catch (InventarioException e) {
             logger.error("SOAP: Error de negocio al consultar artículo: {}", e.getMessage());
-            return RespuestaOperacion.error(e.getMessage(), e.getCodigo(), e.getTipoError());
+            return ConsultarArticuloResponse.error(e.getMessage(), e.getCodigo(), e.getTipoError());
 
         } catch (Exception e) {
             logger.error("SOAP: Error inesperado al consultar artículo", e);
-            return RespuestaOperacion.error(
+            return ConsultarArticuloResponse.error(
                 "Error interno del servidor: " + e.getMessage(), 
                 "INTERNAL_ERROR", 
                 "SISTEMA"

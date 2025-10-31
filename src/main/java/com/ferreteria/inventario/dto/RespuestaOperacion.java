@@ -42,7 +42,7 @@ public class RespuestaOperacion<T> implements Serializable {
     @XmlElement(name = "tipoError", namespace = "http://ws.inventario.ferreteria.com/")
     protected String tipoError;
     
-    @XmlElement(name = "contenido", namespace = "http://ws.inventario.ferreteria.com/")
+    @XmlElement(name = "datos", namespace = "http://ws.inventario.ferreteria.com/")
     protected T datos;
     
     @XmlElementWrapper(name = "advertencias", namespace = "http://ws.inventario.ferreteria.com/")

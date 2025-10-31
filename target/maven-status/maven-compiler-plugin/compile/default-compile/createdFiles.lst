@@ -1,3 +1,4 @@
+com\ferreteria\inventario\dto\ConsultarArticuloResponse.class
 com\ferreteria\inventario\exception\InventarioException.class
 com\ferreteria\inventario\exception\ValidationException.class
 com\ferreteria\inventario\service\ArticuloService.class

@@ -4,6 +4,7 @@ C:\Users\User\Desktop\Inventario_SOA\src\main\java\com\ferreteria\inventario\mod
 C:\Users\User\Desktop\Inventario_SOA\src\main\java\com\ferreteria\inventario\exception\ArticuloNotFoundException.java
 C:\Users\User\Desktop\Inventario_SOA\src\main\java\com\ferreteria\inventario\InventarioServer.java
 C:\Users\User\Desktop\Inventario_SOA\src\main\java\com\ferreteria\inventario\ws\InventarioWebService.java
+C:\Users\User\Desktop\Inventario_SOA\src\main\java\com\ferreteria\inventario\dto\ConsultarArticuloResponse.java
 C:\Users\User\Desktop\Inventario_SOA\src\main\java\com\ferreteria\inventario\dao\CategoriaDAO.java
 C:\Users\User\Desktop\Inventario_SOA\src\main\java\com\ferreteria\inventario\config\DatabaseConfig.java
 C:\Users\User\Desktop\Inventario_SOA\src\main\java\com\ferreteria\inventario\service\ArticuloService.java
