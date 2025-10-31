@@ -57,8 +57,8 @@ const RETRY_DELAY = 1000; // 1 segundo
 // Función para configurar las credenciales de autenticación
 function configurarAutenticacion() {
   return new Promise((resolve) => {
-    console.log('\n\x1b[36m=== CONFIGURACIÓN DE AUTENTICACIÓN SEGURA ===\x1b[0m');
-    console.log('\x1b[33m🔒 IMPORTANTE: Este sistema usa contraseñas seguras únicas por rol\x1b[0m\n');
+  console.log('\n\x1b[36m=== CONFIGURACIÓN DE AUTENTICACIÓN SEGURA ===\x1b[0m');
+  console.log('\x1b[33mIMPORTANTE: Este sistema usa contraseñas seguras únicas por rol\x1b[0m\n');
     
     console.log('Usuarios disponibles:');
     let opcion = 1;
@@ -88,7 +88,7 @@ function configurarAutenticacion() {
           role: selectedUser.role
         };
         
-        console.log(`\x1b[32m✓ Configurado como ${selectedUsername.toUpperCase()} (${selectedUser.role})\x1b[0m`);
+        console.log(`\x1b[32mConfigurado como ${selectedUsername.toUpperCase()} (${selectedUser.role})\x1b[0m`);
         console.log(`\x1b[90m  Contraseña: ${selectedUser.password}\x1b[0m`);
         
       } else if (choiceNum === usernames.length + 1) {
@@ -111,7 +111,7 @@ function configurarAutenticacion() {
               };
             }
             
-            console.log(`\x1b[32m✓ Configurado con credenciales personalizadas\x1b[0m`);
+            console.log(`\x1b[32mConfigurado con credenciales personalizadas\x1b[0m`);
             console.log(`\x1b[90m  Usuario: ${AUTH_CONFIG.username}, Rol asumido: ${AUTH_CONFIG.role}\x1b[0m`);
             log(`Autenticación configurada - Usuario: ${AUTH_CONFIG.username}, Rol: ${AUTH_CONFIG.role}`, 'info');
             resolve();
@@ -127,15 +127,15 @@ function configurarAutenticacion() {
           role: 'CONSULTA'
         };
         
-        console.log('\x1b[32m✓ Configurado en modo consulta rápida (solo lectura)\x1b[0m');
+        console.log('\x1b[32mConfigurado en modo consulta rápida (solo lectura)\x1b[0m');
         console.log('\x1b[90m  Usuario: consulta, Contraseña: ReadOnly@456\x1b[0m');
         
       } else if (choiceNum === usernames.length + 3) {
         // Opción inválida en menú de autenticación
-        console.log('\x1b[31m❌ Opción inválida\x1b[0m');
+        console.log('\x1b[31mOpción inválida\x1b[0m');
         
       } else {
-        console.log('\x1b[31m❌ Opción inválida, manteniendo configuración actual\x1b[0m');
+        console.log('\x1b[31mOpción inválida, manteniendo configuración actual\x1b[0m');
       }
       
       log(`Autenticación configurada - Usuario: ${AUTH_CONFIG.username}, Rol: ${AUTH_CONFIG.role}`, 'info');
@@ -147,7 +147,7 @@ function configurarAutenticacion() {
 // Función para mostrar las credenciales del sistema
 function mostrarCredencialesDelSistema() {
   console.log('\n\x1b[36m=== CREDENCIALES DEL SISTEMA ===\x1b[0m');
-  console.log('\x1b[33m⚠️  IMPORTANTE: Estas son las contraseñas predeterminadas del sistema\x1b[0m');
+  console.log('\x1b[33mIMPORTANTE: Estas son las contraseñas predeterminadas del sistema\x1b[0m');
   console.log('\x1b[33m    En producción, deben cambiarse por contraseñas únicas\x1b[0m\n');
   
   Object.keys(CREDENCIALES_SISTEMA).forEach(username => {
@@ -167,18 +167,18 @@ function mostrarCredencialesDelSistema() {
 // Función para mostrar información del usuario actual
 function mostrarInfoUsuario() {
   console.log('\n\x1b[36m=== INFORMACIÓN DE SESIÓN ===\x1b[0m');
-  console.log(`👤 Usuario: \x1b[33m${AUTH_CONFIG.username}\x1b[0m`);
-  console.log(`🔒 Rol: \x1b[33m${AUTH_CONFIG.role}\x1b[0m`);
+  console.log(`Usuario: \x1b[33m${AUTH_CONFIG.username}\x1b[0m`);
+  console.log(`Rol: \x1b[33m${AUTH_CONFIG.role}\x1b[0m`);
   
   switch (AUTH_CONFIG.role) {
     case 'ADMIN':
-      console.log('📋 Permisos: \x1b[32mTodos (insertar, consultar, actualizar, listar)\x1b[0m');
+      console.log('Permisos: \x1b[32mTodos (insertar, consultar, actualizar, listar)\x1b[0m');
       break;
     case 'OPERADOR':
-      console.log('📋 Permisos: \x1b[33mConsulta, actualización de stock y listados\x1b[0m');
+      console.log('Permisos: \x1b[33mConsulta, actualización de stock y listados\x1b[0m');
       break;
     case 'CONSULTA':
-      console.log('📋 Permisos: \x1b[31mSolo consulta y listados\x1b[0m');
+      console.log('Permisos: \x1b[31mSolo consulta y listados\x1b[0m');
       break;
   }
   console.log('');
@@ -199,16 +199,16 @@ function validarPermisos(operacion) {
 // Función mejorada para parsear respuestas XML manualmente
 function parseXMLResponse(xmlData, methodName) {
   if (!xmlData || typeof xmlData !== 'string') {
-    console.log(`❌ XML data no válido: ${typeof xmlData}`);
+    console.log(`XML data no válido: ${typeof xmlData}`);
     return null;
   }
   
-  console.log(`🔍 Parseando XML para ${methodName}...`);
+  console.log(`Procesando respuesta para ${methodName}...`);
   console.log(`📄 XML completo (${xmlData.length} chars): ${xmlData}`);
   
   // Si el XML está incompleto pero tiene información parcial, intentar extraerla
   if (xmlData.includes('<?xml') && xmlData.includes('<S:Envelope')) {
-    console.log(`⚠️ XML SOAP detectado, aunque posiblemente incompleto`);
+    console.log(`XML SOAP detectado, aunque posiblemente incompleto`);
     
     // Buscar diferentes patrones de respuesta más flexibles
     const responsePatterns = [
@@ -225,14 +225,14 @@ function parseXMLResponse(xmlData, methodName) {
       match = xmlData.match(pattern);
       if (match) {
         responseContent = match[1];
-        console.log(`✅ Patrón encontrado: ${pattern.source}`);
+        console.log(`Patrón encontrado: ${pattern.source}`);
         break;
       }
     }
     
     if (!match) {
-      console.log(`❌ No se encontró patrón de respuesta válido para ${methodName}`);
-      console.log(`🔍 Intentando buscar elementos de respuesta directamente...`);
+      console.log(`No se encontró patrón de respuesta válido para ${methodName}`);
+      console.log(`Intentando buscar elementos de respuesta directamente...`);
       
       // Intentar buscar elementos de respuesta directamente en el XML
       if (methodName === 'consultarArticulo') {
@@ -448,7 +448,7 @@ async function executeWithLogging(client, methodName, args = {}, retries = DEFAU
             - RawResponse length: ${rawResponse ? rawResponse.length : 0}`);
           
           if (error) {
-            console.log(`❌ SOAP Error details:`, {
+            console.log(` SOAP Error details:`, {
               message: error.message,
               code: error.code,
               response: error.response?.data ? error.response.data.substring(0, 300) : 'No response data'
@@ -515,19 +515,19 @@ async function executeWithLogging(client, methodName, args = {}, retries = DEFAU
       
       // Si la respuesta vino con error pero tiene datos válidos, procesarla
       if (result.hasError && result.rawResponse) {
-        console.log(`⚠️ Procesando respuesta que vino como error...`);
+        console.log(`Procesando respuesta que vino como error...`);
         try {
           // Intentar parsear la respuesta XML manualmente
           finalResult = parseXMLResponse(result.rawResponse, methodName);
         } catch (parseError) {
-          console.log(`❌ Error parseando XML: ${parseError.message}`);
+          console.log(` Error parseando XML: ${parseError.message}`);
           finalResult = null;
         }
       }
       
       // Registrar la respuesta exitosa
       logSoapResponse(methodName, finalResult, result.hasError || false);
-      log(`\n✅ Operación ${methodName} completada ${result.hasError ? '(con advertencias)' : 'exitosamente'}\n`, 'success');
+      log(`\n Operación ${methodName} completada ${result.hasError ? '(con advertencias)' : 'exitosamente'}\n`, 'success');
       
       return finalResult;
       
@@ -945,8 +945,8 @@ function showMenu(client) {
     
     const requiredPermission = operationPermissions[operation] || 'consultar';
     if (!validarPermisos(requiredPermission)) {
-      console.log(`\n\x1b[31m❌ Sin permisos para ejecutar '${operation}'\x1b[0m`);
-      console.log(`\x1b[33m💡 Su rol '${AUTH_CONFIG.role}' no permite operaciones de tipo '${requiredPermission}'\x1b[0m`);
+      console.log(`\n\x1b[31mSin permisos para ejecutar '${operation}'\x1b[0m`);
+      console.log(`\x1b[33mSu rol '${AUTH_CONFIG.role}' no permite operaciones de tipo '${requiredPermission}'\x1b[0m`);
       console.log('\nPresione Enter para continuar...');
       rl.question('', () => showMenu(client));
       return;
@@ -1025,7 +1025,7 @@ async function getCategorias(client) {
         if (categorias.length === 0) {
           console.log('\x1b[33mℹ No se encontraron categorías.\x1b[0m');
         } else {
-          console.log(`\x1b[32m✓ Se encontraron ${categorias.length} categorías\x1b[0m`);
+          console.log(`\x1b[32mSe encontraron ${categorias.length} categorías\x1b[0m`);
         }
         
         resolve(categorias);
@@ -1109,7 +1109,7 @@ async function getProveedores(client) {
             console.log('\x1b[33mℹ No se encontraron proveedores.\x1b[0m');
             escribirLog('No se encontraron proveedores', 'INFO');
           } else {
-            console.log(`\x1b[32m✓ Se encontraron ${proveedores.length} proveedores\x1b[0m`);
+            console.log(`\x1b[32mSe encontraron ${proveedores.length} proveedores\x1b[0m`);
             
             // Mostrar mensaje adicional si está disponible
             if (result?.return?.mensaje) {
@@ -1132,7 +1132,6 @@ async function getProveedores(client) {
               }, null, 2)}`, 'DEBUG');
               
               // Mostrar en consola
-              console.log(`  ID: ${prov.id}`);
               console.log(`  Nombre: ${prov.nombre || 'No disponible'}`);
               console.log(`  Contacto: ${prov.contacto || 'No disponible'}`);
               console.log(`  Teléfono: ${prov.telefono || 'No disponible'}`);
@@ -1177,7 +1176,7 @@ function selectFromList(items, prompt) {
       // Mostrar cada ítem
       items.forEach((item, index) => {
         const name = item.nombre || item.razonSocial || 'Sin nombre';
-        console.log(`\x1b[33m${index + 1}\x1b[0m. ${name} (ID: ${item.id || 'N/A'})`);
+        console.log(`\x1b[33m${index + 1}\x1b[0m. ${name}`);
       });
       
       console.log('\n\x1b[33m0\x1b[0m. Ninguno');
@@ -1264,14 +1263,14 @@ async function executeOperation(client, operation) {
       if (err) {
         // Verificar si es un error de autenticación/autorización
         if (err.response && (err.response.statusCode === 401 || err.response.statusCode === 403)) {
-          console.log('\n\x1b[31m🔒 ERROR DE AUTENTICACIÓN/AUTORIZACIÓN\x1b[0m');
+          console.log('\n\x1b[31mERROR DE AUTENTICACIÓN/AUTORIZACIÓN\x1b[0m');
           console.log(`Estado HTTP: ${err.response.statusCode}`);
           console.log(`Usuario actual: ${AUTH_CONFIG.username} (${AUTH_CONFIG.role})`);
           
           if (err.response.statusCode === 401) {
-            console.log('\x1b[33m💡 Las credenciales son inválidas o han expirado\x1b[0m');
+            console.log('\x1b[33mLas credenciales son inválidas o han expirado\x1b[0m');
           } else {
-            console.log('\x1b[33m💡 Su usuario no tiene permisos para esta operación\x1b[0m');
+            console.log('\x1b[33mSu usuario no tiene permisos para esta operación\x1b[0m');
           }
           
           console.log('\nPresione Enter para cambiar de usuario...');
@@ -1597,7 +1596,7 @@ async function executeOperation(client, operation) {
         // Validar el stock
         const stock = parseInt(nuevoStock, 10);
         if (isNaN(stock) || stock < 0) {
-          console.log('\n\x1b[33m⚠ El stock debe ser un número entero no negativo.\x1b[0m\n');
+          console.log('\n\x1b[33mEl stock debe ser un número entero no negativo.\x1b[0m\n');
           return false;
         }
         
@@ -1654,9 +1653,9 @@ async function executeOperation(client, operation) {
                 // Verificar si el stock está por debajo del mínimo
                 const stockActual = articulo.stockActual || response.stockNuevo;
                 if (articulo.stockMinimo && stockActual < articulo.stockMinimo) {
-                  console.log('\n\x1b[33m⚠ ADVERTENCIA: El stock actual está por debajo del stock mínimo.\x1b[0m');
+                  console.log('\n\x1b[33mADVERTENCIA: El stock actual está por debajo del stock mínimo.\x1b[0m');
                 } else if (articulo.stockMinimo && stockActual <= articulo.stockMinimo * 1.2) {
-                  console.log('\n\x1b[33m⚠ ALERTA: El stock está cerca del nivel mínimo.\x1b[0m');
+                  console.log('\n\x1b[33mALERTA: El stock está cerca del nivel mínimo.\x1b[0m');
                 }
                 
                 console.log(`\n  Mensaje: ${response.mensaje || 'Actualización completada'}`);
@@ -1789,11 +1788,9 @@ async function executeOperation(client, operation) {
           const hasSpecial = /[!@#$%^&*(),.?":{}|<>]/.test(password);
           
           return password.length >= minLength && hasUpper && hasLower && hasNumber && hasSpecial;
-        };
-        
-        if (!validarContrasena(newPassword)) {
-          console.log('\n\x1b[31m⚠ La nueva contraseña no cumple con los criterios de seguridad.\x1b[0m');
-          console.log('  Debe tener al menos:');
+        };          if (!validarContrasena(newPassword)) {
+            console.log('\n\x1b[31mLa nueva contraseña no cumple con los criterios de seguridad.\x1b[0m');
+            console.log('  Debe tener al menos:');
           console.log('  • 8 caracteres');
           console.log('  • 1 mayúscula');
           console.log('  • 1 minúscula');
@@ -2072,12 +2069,12 @@ function handleResponse(err, result, operation = '') {
   if (operation === 'consultarArticulo') {
     if (respuesta.exitoso && respuesta.datos) {
       const articulo = respuesta.datos;
-      console.log('\n\x1b[36m=== ARTÍCULO ENCONTRADO ===\x1b[0m');
+      console.log('\n\x1b[36m=== PRODUCTO ENCONTRADO ===\x1b[0m');
       console.log(`  Código: ${articulo.codigo || 'No disponible'}`);
       console.log(`  Nombre: ${articulo.nombre || 'No disponible'}`);
       console.log(`  Descripción: ${articulo.descripcion || 'Sin descripción'}`);
       console.log(`  Precio: $${articulo.precio?.toFixed(2) || '0.00'}`);
-      console.log(`  Stock: ${articulo.stock || 0} unidades`);
+      console.log(`  Cantidad disponible: ${articulo.stock || 0} unidades`);
       console.log(`  Categoría: ${articulo.categoria?.nombre || 'No especificada'}`);
       console.log(`  Proveedor: ${articulo.proveedor?.nombre || 'No especificado'}`);
       
@@ -2085,8 +2082,8 @@ function handleResponse(err, result, operation = '') {
       log(`Artículo consultado: ${articulo.codigo} - ${articulo.nombre}`, 'info');
       log(`Detalles: ${JSON.stringify(articulo, null, 2)}`, 'debug');
     } else {
-      console.log(`\n\x1b[33mℹ ${respuesta.mensaje || 'No se encontró el artículo'}\x1b[0m`);
-      log(respuesta.mensaje || 'No se encontró el artículo', 'info');
+      console.log(`\n\x1b[33m${respuesta.mensaje || 'No se encontró el producto'}\x1b[0m`);
+      log(respuesta.mensaje || 'No se encontró el producto', 'info');
     }
   } 
   // Manejar respuesta de listar proveedores
@@ -2097,9 +2094,8 @@ function handleResponse(err, result, operation = '') {
       
       proveedores.forEach((prov, index) => {
         console.log(`\n\x1b[33mProveedor #${index + 1}\x1b[0m`);
-        console.log(`  ID: ${prov.id}`);
-        console.log(`  Nombre: ${prov.nombre || 'No disponible'}`);
-        console.log(`  Contacto: ${prov.contacto || 'No disponible'}`);
+        console.log(`  Empresa: ${prov.nombre || 'No disponible'}`);
+        console.log(`  Persona de contacto: ${prov.contacto || 'No disponible'}`);
         console.log(`  Teléfono: ${prov.telefono || 'No disponible'}`);
         console.log(`  Email: ${prov.email || 'No disponible'}`);
         console.log(`  Dirección: ${prov.direccion || 'No disponible'}`);
@@ -2108,7 +2104,7 @@ function handleResponse(err, result, operation = '') {
       // Registrar en el log
       log(`Se encontraron ${proveedores.length} proveedores`, 'info');
     } else {
-      console.log(`\n\x1b[33mℹ ${respuesta.mensaje || 'No se encontraron proveedores'}\x1b[0m`);
+      console.log(`\n\x1b[33m${respuesta.mensaje || 'No se encontraron proveedores'}\x1b[0m`);
       log(respuesta.mensaje || 'No se encontraron proveedores', 'info');
     }
   }
@@ -2116,25 +2112,25 @@ function handleResponse(err, result, operation = '') {
   else if (operation === 'actualizarStock') {
     if (respuesta.exitoso && respuesta.datos) {
       const articulo = respuesta.datos;
-      console.log('\n\x1b[32m✓ STOCK ACTUALIZADO EXITOSAMENTE\x1b[0m');
-      console.log('\n\x1b[36m=== DETALLES DEL ARTÍCULO ===\x1b[0m');
+      console.log('\n\x1b[32mINVENTARIO ACTUALIZADO CORRECTAMENTE\x1b[0m');
+      console.log('\n\x1b[36m=== INFORMACIÓN DEL PRODUCTO ===\x1b[0m');
       console.log(`  Código: ${articulo.codigo || 'No disponible'}`);
       console.log(`  Nombre: ${articulo.nombre || 'No disponible'}`);
-      console.log(`  Stock actual: \x1b[32m${articulo.stockActual || 'No disponible'}\x1b[0m`);
-      console.log(`  Stock mínimo: ${articulo.stockMinimo || 'No definido'}`);
+      console.log(`  Cantidad actual: \x1b[32m${articulo.stockActual || 'No disponible'} unidades\x1b[0m`);
+      console.log(`  Cantidad mínima requerida: ${articulo.stockMinimo || 'No definido'}`);
       
       // Verificar alertas de stock
       if (articulo.stockMinimo && articulo.stockActual < articulo.stockMinimo) {
-        console.log('\n\x1b[33m⚠ ALERTA: Stock por debajo del mínimo requerido\x1b[0m');
+        console.log('\n\x1b[33mALERTA: Cantidad por debajo del mínimo requerido\x1b[0m');
       } else if (articulo.stockMinimo && articulo.stockActual <= articulo.stockMinimo * 1.2) {
-        console.log('\n\x1b[33m⚠ ADVERTENCIA: Stock cerca del mínimo\x1b[0m');
+        console.log('\n\x1b[33mADVERTENCIA: Cantidad cerca del mínimo\x1b[0m');
       }
       
       // Registrar en el log
       log(`Stock actualizado para ${articulo.codigo}: ${articulo.stockActual} unidades`, 'info');
     } else {
-      console.log(`\n\x1b[33mℹ ${respuesta.mensaje || 'Stock no pudo ser actualizado'}\x1b[0m`);
-      log(respuesta.mensaje || 'Stock no pudo ser actualizado', 'warn');
+      console.log(`\n\x1b[33m${respuesta.mensaje || 'El inventario no pudo ser actualizado'}\x1b[0m`);
+      log(respuesta.mensaje || 'El inventario no pudo ser actualizado', 'warn');
     }
   }
   // Para otras operaciones, mostrar la respuesta completa
@@ -2192,7 +2188,7 @@ function handleResponse(err, result, operation = '') {
 
   // Mostrar advertencias si existen
   if (respuesta.advertencias && respuesta.advertencias.length > 0) {
-    log('\n⚠️  Advertencias:', 'warn');
+    log('\n  Advertencias:', 'warn');
     respuesta.advertencias.forEach((adv, i) => {
       log(`  ${i + 1}. ${adv}`, 'warn');
     });
@@ -2206,7 +2202,7 @@ function handleResponse(err, result, operation = '') {
   delete metadata.advertencias;
 
   if (Object.keys(metadata).length > 0) {
-    log('\n📊 Metadatos adicionales:', 'debug');
+    log('\n Metadatos adicionales:', 'debug');
     mostrarObjeto(metadata);
   }
 
