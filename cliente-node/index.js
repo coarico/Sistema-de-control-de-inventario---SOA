@@ -54,6 +54,148 @@ escribirLog('Iniciando cliente SOAP', 'INFO');
 const DEFAULT_RETRIES = 3;
 const RETRY_DELAY = 1000; // 1 segundo
 
+// Función para configurar las credenciales de autenticación
+function configurarAutenticacion() {
+  return new Promise((resolve) => {
+    console.log('\n\x1b[36m=== CONFIGURACIÓN DE AUTENTICACIÓN SEGURA ===\x1b[0m');
+    console.log('\x1b[33m🔒 IMPORTANTE: Este sistema usa contraseñas seguras únicas por rol\x1b[0m\n');
+    
+    console.log('Usuarios disponibles:');
+    let opcion = 1;
+    Object.keys(CREDENCIALES_SISTEMA).forEach(username => {
+      const user = CREDENCIALES_SISTEMA[username];
+      const roleColor = user.role === 'ADMIN' ? '\x1b[31m' : user.role === 'OPERADOR' ? '\x1b[33m' : '\x1b[32m';
+      console.log(`  ${opcion}. \x1b[36m${username}\x1b[0m - ${roleColor}${user.role}\x1b[0m`);
+      console.log(`     ${user.description}`);
+      opcion++;
+    });
+    
+    console.log(`\n  ${opcion}. \x1b[35mCredenciales personalizadas\x1b[0m - Ingresar manualmente`);
+    console.log(`  ${opcion + 1}. \x1b[32mModo consulta rápida\x1b[0m - Usuario de solo lectura`);
+    
+    rl.question('\nSeleccione una opción: ', (choice) => {
+      const usernames = Object.keys(CREDENCIALES_SISTEMA);
+      const choiceNum = parseInt(choice);
+      
+      if (choiceNum >= 1 && choiceNum <= usernames.length) {
+        // Usuario predefinido seleccionado
+        const selectedUsername = usernames[choiceNum - 1];
+        const selectedUser = CREDENCIALES_SISTEMA[selectedUsername];
+        
+        AUTH_CONFIG = {
+          username: selectedUsername,
+          password: selectedUser.password,
+          role: selectedUser.role
+        };
+        
+        console.log(`\x1b[32m✓ Configurado como ${selectedUsername.toUpperCase()} (${selectedUser.role})\x1b[0m`);
+        console.log(`\x1b[90m  Contraseña: ${selectedUser.password}\x1b[0m`);
+        
+      } else if (choiceNum === usernames.length + 1) {
+        // Credenciales personalizadas
+        console.log('\n\x1b[35m=== CREDENCIALES PERSONALIZADAS ===\x1b[0m');
+        rl.question('Nombre de usuario: ', (username) => {
+          rl.question('Contraseña: ', (password) => {
+            // Intentar determinar el rol basado en el usuario conocido
+            if (CREDENCIALES_SISTEMA[username]) {
+              AUTH_CONFIG = {
+                username: username,
+                password: password,
+                role: CREDENCIALES_SISTEMA[username].role
+              };
+            } else {
+              AUTH_CONFIG = {
+                username: username,
+                password: password,
+                role: 'CONSULTA' // Rol por defecto más restrictivo
+              };
+            }
+            
+            console.log(`\x1b[32m✓ Configurado con credenciales personalizadas\x1b[0m`);
+            console.log(`\x1b[90m  Usuario: ${AUTH_CONFIG.username}, Rol asumido: ${AUTH_CONFIG.role}\x1b[0m`);
+            log(`Autenticación configurada - Usuario: ${AUTH_CONFIG.username}, Rol: ${AUTH_CONFIG.role}`, 'info');
+            resolve();
+          });
+        });
+        return; // No resolver aquí, se resuelve en el callback anidado
+        
+      } else if (choiceNum === usernames.length + 2) {
+        // Modo consulta rápida - Usuario de solo lectura
+        AUTH_CONFIG = {
+          username: 'consulta',
+          password: 'ReadOnly@456',
+          role: 'CONSULTA'
+        };
+        
+        console.log('\x1b[32m✓ Configurado en modo consulta rápida (solo lectura)\x1b[0m');
+        console.log('\x1b[90m  Usuario: consulta, Contraseña: ReadOnly@456\x1b[0m');
+        
+      } else if (choiceNum === usernames.length + 3) {
+        // Opción inválida en menú de autenticación
+        console.log('\x1b[31m❌ Opción inválida\x1b[0m');
+        
+      } else {
+        console.log('\x1b[31m❌ Opción inválida, manteniendo configuración actual\x1b[0m');
+      }
+      
+      log(`Autenticación configurada - Usuario: ${AUTH_CONFIG.username}, Rol: ${AUTH_CONFIG.role}`, 'info');
+      resolve();
+    });
+  });
+}
+
+// Función para mostrar las credenciales del sistema
+function mostrarCredencialesDelSistema() {
+  console.log('\n\x1b[36m=== CREDENCIALES DEL SISTEMA ===\x1b[0m');
+  console.log('\x1b[33m⚠️  IMPORTANTE: Estas son las contraseñas predeterminadas del sistema\x1b[0m');
+  console.log('\x1b[33m    En producción, deben cambiarse por contraseñas únicas\x1b[0m\n');
+  
+  Object.keys(CREDENCIALES_SISTEMA).forEach(username => {
+    const user = CREDENCIALES_SISTEMA[username];
+    const roleColor = user.role === 'ADMIN' ? '\x1b[31m' : user.role === 'OPERADOR' ? '\x1b[33m' : '\x1b[32m';
+    
+    console.log(`\x1b[36m${username}\x1b[0m:`);
+    console.log(`  Contraseña: \x1b[37m${user.password}\x1b[0m`);
+    console.log(`  Rol: ${roleColor}${user.role}\x1b[0m`);
+    console.log(`  Descripción: ${user.description}\n`);
+  });
+  
+  console.log('\x1b[90mPresione Enter para continuar...\x1b[0m');
+  rl.question('', () => {});
+}
+
+// Función para mostrar información del usuario actual
+function mostrarInfoUsuario() {
+  console.log('\n\x1b[36m=== INFORMACIÓN DE SESIÓN ===\x1b[0m');
+  console.log(`👤 Usuario: \x1b[33m${AUTH_CONFIG.username}\x1b[0m`);
+  console.log(`🔒 Rol: \x1b[33m${AUTH_CONFIG.role}\x1b[0m`);
+  
+  switch (AUTH_CONFIG.role) {
+    case 'ADMIN':
+      console.log('📋 Permisos: \x1b[32mTodos (insertar, consultar, actualizar, listar)\x1b[0m');
+      break;
+    case 'OPERADOR':
+      console.log('📋 Permisos: \x1b[33mConsulta, actualización de stock y listados\x1b[0m');
+      break;
+    case 'CONSULTA':
+      console.log('📋 Permisos: \x1b[31mSolo consulta y listados\x1b[0m');
+      break;
+  }
+  console.log('');
+}
+
+// Función para validar permisos antes de ejecutar operaciones
+function validarPermisos(operacion) {
+  const permisosPorRol = {
+    'ADMIN': ['insertar', 'consultar', 'actualizar', 'listar'],
+    'OPERADOR': ['consultar', 'actualizar', 'listar'],
+    'CONSULTA': ['consultar', 'listar']
+  };
+  
+  const permisosUsuario = permisosPorRol[AUTH_CONFIG.role] || [];
+  return permisosUsuario.includes(operacion);
+}
+
 // Función mejorada para parsear respuestas XML manualmente
 function parseXMLResponse(xmlData, methodName) {
   if (!xmlData || typeof xmlData !== 'string') {
@@ -446,6 +588,22 @@ const rl = readline.createInterface({
 
 const WSDL_URL = 'http://192.168.0.109:8080/InventarioService?wsdl';
 
+// Configuración de autenticación con contraseñas seguras
+let AUTH_CONFIG = {
+  username: 'admin',
+  password: 'FerretAdmin2024$',
+  role: 'ADMIN'
+};
+
+// Credenciales predefinidas del sistema
+const CREDENCIALES_SISTEMA = {
+  admin: { password: 'FerretAdmin2024$', role: 'ADMIN', description: 'Administrador - Acceso completo' },
+  operador: { password: 'StockManager#789', role: 'OPERADOR', description: 'Operador - Gestión de stock y consultas' },
+  consulta: { password: 'ReadOnly@456', role: 'CONSULTA', description: 'Consulta - Solo lectura' },
+  supervisor: { password: 'SuperVisor!321', role: 'OPERADOR', description: 'Supervisor - Gestión de stock y consultas' },
+  gerente: { password: 'Manager$2024', role: 'ADMIN', description: 'Gerente - Acceso completo' }
+};
+
 // Función para formatear la fecha y hora
 function getTimestamp() {
   return new Date().toISOString();
@@ -601,6 +759,9 @@ async function main() {
   log('Iniciando cliente SOAP...');
   log(`Conectando a: ${WSDL_URL}`);
   
+  // Configurar autenticación al inicio
+  await configurarAutenticacion();
+  
   // Función para verificar si el servidor está disponible
   const checkServerAvailability = async () => {
     try {
@@ -643,7 +804,7 @@ async function main() {
       wsdl_headers: { 
         'User-Agent': 'Node-SOAP-Client',
         'Connection': 'keep-alive',
-        'Authorization': 'Basic ' + Buffer.from('admin:admin').toString('base64')
+        'Authorization': 'Basic ' + Buffer.from(`${AUTH_CONFIG.username}:${AUTH_CONFIG.password}`).toString('base64')
       },
       escapeXML: false,
       disableCache: true,
@@ -701,32 +862,97 @@ async function main() {
 }
 
 function showMenu(client) {
+  // Mostrar información del usuario
+  mostrarInfoUsuario();
+  
   console.log('\n\x1b[36m=== MENÚ PRINCIPAL ===\x1b[0m');
   const services = client.describe();
   const operations = [];
+  const operationPermissions = {
+    'verificarEstado': 'consultar',
+    'consultarArticulo': 'consultar', 
+    'insertarArticulo': 'insertar',
+    'listarCategorias': 'listar',
+    'listarProveedores': 'listar',
+    'actualizarStock': 'actualizar'
+  };
   
   Object.keys(services).forEach(svc => {
     Object.keys(services[svc]).forEach(port => {
       Object.keys(services[svc][port]).forEach(op => {
+        const requiredPermission = operationPermissions[op] || 'consultar';
+        const hasPermission = validarPermisos(requiredPermission);
+        
         operations.push(op);
-        console.log(`\x1b[33m${operations.length}\x1b[0m. ${op}`);
+        const status = hasPermission ? '\x1b[32m✓\x1b[0m' : '\x1b[31m✗\x1b[0m';
+        const opText = hasPermission ? `\x1b[33m${operations.length}\x1b[0m. ${op}` : 
+                                      `\x1b[90m${operations.length}. ${op} (sin permisos)\x1b[0m`;
+        console.log(`${status} ${opText}`);
       });
     });
   });
 
-  console.log('\n\x1b[33m0\x1b[0m. Salir');
+  console.log('\n\x1b[33m98\x1b[0m. Cambiar usuario');
+  console.log('\x1b[33m99\x1b[0m. Mostrar información de sesión');
   
-  rl.question('\nSeleccione una operación (número): ', (choice) => {
-    const opIndex = parseInt(choice) - 1;
+  // Solo mostrar opción de contraseñas para administradores en el menú principal
+  if (AUTH_CONFIG && AUTH_CONFIG.role === 'ADMIN') {
+    console.log('\x1b[33m97\x1b[0m. \x1b[36mMostrar contraseñas del sistema\x1b[0m');
+  }
+  
+  console.log('\x1b[33m0\x1b[0m. Salir');
+  
+  rl.question('\nSeleccione una operación (número): ', async (choice) => {
     if (choice === '0') {
       console.log('\x1b[32mSaliendo...\x1b[0m');
       return rl.close();
     }
+    
+    if (choice === '98') {
+      await configurarAutenticacion();
+      return showMenu(client);
+    }
+    
+    if (choice === '99') {
+      mostrarInfoUsuario();
+      console.log('Presione Enter para continuar...');
+      rl.question('', () => showMenu(client));
+      return;
+    }
+    
+    if (choice === '97' && AUTH_CONFIG && AUTH_CONFIG.role === 'ADMIN') {
+      mostrarCredencialesDelSistema();
+      console.log('Presione Enter para continuar...');
+      rl.question('', () => showMenu(client));
+      return;
+    }
+    
+    const opIndex = parseInt(choice) - 1;
     if (isNaN(opIndex) || opIndex < 0 || opIndex >= operations.length) {
       console.log('\x1b[31mOpción inválida\x1b[0m');
       return showMenu(client);
     }
-    executeOperation(client, operations[opIndex]);
+    
+    const operation = operations[opIndex];
+    const operationPermissions = {
+      'verificarEstado': 'consultar',
+      'consultarArticulo': 'consultar', 
+      'insertarArticulo': 'insertar',
+      'listarCategorias': 'listar',
+      'listarProveedores': 'listar',
+      'actualizarStock': 'actualizar'
+    };
+    
+    const requiredPermission = operationPermissions[operation] || 'consultar';
+    if (!validarPermisos(requiredPermission)) {
+      console.log(`\n\x1b[31m❌ Sin permisos para ejecutar '${operation}'\x1b[0m`);
+      console.log(`\x1b[33m💡 Su rol '${AUTH_CONFIG.role}' no permite operaciones de tipo '${requiredPermission}'\x1b[0m`);
+      console.log('\nPresione Enter para continuar...');
+      rl.question('', () => showMenu(client));
+      return;
+    }
+    
+    executeOperation(client, operation);
   });
 }
 
@@ -1024,8 +1250,38 @@ async function executeOperation(client, operation) {
 
   const executeWithLoggingSync = (operationName, args, callback) => {
     logSoapRequest(client, operationName, args);
+    
+    // Configurar headers de autenticación para cada llamada
+    const authHeader = 'Basic ' + Buffer.from(`${AUTH_CONFIG.username}:${AUTH_CONFIG.password}`).toString('base64');
+    
+    // Agregar headers de seguridad
+    client.addHttpHeader('Authorization', authHeader);
+    client.addHttpHeader('User-Agent', 'Node-SOAP-Client-Secured');
+    
+    log(`Ejecutando ${operationName} con usuario: ${AUTH_CONFIG.username} (${AUTH_CONFIG.role})`, 'info');
+    
     client[operationName](args, (err, result) => {
       if (err) {
+        // Verificar si es un error de autenticación/autorización
+        if (err.response && (err.response.statusCode === 401 || err.response.statusCode === 403)) {
+          console.log('\n\x1b[31m🔒 ERROR DE AUTENTICACIÓN/AUTORIZACIÓN\x1b[0m');
+          console.log(`Estado HTTP: ${err.response.statusCode}`);
+          console.log(`Usuario actual: ${AUTH_CONFIG.username} (${AUTH_CONFIG.role})`);
+          
+          if (err.response.statusCode === 401) {
+            console.log('\x1b[33m💡 Las credenciales son inválidas o han expirado\x1b[0m');
+          } else {
+            console.log('\x1b[33m💡 Su usuario no tiene permisos para esta operación\x1b[0m');
+          }
+          
+          console.log('\nPresione Enter para cambiar de usuario...');
+          rl.question('', async () => {
+            await configurarAutenticacion();
+            showMenu(client);
+          });
+          return;
+        }
+        
         logSoapResponse(operationName, err, true);
         handleOperationError(err, operationName);
       } else {
@@ -1486,6 +1742,218 @@ async function executeOperation(client, operation) {
       
       // Iniciar el proceso
       solicitarDatosStock();
+      break;
+      
+    case 'cambiarContrasena':
+      log('Iniciando cambio de contraseña...', 'info');
+      
+      // Función para mostrar ayuda del cambio de contraseña
+      const mostrarAyudaCambioPassword = () => {
+        console.log('\n\x1b[36m=== AYUDA: CAMBIO DE CONTRASEÑA ===\x1b[0m');
+        console.log('  Esta operación permite cambiar la contraseña del usuario actual.');
+        console.log('  \x1b[33mRequisitos de seguridad para la nueva contraseña:\x1b[0m');
+        console.log('  • Mínimo 8 caracteres');
+        console.log('  • Al menos 1 mayúscula');
+        console.log('  • Al menos 1 minúscula');
+        console.log('  • Al menos 1 número');
+        console.log('  • Al menos 1 carácter especial (!@#$%^&*)');
+        console.log('\n  \x1b[31mIMPORTANTE:\x1b[0m Necesitará su contraseña actual para confirmar el cambio.');
+        console.log('\n  Escriba \'salir\' para volver al menú principal.\n');
+      };
+      
+      const procesarCambioContrasena = async (currentPassword, newPassword, confirmPassword) => {
+        // Validar que las contraseñas no estén vacías
+        if (!currentPassword || !newPassword || !confirmPassword) {
+          console.log('\n\x1b[31m⚠ Todos los campos son requeridos.\x1b[0m\n');
+          return false;
+        }
+        
+        // Validar que la nueva contraseña coincida con la confirmación
+        if (newPassword !== confirmPassword) {
+          console.log('\n\x1b[31m⚠ La nueva contraseña y la confirmación no coinciden.\x1b[0m\n');
+          return false;
+        }
+        
+        // Validar que la nueva contraseña sea diferente a la actual
+        if (currentPassword === newPassword) {
+          console.log('\n\x1b[31m⚠ La nueva contraseña debe ser diferente a la actual.\x1b[0m\n');
+          return false;
+        }
+        
+        // Validar fortaleza de la nueva contraseña
+        const validarContrasena = (password) => {
+          const minLength = 8;
+          const hasUpper = /[A-Z]/.test(password);
+          const hasLower = /[a-z]/.test(password);
+          const hasNumber = /\d/.test(password);
+          const hasSpecial = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+          
+          return password.length >= minLength && hasUpper && hasLower && hasNumber && hasSpecial;
+        };
+        
+        if (!validarContrasena(newPassword)) {
+          console.log('\n\x1b[31m⚠ La nueva contraseña no cumple con los criterios de seguridad.\x1b[0m');
+          console.log('  Debe tener al menos:');
+          console.log('  • 8 caracteres');
+          console.log('  • 1 mayúscula');
+          console.log('  • 1 minúscula');
+          console.log('  • 1 número');
+          console.log('  • 1 carácter especial (!@#$%^&*)\n');
+          return false;
+        }
+        
+        log(`Cambiando contraseña para usuario: ${AUTH_CONFIG.username}`, 'info');
+        
+        // Mostrar indicador de carga
+        const spinner = ['|', '/', '-', '\\'];
+        let spinnerIndex = 0;
+        const loadingInterval = setInterval(() => {
+          process.stdout.write(`\r${spinner[spinnerIndex++ % spinner.length]} Cambiando contraseña...`);
+        }, 100);
+        
+        try {
+          // Realizar el cambio de contraseña
+          const result = await executeWithLogging(client, 'cambiarContrasena', {
+            currentPassword: currentPassword,
+            newPassword: newPassword
+          });
+          
+          // Limpiar el indicador de carga
+          clearInterval(loadingInterval);
+          process.stdout.write('\r' + ' '.repeat(30) + '\r');
+          
+          // Procesar la respuesta
+          if (result && result.exitoso) {
+            console.log('\n\x1b[32m✓ Contraseña cambiada exitosamente\x1b[0m');
+            console.log(`  ${result.mensaje || 'Su contraseña ha sido actualizada.'}`);
+            
+            // Actualizar la configuración local
+            AUTH_CONFIG.password = newPassword;
+            console.log('\n\x1b[33m💡 Su sesión ha sido actualizada con la nueva contraseña.\x1b[0m');
+            
+            log(`Contraseña cambiada exitosamente para usuario: ${AUTH_CONFIG.username}`, 'info');
+            
+          } else {
+            console.log('\n\x1b[31m✖ Error al cambiar la contraseña:\x1b[0m');
+            console.log(`  ${result?.mensaje || 'Error desconocido'}`);
+            
+            if (result?.codigoError) {
+              console.log(`  Código de error: ${result.codigoError}`);
+            }
+          }
+          
+        } catch (error) {
+          // Limpiar el indicador de carga
+          clearInterval(loadingInterval);
+          process.stdout.write('\r' + ' '.repeat(30) + '\r');
+          
+          console.log('\n\x1b[31m✖ Error al cambiar la contraseña:\x1b[0m');
+          
+          if (error.message) {
+            console.log(`  Mensaje: ${error.message}`);
+          }
+          
+          if (error.code) {
+            console.log(`  Código: ${error.code}`);
+          }
+          
+          // Mostrar sugerencias
+          console.log('\n\x1b[33mPosibles causas:\x1b[0m');
+          console.log('  1. La contraseña actual es incorrecta');
+          console.log('  2. Problemas de conectividad con el servidor');
+          console.log('  3. La nueva contraseña no cumple los criterios');
+          
+          log(`Error al cambiar contraseña para usuario ${AUTH_CONFIG.username}: ${error.message}`, 'error');
+        }
+        
+        // Preguntar si desea volver al menú
+        console.log('\nPresione Enter para volver al menú principal...');
+        rl.question('', () => {
+          showMenu(client);
+        });
+        
+        return true;
+      };
+      
+      // Mostrar ayuda inicial
+      mostrarAyudaCambioPassword();
+      
+      // Función para solicitar las contraseñas
+      const solicitarCambioContrasena = () => {
+        console.log(`\x1b[36mCambiando contraseña para usuario: \x1b[33m${AUTH_CONFIG.username}\x1b[0m\n`);
+        
+        rl.question('Ingrese su contraseña actual: ', (currentPassword) => {
+          // Verificar salida
+          if (currentPassword.toLowerCase() === 'salir') {
+            console.log('\nVolviendo al menú principal...\n');
+            showMenu(client);
+            return;
+          }
+          
+          rl.question('Ingrese la nueva contraseña: ', (newPassword) => {
+            if (newPassword.toLowerCase() === 'salir') {
+              console.log('\nVolviendo al menú principal...\n');
+              showMenu(client);
+              return;
+            }
+            
+            rl.question('Confirme la nueva contraseña: ', async (confirmPassword) => {
+              if (confirmPassword.toLowerCase() === 'salir') {
+                console.log('\nVolviendo al menú principal...\n');
+                showMenu(client);
+                return;
+              }
+              
+              // Procesar el cambio de contraseña
+              const procesado = await procesarCambioContrasena(currentPassword, newPassword, confirmPassword);
+              if (!procesado) {
+                // Si hubo un error de validación, volver a solicitar
+                console.log('\n¿Desea intentar nuevamente? (s/n): ');
+                rl.question('', (respuesta) => {
+                  if (respuesta.toLowerCase() === 's') {
+                    return solicitarCambioContrasena();
+                  } else {
+                    console.log('\nVolviendo al menú principal...\n');
+                    showMenu(client);
+                  }
+                });
+              }
+            });
+          });
+        });
+      };
+      
+      // Iniciar el proceso
+      solicitarCambioContrasena();
+      break;
+      
+    case 'obtenerCriteriosContrasena':
+      log('Obteniendo criterios de contraseña segura...', 'info');
+      executeWithLoggingSync('obtenerCriteriosContrasena', {}, (result) => {
+        console.log('\n\x1b[36m=== CRITERIOS DE CONTRASEÑA SEGURA ===\x1b[0m');
+        
+        if (result && result.exitoso && result.datos) {
+          console.log('\x1b[32m✓ Criterios obtenidos del servidor:\x1b[0m');
+          console.log(`\n${result.datos}`);
+        } else {
+          console.log('\x1b[33m⚠ Usando criterios locales:\x1b[0m');
+          console.log('\n  • Mínimo 8 caracteres');
+          console.log('  • Al menos 1 mayúscula (A-Z)');
+          console.log('  • Al menos 1 minúscula (a-z)');
+          console.log('  • Al menos 1 número (0-9)');
+          console.log('  • Al menos 1 carácter especial (!@#$%^&*)');
+        }
+        
+        console.log('\n\x1b[33m💡 Ejemplos de contraseñas seguras:\x1b[0m');
+        console.log('  • MiPassword123!');
+        console.log('  • Segura#2024');
+        console.log('  • Admin$Pass99');
+        
+        console.log('\nPresione Enter para volver al menú...');
+        rl.question('', () => {
+          showMenu(client);
+        });
+      });
       break;
       
     default:

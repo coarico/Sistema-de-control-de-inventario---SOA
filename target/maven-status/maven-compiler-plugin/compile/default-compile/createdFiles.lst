@@ -7,13 +7,16 @@ com\ferreteria\inventario\model\Articulo.class
 com\ferreteria\inventario\dto\ProveedorListResponse.class
 com\ferreteria\inventario\util\LocalDateTimeAdapter.class
 com\ferreteria\inventario\util\ProveedorListAdapter.class
+com\ferreteria\inventario\model\Usuario.class
 com\ferreteria\inventario\model\Proveedor.class
 com\ferreteria\inventario\dao\ProveedorDAO.class
 com\ferreteria\inventario\dto\RespuestaOperacion.class
 com\ferreteria\inventario\util\ProveedorListAdapter$AdaptedList.class
 com\ferreteria\inventario\dto\StockUpdateResponse.class
+com\ferreteria\inventario\service\AuthenticationService.class
 com\ferreteria\inventario\dto\CategoriaListResponse.class
 com\ferreteria\inventario\exception\ArticuloNotFoundException.class
+com\ferreteria\inventario\filter\AuthenticationFilter.class
 com\ferreteria\inventario\service\ArticuloValidator.class
 com\ferreteria\inventario\model\Categoria.class
 com\ferreteria\inventario\dao\CategoriaDAO.class

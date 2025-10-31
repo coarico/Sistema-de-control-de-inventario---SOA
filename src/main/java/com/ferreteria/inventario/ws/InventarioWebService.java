@@ -16,6 +16,8 @@ import com.ferreteria.inventario.dto.ProveedorListResponse;
 import com.ferreteria.inventario.dto.CategoriaListResponse;
 import com.ferreteria.inventario.dto.StockUpdateResponse;
 import com.ferreteria.inventario.util.ArticuloMapper;
+import com.ferreteria.inventario.model.Usuario;
+import com.ferreteria.inventario.service.AuthenticationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -31,6 +33,10 @@ import jakarta.xml.ws.soap.MTOM;
 import jakarta.xml.ws.soap.SOAPFaultException;
 import jakarta.activation.MimeType;
 import jakarta.xml.bind.annotation.XmlMimeType;
+import jakarta.xml.ws.WebServiceContext;
+import jakarta.xml.ws.handler.MessageContext;
+import jakarta.annotation.Resource;
+import jakarta.servlet.http.HttpServletRequest;
 import java.util.Collections;
 import java.util.List;
 
@@ -57,12 +63,42 @@ public class InventarioWebService {
     private final ArticuloService articuloService;
     private final CategoriaDAO categoriaDAO;
     private final ProveedorDAO proveedorDAO;
+    
+    @Resource
+    private WebServiceContext context;
 
     public InventarioWebService() {
         this.articuloService = new ArticuloService();
         this.categoriaDAO = new CategoriaDAO();
         this.proveedorDAO = new ProveedorDAO();
-        logger.info("Servicio Web SOAP de Inventario inicializado");
+        logger.info("Servicio Web SOAP de Inventario inicializado con seguridad");
+    }
+    
+    /**
+     * Obtiene información del usuario autenticado desde el contexto del servlet
+     */
+    private Usuario obtenerUsuarioAutenticado() {
+        try {
+            MessageContext messageContext = context.getMessageContext();
+            HttpServletRequest request = (HttpServletRequest) 
+                messageContext.get(MessageContext.SERVLET_REQUEST);
+            return (Usuario) request.getAttribute("usuario");
+        } catch (Exception e) {
+            logger.warn("No se pudo obtener información del usuario autenticado", e);
+            return null;
+        }
+    }
+    
+    /**
+     * Registra actividad de seguridad en los logs
+     */
+    private void registrarActividadSeguridad(String operacion, String detalle) {
+        Usuario usuario = obtenerUsuarioAutenticado();
+        String username = usuario != null ? usuario.getUsername() : "DESCONOCIDO";
+        String rol = usuario != null ? usuario.getRol() : "N/A";
+        
+        logger.info("SEGURIDAD - Usuario: {}, Rol: {}, Operación: {}, Detalle: {}", 
+                   username, rol, operacion, detalle);
     }
 
     /**
@@ -93,6 +129,7 @@ public class InventarioWebService {
             @WebParam(name = "stockMinimo") Integer stockMinimo) {
 
         logger.info("SOAP: Solicitud de inserción de artículo - Código: {}", codigo);
+        registrarActividadSeguridad("INSERTAR_ARTICULO", "Código: " + codigo);
         
         // Logging detallado de todos los parámetros
         logger.info("=== PARÁMETROS RECIBIDOS EN insertarArticulo ===");
@@ -172,6 +209,7 @@ public class InventarioWebService {
             @WebParam(name = "codigo") String codigo) {
 
         logger.info("SOAP: Solicitud de consulta de artículo - Código: {}", codigo);
+        registrarActividadSeguridad("CONSULTAR_ARTICULO", "Código: " + codigo);
 
         try {
             // Consultar el artículo usando el servicio de negocio
@@ -479,5 +517,104 @@ private void logCategorias(List<Categoria> categorias) {
         }
     }
 }
+
+/**
+     * Cambia la contraseña de un usuario autenticado
+     * 
+     * @param currentPassword Contraseña actual
+     * @param newPassword Nueva contraseña
+     * @return RespuestaOperacion con el resultado de la operación
+     */
+    @WebMethod(operationName = "cambiarContrasena")
+    @WebResult(name = "respuesta")
+    public RespuestaOperacion cambiarContrasena(
+            @WebParam(name = "currentPassword") String currentPassword,
+            @WebParam(name = "newPassword") String newPassword) {
+
+        Usuario usuarioAutenticado = obtenerUsuarioAutenticado();
+        
+        if (usuarioAutenticado == null) {
+            logger.warn("SOAP: Intento de cambio de contraseña sin usuario autenticado");
+            return RespuestaOperacion.error(
+                "Usuario no autenticado", 
+                "AUTH_ERROR", 
+                "SEGURIDAD"
+            );
+        }
+        
+        String username = usuarioAutenticado.getUsername();
+        logger.info("SOAP: Solicitud de cambio de contraseña para usuario: {}", username);
+        registrarActividadSeguridad("CAMBIAR_CONTRASENA", "Usuario: " + username);
+
+        try {
+            AuthenticationService authService = new AuthenticationService();
+            
+            // Validar que la nueva contraseña sea segura
+            if (!authService.esContrasenaSegura(newPassword)) {
+                logger.warn("SOAP: Intento de cambio a contraseña débil para usuario: {}", username);
+                return RespuestaOperacion.error(
+                    "La nueva contraseña no cumple con los criterios de seguridad:\n" + 
+                    authService.getCriteriosContrasenaSegura(),
+                    "WEAK_PASSWORD",
+                    "VALIDACION"
+                );
+            }
+            
+            // Intentar cambiar la contraseña
+            boolean cambioExitoso = authService.cambiarContrasena(username, currentPassword, newPassword);
+            
+            if (cambioExitoso) {
+                logger.info("SOAP: Contraseña cambiada exitosamente para usuario: {}", username);
+                return RespuestaOperacion.exito(
+                    "Contraseña cambiada exitosamente. La nueva contraseña entrará en vigor en la próxima sesión.",
+                    null
+                );
+            } else {
+                logger.warn("SOAP: Falló el cambio de contraseña para usuario: {} - Contraseña actual incorrecta", username);
+                return RespuestaOperacion.error(
+                    "La contraseña actual es incorrecta",
+                    "INVALID_CURRENT_PASSWORD",
+                    "AUTENTICACION"
+                );
+            }
+
+        } catch (Exception e) {
+            logger.error("SOAP: Error inesperado al cambiar contraseña para usuario: " + username, e);
+            return RespuestaOperacion.error(
+                "Error interno del servidor al cambiar la contraseña", 
+                "INTERNAL_ERROR", 
+                "SISTEMA"
+            );
+        }
+    }
+    
+    /**
+     * Obtiene los criterios de seguridad para contraseñas
+     * 
+     * @return RespuestaOperacion con los criterios de contraseña segura
+     */
+    @WebMethod(operationName = "obtenerCriteriosContrasena")
+    @WebResult(name = "respuesta")
+    public RespuestaOperacion obtenerCriteriosContrasena() {
+        logger.info("SOAP: Solicitud de criterios de contraseña segura");
+        
+        try {
+            AuthenticationService authService = new AuthenticationService();
+            String criterios = authService.getCriteriosContrasenaSegura();
+            
+            return RespuestaOperacion.exito(
+                "Criterios de contraseña segura obtenidos exitosamente",
+                criterios
+            );
+            
+        } catch (Exception e) {
+            logger.error("SOAP: Error al obtener criterios de contraseña", e);
+            return RespuestaOperacion.error(
+                "Error interno del servidor", 
+                "INTERNAL_ERROR", 
+                "SISTEMA"
+            );
+        }
+    }
 
 }

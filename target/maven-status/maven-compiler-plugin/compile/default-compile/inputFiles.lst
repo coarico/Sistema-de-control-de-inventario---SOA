@@ -5,6 +5,7 @@ C:\Users\User\Desktop\Inventario_SOA\src\main\java\com\ferreteria\inventario\exc
 C:\Users\User\Desktop\Inventario_SOA\src\main\java\com\ferreteria\inventario\InventarioServer.java
 C:\Users\User\Desktop\Inventario_SOA\src\main\java\com\ferreteria\inventario\ws\InventarioWebService.java
 C:\Users\User\Desktop\Inventario_SOA\src\main\java\com\ferreteria\inventario\dto\ConsultarArticuloResponse.java
+C:\Users\User\Desktop\Inventario_SOA\src\main\java\com\ferreteria\inventario\service\AuthenticationService.java
 C:\Users\User\Desktop\Inventario_SOA\src\main\java\com\ferreteria\inventario\dao\CategoriaDAO.java
 C:\Users\User\Desktop\Inventario_SOA\src\main\java\com\ferreteria\inventario\config\DatabaseConfig.java
 C:\Users\User\Desktop\Inventario_SOA\src\main\java\com\ferreteria\inventario\service\ArticuloService.java
@@ -19,8 +20,10 @@ C:\Users\User\Desktop\Inventario_SOA\src\main\java\com\ferreteria\inventario\mod
 C:\Users\User\Desktop\Inventario_SOA\src\main\java\com\ferreteria\inventario\exception\InventarioException.java
 C:\Users\User\Desktop\Inventario_SOA\src\main\java\com\ferreteria\inventario\dto\StockUpdateResponse.java
 C:\Users\User\Desktop\Inventario_SOA\src\main\java\com\ferreteria\inventario\exception\ValidationException.java
+C:\Users\User\Desktop\Inventario_SOA\src\main\java\com\ferreteria\inventario\model\Usuario.java
 C:\Users\User\Desktop\Inventario_SOA\src\main\java\com\ferreteria\inventario\dto\ProveedorListResponse.java
 C:\Users\User\Desktop\Inventario_SOA\src\main\java\com\ferreteria\inventario\dto\ArticuloDTO.java
 C:\Users\User\Desktop\Inventario_SOA\src\main\java\com\ferreteria\inventario\model\MovimientoInventario.java
 C:\Users\User\Desktop\Inventario_SOA\src\main\java\com\ferreteria\inventario\dto\CategoriaListResponse.java
 C:\Users\User\Desktop\Inventario_SOA\src\main\java\com\ferreteria\inventario\model\Proveedor.java
+C:\Users\User\Desktop\Inventario_SOA\src\main\java\com\ferreteria\inventario\filter\AuthenticationFilter.java

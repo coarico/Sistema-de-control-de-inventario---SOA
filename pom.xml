@@ -66,6 +66,27 @@
             <version>1.2.12</version>
         </dependency>
         
+        <!-- Security -->
+        <dependency>
+            <groupId>jakarta.annotation</groupId>
+            <artifactId>jakarta.annotation-api</artifactId>
+            <version>2.0.0</version>
+        </dependency>
+        
+        <!-- Java EE Security API -->
+        <dependency>
+            <groupId>jakarta.security.enterprise</groupId>
+            <artifactId>jakarta.security.enterprise-api</artifactId>
+            <version>2.0.0</version>
+        </dependency>
+        
+        <!-- Base64 encoding/decoding -->
+        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+            <version>1.15</version>
+        </dependency>
+        
         <!-- Testing -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>

@@ -23,6 +23,46 @@
         <url-pattern>/InventarioService</url-pattern>
     </servlet-mapping>
 
+    <!-- Filtro de seguridad para servicios SOAP -->
+    <filter>
+        <filter-name>AuthenticationFilter</filter-name>
+        <filter-class>com.ferreteria.inventario.filter.AuthenticationFilter</filter-class>
+    </filter>
+    
+    <filter-mapping>
+        <filter-name>AuthenticationFilter</filter-name>
+        <url-pattern>/InventarioService/*</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+    </filter-mapping>
+
+    <!-- Configuración de seguridad básica -->
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>Servicios SOAP Protegidos</web-resource-name>
+            <url-pattern>/InventarioService/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>ADMIN</role-name>
+            <role-name>OPERADOR</role-name>
+            <role-name>CONSULTA</role-name>
+        </auth-constraint>
+    </security-constraint>
+
+    <login-config>
+        <auth-method>BASIC</auth-method>
+        <realm-name>Inventario Ferretería</realm-name>
+    </login-config>
+
+    <security-role>
+        <role-name>ADMIN</role-name>
+    </security-role>
+    <security-role>
+        <role-name>OPERADOR</role-name>
+    </security-role>
+    <security-role>
+        <role-name>CONSULTA</role-name>
+    </security-role>
+
     <!-- Configuración de sesión -->
     <session-config>
         <session-timeout>30</session-timeout>

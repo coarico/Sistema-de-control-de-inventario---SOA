@@ -5464,3 +5464,339 @@ Iniciando operación: consultarArticulo
 ✅ Operación consultarArticulo completada exitosamente
 
 [2025-10-31T07:10:50.148Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T07:11:49.683Z] [36mINFO[0m: 
+Iniciando operación: listarCategorias
+[2025-10-31T07:11:49.684Z] [36mINFO[0m: Obteniendo lista de categorías...
+[2025-10-31T07:11:49.685Z] [36mDEBUG[0m: Enviando petición SOAP: listarCategorias
+[2025-10-31T07:11:49.685Z] [36mDEBUG[0m: Argumentos: {}
+[2025-10-31T07:11:49.699Z] [36mDEBUG[0m: Respuesta de listarCategorias:
+[2025-10-31T07:11:49.700Z] [36mDEBUG[0m: Respuesta recibida (listarCategorias):
+[2025-10-31T07:11:49.700Z] [36mDEBUG[0m: {
+  "categoriaListResponse": {
+    "categorias": {
+      "categoria": [
+        {
+          "id": 3,
+          "nombre": "Electricidad",
+          "descripcion": "Cables, interruptores, enchufes, etc."
+        },
+        {
+          "id": 2,
+          "nombre": "Ferretería General",
+          "descripcion": "Tornillos, tuercas, clavos, etc."
+        },
+        {
+          "id": 1,
+          "nombre": "Herramientas Manuales",
+          "descripcion": "Martillos, destornilladores, llaves, etc."
+        },
+        {
+          "id": 5,
+          "nombre": "Pintura",
+          "descripcion": "Pinturas, brochas, rodillos, etc."
+        },
+        {
+          "id": 4,
+          "nombre": "Plomería",
+          "descripcion": "Tuberías, llaves, accesorios de baño, etc."
+        }
+      ]
+    }
+  }
+}
+[2025-10-31T07:11:49.702Z] [36mDEBUG[0m: 
+=== INICIO RESPUESTA [2025-10-31T07:11:49.702Z] ===
+[2025-10-31T07:11:49.702Z] [36mDEBUG[0m: Operación: No especificada
+[2025-10-31T07:11:49.706Z] [36mSUCCESS[0m: ✅ Operación completada exitosamente
+[2025-10-31T07:11:49.707Z] [36mDEBUG[0m: 
+📊 Metadatos adicionales:
+[2025-10-31T07:11:49.708Z] [36mDEBUG[0m: categoriaListResponse:
+[2025-10-31T07:11:49.708Z] [36mDEBUG[0m:   categorias:
+[2025-10-31T07:11:49.709Z] [36mDEBUG[0m:     categoria:
+[2025-10-31T07:11:49.710Z] [36mDEBUG[0m:       [0]:
+[2025-10-31T07:11:49.710Z] [36mDEBUG[0m:         id: 3
+[2025-10-31T07:11:49.711Z] [36mDEBUG[0m:         nombre: Electricidad
+[2025-10-31T07:11:49.711Z] [36mDEBUG[0m:         descripcion: Cables, interruptores, enchufes, etc.
+[2025-10-31T07:11:49.712Z] [36mDEBUG[0m:       [1]:
+[2025-10-31T07:11:49.713Z] [36mDEBUG[0m:         id: 2
+[2025-10-31T07:11:49.714Z] [36mDEBUG[0m:         nombre: Ferretería General
+[2025-10-31T07:11:49.715Z] [36mDEBUG[0m:         descripcion: Tornillos, tuercas, clavos, etc.
+[2025-10-31T07:11:49.715Z] [36mDEBUG[0m:       [2]:
+[2025-10-31T07:11:49.715Z] [36mDEBUG[0m:         id: 1
+[2025-10-31T07:11:49.716Z] [36mDEBUG[0m:         nombre: Herramientas Manuales
+[2025-10-31T07:11:49.717Z] [36mDEBUG[0m:         descripcion: Martillos, destornilladores, llaves, etc.
+[2025-10-31T07:11:49.717Z] [36mDEBUG[0m:       [3]:
+[2025-10-31T07:11:49.717Z] [36mDEBUG[0m:         id: 5
+[2025-10-31T07:11:49.718Z] [36mDEBUG[0m:         nombre: Pintura
+[2025-10-31T07:11:49.718Z] [36mDEBUG[0m:         descripcion: Pinturas, brochas, rodillos, etc.
+[2025-10-31T07:11:49.719Z] [36mDEBUG[0m:       [4]:
+[2025-10-31T07:11:49.719Z] [36mDEBUG[0m:         id: 4
+[2025-10-31T07:11:49.720Z] [36mDEBUG[0m:         nombre: Plomería
+[2025-10-31T07:11:49.720Z] [36mDEBUG[0m:         descripcion: Tuberías, llaves, accesorios de baño, etc.
+[2025-10-31T07:11:49.721Z] [36mDEBUG[0m: === FIN RESPUESTA EXITOSA ===
+
+[2025-10-31T07:11:49.722Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T07:12:08.339Z] [INFO] Iniciando cliente SOAP
+[2025-10-31T07:12:08.344Z] [36mINFO[0m: Iniciando cliente SOAP...
+[2025-10-31T07:12:08.345Z] [36mINFO[0m: Conectando a: http://192.168.0.109:8080/InventarioService?wsdl
+[2025-10-31T07:12:08.346Z] [36mINFO[0m: Verificando disponibilidad del servidor...
+[2025-10-31T07:12:08.555Z] [36mSUCCESS[0m: Conexión exitosa al servicio SOAP
+[2025-10-31T07:12:08.556Z] [36mINFO[0m: Operaciones disponibles:
+[2025-10-31T07:12:08.556Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T07:12:08.557Z] [36mINFO[0m: - actualizarStock
+[2025-10-31T07:12:08.558Z] [36mINFO[0m: - listarProveedores
+[2025-10-31T07:12:08.558Z] [36mINFO[0m: - consultarArticulo
+[2025-10-31T07:12:08.559Z] [36mINFO[0m: - insertarArticulo
+[2025-10-31T07:12:08.559Z] [36mINFO[0m: - verificarEstado
+[2025-10-31T07:12:08.560Z] [36mINFO[0m: - listarCategorias
+[2025-10-31T07:12:08.560Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T07:12:12.510Z] [36mINFO[0m: 
+Iniciando operación: listarProveedores
+[2025-10-31T07:12:12.511Z] [36mINFO[0m: Obteniendo lista de proveedores...
+[2025-10-31T07:12:12.511Z] [36mDEBUG[0m: Enviando petición SOAP: listarProveedores
+[2025-10-31T07:12:12.512Z] [36mDEBUG[0m: Argumentos: {}
+[2025-10-31T07:12:12.526Z] [36mDEBUG[0m: Respuesta de listarProveedores:
+[2025-10-31T07:12:12.527Z] [36mDEBUG[0m: Respuesta recibida (listarProveedores):
+[2025-10-31T07:12:12.527Z] [36mDEBUG[0m: {
+  "proveedorListResponse": {
+    "proveedores": {
+      "proveedor": [
+        {
+          "id": 1,
+          "nombre": "Distribuidora Central",
+          "contacto": "Juan Pérez",
+          "telefono": "555-0101",
+          "email": "ventas@distcentral.com",
+          "direccion": "Av. Industrial 123"
+        },
+        {
+          "id": 2,
+          "nombre": "Ferretería Mayorista",
+          "contacto": "María García",
+          "telefono": "555-0102",
+          "email": "pedidos@ferremayorista.com",
+          "direccion": "Calle Comercio 456"
+        },
+        {
+          "id": 3,
+          "nombre": "Suministros Técnicos",
+          "contacto": "Carlos López",
+          "telefono": "555-0103",
+          "email": "info@sumtecnicos.com",
+          "direccion": "Zona Industrial Norte"
+        }
+      ]
+    }
+  }
+}
+[2025-10-31T07:12:12.528Z] [36mDEBUG[0m: 
+=== INICIO RESPUESTA [2025-10-31T07:12:12.528Z] ===
+[2025-10-31T07:12:12.529Z] [36mDEBUG[0m: Operación: No especificada
+[2025-10-31T07:12:12.532Z] [36mSUCCESS[0m: ✅ Operación completada exitosamente
+[2025-10-31T07:12:12.533Z] [36mDEBUG[0m: 
+📊 Metadatos adicionales:
+[2025-10-31T07:12:12.534Z] [36mDEBUG[0m: proveedorListResponse:
+[2025-10-31T07:12:12.534Z] [36mDEBUG[0m:   proveedores:
+[2025-10-31T07:12:12.534Z] [36mDEBUG[0m:     proveedor:
+[2025-10-31T07:12:12.535Z] [36mDEBUG[0m:       [0]:
+[2025-10-31T07:12:12.535Z] [36mDEBUG[0m:         id: 1
+[2025-10-31T07:12:12.536Z] [36mDEBUG[0m:         nombre: Distribuidora Central
+[2025-10-31T07:12:12.536Z] [36mDEBUG[0m:         contacto: Juan Pérez
+[2025-10-31T07:12:12.537Z] [36mDEBUG[0m:         telefono: 555-0101
+[2025-10-31T07:12:12.537Z] [36mDEBUG[0m:         email: ventas@distcentral.com
+[2025-10-31T07:12:12.538Z] [36mDEBUG[0m:         direccion: Av. Industrial 123
+[2025-10-31T07:12:12.538Z] [36mDEBUG[0m:       [1]:
+[2025-10-31T07:12:12.538Z] [36mDEBUG[0m:         id: 2
+[2025-10-31T07:12:12.539Z] [36mDEBUG[0m:         nombre: Ferretería Mayorista
+[2025-10-31T07:12:12.539Z] [36mDEBUG[0m:         contacto: María García
+[2025-10-31T07:12:12.539Z] [36mDEBUG[0m:         telefono: 555-0102
+[2025-10-31T07:12:12.539Z] [36mDEBUG[0m:         email: pedidos@ferremayorista.com
+[2025-10-31T07:12:12.540Z] [36mDEBUG[0m:         direccion: Calle Comercio 456
+[2025-10-31T07:12:12.540Z] [36mDEBUG[0m:       [2]:
+[2025-10-31T07:12:12.540Z] [36mDEBUG[0m:         id: 3
+[2025-10-31T07:12:12.541Z] [36mDEBUG[0m:         nombre: Suministros Técnicos
+[2025-10-31T07:12:12.541Z] [36mDEBUG[0m:         contacto: Carlos López
+[2025-10-31T07:12:12.541Z] [36mDEBUG[0m:         telefono: 555-0103
+[2025-10-31T07:12:12.542Z] [36mDEBUG[0m:         email: info@sumtecnicos.com
+[2025-10-31T07:12:12.542Z] [36mDEBUG[0m:         direccion: Zona Industrial Norte
+[2025-10-31T07:12:12.542Z] [36mDEBUG[0m: === FIN RESPUESTA EXITOSA ===
+
+[2025-10-31T07:12:12.543Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T07:31:58.201Z] [INFO] Iniciando cliente SOAP
+[2025-10-31T07:31:58.205Z] [36mINFO[0m: Iniciando cliente SOAP...
+[2025-10-31T07:31:58.206Z] [36mINFO[0m: Conectando a: http://192.168.0.109:8080/InventarioService?wsdl
+[2025-10-31T07:32:10.639Z] [36mINFO[0m: Autenticación configurada - Usuario: admin, Rol: ADMIN
+[2025-10-31T07:32:10.640Z] [36mINFO[0m: Verificando disponibilidad del servidor...
+[2025-10-31T07:32:12.668Z] [36mWARN[0m: ⚠️ El servidor puede no estar disponible o responder lentamente
+[2025-10-31T07:32:14.700Z] [31mERROR[0m: Error conectando al servicio: connect ECONNREFUSED 192.168.0.109:8080
+[2025-10-31T07:32:14.702Z] [31mERROR[0m: - Verifica que el servidor esté corriendo en: http://192.168.0.109:8080/InventarioService?wsdl
+[2025-10-31T07:32:14.704Z] [31mERROR[0m: - Detalles del error: {
+  "message": "connect ECONNREFUSED 192.168.0.109:8080",
+  "name": "Error",
+  "stack": "Error: connect ECONNREFUSED 192.168.0.109:8080\n    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1636:16)",
+  "config": {
+    "url": "http://192.168.0.109:8080/InventarioService?wsdl",
+    "method": "get",
+    "data": null,
+    "headers": {
+      "Accept": "text/html,application/xhtml+xml,application/xml,text/xml;q=0.9,*/*;q=0.8",
+      "User-Agent": "Node-SOAP-Client",
+      "Accept-Encoding": "none",
+      "Accept-Charset": "utf-8",
+      "Connection": "keep-alive",
+      "Host": "192.168.0.109:8080",
+      "Authorization": "Basic YWRtaW46YWRtaW4xMjM="
+    },
+    "transformRequest": [
+      null
+    ],
+    "timeout": 30000,
+    "xsrfCookieName": "XSRF-TOKEN",
+    "xsrfHeaderName": "X-XSRF-TOKEN",
+    "maxContentLength": null,
+    "maxBodyLength": null,
+    "validateStatus": null,
+    "transitional": {
+      "silentJSONParsing": true,
+      "forcedJSONParsing": true,
+      "clarifyTimeoutError": false
+    },
+    "rejectUnauthorized": false,
+    "strictSSL": false,
+    "forever": false,
+    "pool": false
+  },
+  "code": "ECONNREFUSED"
+}
+[2025-10-31T07:33:26.679Z] [INFO] Iniciando cliente SOAP
+[2025-10-31T07:33:26.683Z] [36mINFO[0m: Iniciando cliente SOAP...
+[2025-10-31T07:33:26.684Z] [36mINFO[0m: Conectando a: http://192.168.0.109:8080/InventarioService?wsdl
+[2025-10-31T07:33:28.237Z] [36mINFO[0m: Autenticación configurada - Usuario: admin, Rol: ADMIN
+[2025-10-31T07:33:28.238Z] [36mINFO[0m: Verificando disponibilidad del servidor...
+[2025-10-31T07:33:28.536Z] [36mSUCCESS[0m: Conexión exitosa al servicio SOAP
+[2025-10-31T07:33:28.537Z] [36mINFO[0m: Operaciones disponibles:
+[2025-10-31T07:33:28.538Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T07:33:28.538Z] [36mINFO[0m: - listarProveedores
+[2025-10-31T07:33:28.539Z] [36mINFO[0m: - actualizarStock
+[2025-10-31T07:33:28.539Z] [36mINFO[0m: - listarCategorias
+[2025-10-31T07:33:28.540Z] [36mINFO[0m: - consultarArticulo
+[2025-10-31T07:33:28.540Z] [36mINFO[0m: - verificarEstado
+[2025-10-31T07:33:28.540Z] [36mINFO[0m: - insertarArticulo
+[2025-10-31T07:33:28.541Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T07:33:36.930Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T07:33:42.233Z] [36mINFO[0m: Autenticación configurada - Usuario: operador, Rol: OPERADOR
+[2025-10-31T07:33:42.235Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T07:36:49.997Z] [36mINFO[0m: Autenticación configurada - Usuario: operador, Rol: OPERADOR
+[2025-10-31T07:36:49.998Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T07:40:03.305Z] [INFO] Iniciando cliente SOAP
+[2025-10-31T07:40:03.308Z] [36mINFO[0m: Iniciando cliente SOAP...
+[2025-10-31T07:40:03.308Z] [36mINFO[0m: Conectando a: http://192.168.0.109:8080/InventarioService?wsdl
+[2025-10-31T07:40:31.834Z] [36mINFO[0m: Autenticación configurada - Usuario: admin, Rol: ADMIN
+[2025-10-31T07:40:31.834Z] [36mINFO[0m: Verificando disponibilidad del servidor...
+[2025-10-31T07:40:32.129Z] [36mSUCCESS[0m: Conexión exitosa al servicio SOAP
+[2025-10-31T07:40:32.130Z] [36mINFO[0m: Operaciones disponibles:
+[2025-10-31T07:40:32.131Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T07:40:32.132Z] [36mINFO[0m: - obtenerCriteriosContrasena
+[2025-10-31T07:40:32.133Z] [36mINFO[0m: - consultarArticulo
+[2025-10-31T07:40:32.134Z] [36mINFO[0m: - verificarEstado
+[2025-10-31T07:40:32.134Z] [36mINFO[0m: - listarProveedores
+[2025-10-31T07:40:32.135Z] [36mINFO[0m: - actualizarStock
+[2025-10-31T07:40:32.136Z] [36mINFO[0m: - listarCategorias
+[2025-10-31T07:40:32.136Z] [36mINFO[0m: - insertarArticulo
+[2025-10-31T07:40:32.137Z] [36mINFO[0m: - cambiarContrasena
+[2025-10-31T07:40:32.139Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T07:40:47.241Z] [36mINFO[0m: 
+Iniciando operación: cambiarContrasena
+[2025-10-31T07:40:47.242Z] [36mWARN[0m: Operación no implementada: cambiarContrasena
+[2025-10-31T07:40:47.244Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T07:40:54.250Z] [36mINFO[0m: 
+Iniciando operación: cambiarContrasena
+[2025-10-31T07:40:54.251Z] [36mWARN[0m: Operación no implementada: cambiarContrasena
+[2025-10-31T07:40:54.253Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T07:41:57.449Z] [INFO] Iniciando cliente SOAP
+[2025-10-31T07:41:57.454Z] [36mINFO[0m: Iniciando cliente SOAP...
+[2025-10-31T07:41:57.454Z] [36mINFO[0m: Conectando a: http://192.168.0.109:8080/InventarioService?wsdl
+[2025-10-31T07:44:58.354Z] [INFO] Iniciando cliente SOAP
+[2025-10-31T07:44:58.357Z] [36mINFO[0m: Iniciando cliente SOAP...
+[2025-10-31T07:44:58.357Z] [36mINFO[0m: Conectando a: http://192.168.0.109:8080/InventarioService?wsdl
+[2025-10-31T07:47:34.081Z] [INFO] Iniciando cliente SOAP
+[2025-10-31T07:47:34.083Z] [36mINFO[0m: Iniciando cliente SOAP...
+[2025-10-31T07:47:34.084Z] [36mINFO[0m: Conectando a: http://192.168.0.109:8080/InventarioService?wsdl
+[2025-10-31T07:47:37.109Z] [36mINFO[0m: Autenticación configurada - Usuario: admin, Rol: ADMIN
+[2025-10-31T07:47:37.110Z] [36mINFO[0m: Verificando disponibilidad del servidor...
+[2025-10-31T07:47:39.168Z] [36mWARN[0m: ⚠️ El servidor puede no estar disponible o responder lentamente
+[2025-10-31T07:47:41.225Z] [31mERROR[0m: Error conectando al servicio: connect ECONNREFUSED 192.168.0.109:8080
+[2025-10-31T07:47:41.227Z] [31mERROR[0m: - Verifica que el servidor esté corriendo en: http://192.168.0.109:8080/InventarioService?wsdl
+[2025-10-31T07:47:41.228Z] [31mERROR[0m: - Detalles del error: {
+  "message": "connect ECONNREFUSED 192.168.0.109:8080",
+  "name": "Error",
+  "stack": "Error: connect ECONNREFUSED 192.168.0.109:8080\n    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1636:16)",
+  "config": {
+    "url": "http://192.168.0.109:8080/InventarioService?wsdl",
+    "method": "get",
+    "data": null,
+    "headers": {
+      "Accept": "text/html,application/xhtml+xml,application/xml,text/xml;q=0.9,*/*;q=0.8",
+      "User-Agent": "Node-SOAP-Client",
+      "Accept-Encoding": "none",
+      "Accept-Charset": "utf-8",
+      "Connection": "keep-alive",
+      "Host": "192.168.0.109:8080",
+      "Authorization": "Basic YWRtaW46RmVycmV0QWRtaW4yMDI0JA=="
+    },
+    "transformRequest": [
+      null
+    ],
+    "timeout": 30000,
+    "xsrfCookieName": "XSRF-TOKEN",
+    "xsrfHeaderName": "X-XSRF-TOKEN",
+    "maxContentLength": null,
+    "maxBodyLength": null,
+    "validateStatus": null,
+    "transitional": {
+      "silentJSONParsing": true,
+      "forcedJSONParsing": true,
+      "clarifyTimeoutError": false
+    },
+    "rejectUnauthorized": false,
+    "strictSSL": false,
+    "forever": false,
+    "pool": false
+  },
+  "code": "ECONNREFUSED"
+}
+[2025-10-31T07:48:02.215Z] [INFO] Iniciando cliente SOAP
+[2025-10-31T07:48:02.218Z] [36mINFO[0m: Iniciando cliente SOAP...
+[2025-10-31T07:48:02.219Z] [36mINFO[0m: Conectando a: http://192.168.0.109:8080/InventarioService?wsdl
+[2025-10-31T07:48:13.389Z] [36mINFO[0m: Autenticación configurada - Usuario: admin, Rol: ADMIN
+[2025-10-31T07:48:13.390Z] [36mINFO[0m: Verificando disponibilidad del servidor...
+[2025-10-31T07:48:13.695Z] [36mSUCCESS[0m: Conexión exitosa al servicio SOAP
+[2025-10-31T07:48:13.695Z] [36mINFO[0m: Operaciones disponibles:
+[2025-10-31T07:48:13.696Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T07:48:13.696Z] [36mINFO[0m: - obtenerCriteriosContrasena
+[2025-10-31T07:48:13.697Z] [36mINFO[0m: - verificarEstado
+[2025-10-31T07:48:13.698Z] [36mINFO[0m: - listarProveedores
+[2025-10-31T07:48:13.698Z] [36mINFO[0m: - actualizarStock
+[2025-10-31T07:48:13.699Z] [36mINFO[0m: - listarCategorias
+[2025-10-31T07:48:13.700Z] [36mINFO[0m: - cambiarContrasena
+[2025-10-31T07:48:13.700Z] [36mINFO[0m: - insertarArticulo
+[2025-10-31T07:48:13.702Z] [36mINFO[0m: - consultarArticulo
+[2025-10-31T07:48:13.705Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T07:52:25.304Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T07:56:47.909Z] [INFO] Iniciando cliente SOAP
+[2025-10-31T07:56:47.912Z] [36mINFO[0m: Iniciando cliente SOAP...
+[2025-10-31T07:56:47.913Z] [36mINFO[0m: Conectando a: http://192.168.0.109:8080/InventarioService?wsdl
+[2025-10-31T07:56:54.702Z] [36mINFO[0m: Autenticación configurada - Usuario: admin, Rol: ADMIN
+[2025-10-31T07:56:54.703Z] [36mINFO[0m: Verificando disponibilidad del servidor...
+[2025-10-31T07:56:54.963Z] [36mSUCCESS[0m: Conexión exitosa al servicio SOAP
+[2025-10-31T07:56:54.964Z] [36mINFO[0m: Operaciones disponibles:
+[2025-10-31T07:56:54.964Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T07:56:54.965Z] [36mINFO[0m: - obtenerCriteriosContrasena
+[2025-10-31T07:56:54.966Z] [36mINFO[0m: - verificarEstado
+[2025-10-31T07:56:54.967Z] [36mINFO[0m: - listarProveedores
+[2025-10-31T07:56:54.967Z] [36mINFO[0m: - actualizarStock
+[2025-10-31T07:56:54.968Z] [36mINFO[0m: - listarCategorias
+[2025-10-31T07:56:54.968Z] [36mINFO[0m: - cambiarContrasena
+[2025-10-31T07:56:54.969Z] [36mINFO[0m: - insertarArticulo
+[2025-10-31T07:56:54.969Z] [36mINFO[0m: - consultarArticulo
+[2025-10-31T07:56:54.971Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
