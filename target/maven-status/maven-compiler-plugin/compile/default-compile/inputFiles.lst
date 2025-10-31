@@ -1,15 +1,23 @@
-D:\SEMESTRE\Semestre Octu25 - Marzo 26\Apli-Distribuidas\PARCIAL 1\TALLER 1\INVENTARIO\src\main\java\com\ferreteria\inventario\model\Articulo.java
-D:\SEMESTRE\Semestre Octu25 - Marzo 26\Apli-Distribuidas\PARCIAL 1\TALLER 1\INVENTARIO\src\main\java\com\ferreteria\inventario\exception\ValidationException.java
-D:\SEMESTRE\Semestre Octu25 - Marzo 26\Apli-Distribuidas\PARCIAL 1\TALLER 1\INVENTARIO\src\main\java\com\ferreteria\inventario\dto\ArticuloDTO.java
-D:\SEMESTRE\Semestre Octu25 - Marzo 26\Apli-Distribuidas\PARCIAL 1\TALLER 1\INVENTARIO\src\main\java\com\ferreteria\inventario\exception\InventarioException.java
-D:\SEMESTRE\Semestre Octu25 - Marzo 26\Apli-Distribuidas\PARCIAL 1\TALLER 1\INVENTARIO\src\main\java\com\ferreteria\inventario\exception\ArticuloNotFoundException.java
-D:\SEMESTRE\Semestre Octu25 - Marzo 26\Apli-Distribuidas\PARCIAL 1\TALLER 1\INVENTARIO\src\main\java\com\ferreteria\inventario\ws\InventarioWebService.java
-D:\SEMESTRE\Semestre Octu25 - Marzo 26\Apli-Distribuidas\PARCIAL 1\TALLER 1\INVENTARIO\src\main\java\com\ferreteria\inventario\dto\RespuestaOperacion.java
-D:\SEMESTRE\Semestre Octu25 - Marzo 26\Apli-Distribuidas\PARCIAL 1\TALLER 1\INVENTARIO\src\main\java\com\ferreteria\inventario\model\Categoria.java
-D:\SEMESTRE\Semestre Octu25 - Marzo 26\Apli-Distribuidas\PARCIAL 1\TALLER 1\INVENTARIO\src\main\java\com\ferreteria\inventario\model\Proveedor.java
-D:\SEMESTRE\Semestre Octu25 - Marzo 26\Apli-Distribuidas\PARCIAL 1\TALLER 1\INVENTARIO\src\main\java\com\ferreteria\inventario\dao\ArticuloDAO.java
-D:\SEMESTRE\Semestre Octu25 - Marzo 26\Apli-Distribuidas\PARCIAL 1\TALLER 1\INVENTARIO\src\main\java\com\ferreteria\inventario\service\ArticuloValidator.java
-D:\SEMESTRE\Semestre Octu25 - Marzo 26\Apli-Distribuidas\PARCIAL 1\TALLER 1\INVENTARIO\src\main\java\com\ferreteria\inventario\util\ArticuloMapper.java
-D:\SEMESTRE\Semestre Octu25 - Marzo 26\Apli-Distribuidas\PARCIAL 1\TALLER 1\INVENTARIO\src\main\java\com\ferreteria\inventario\InventarioServer.java
-D:\SEMESTRE\Semestre Octu25 - Marzo 26\Apli-Distribuidas\PARCIAL 1\TALLER 1\INVENTARIO\src\main\java\com\ferreteria\inventario\config\DatabaseConfig.java
-D:\SEMESTRE\Semestre Octu25 - Marzo 26\Apli-Distribuidas\PARCIAL 1\TALLER 1\INVENTARIO\src\main\java\com\ferreteria\inventario\service\ArticuloService.java
+C:\Users\User\Desktop\Inventario_SOA\src\main\java\com\ferreteria\inventario\dao\ArticuloDAO.java
+C:\Users\User\Desktop\Inventario_SOA\src\main\java\com\ferreteria\inventario\service\ArticuloValidator.java
+C:\Users\User\Desktop\Inventario_SOA\src\main\java\com\ferreteria\inventario\util\ProveedorListAdapter.java
+C:\Users\User\Desktop\Inventario_SOA\src\main\java\com\ferreteria\inventario\model\Articulo.java
+C:\Users\User\Desktop\Inventario_SOA\src\main\java\com\ferreteria\inventario\util\ArticuloMapper.java
+C:\Users\User\Desktop\Inventario_SOA\src\main\java\com\ferreteria\inventario\dao\MovimientoInventarioDAO.java
+C:\Users\User\Desktop\Inventario_SOA\src\main\java\com\ferreteria\inventario\model\TipoMovimiento.java
+C:\Users\User\Desktop\Inventario_SOA\src\main\java\com\ferreteria\inventario\dto\RespuestaOperacion.java
+C:\Users\User\Desktop\Inventario_SOA\src\main\java\com\ferreteria\inventario\exception\ArticuloNotFoundException.java
+C:\Users\User\Desktop\Inventario_SOA\src\main\java\com\ferreteria\inventario\InventarioServer.java
+C:\Users\User\Desktop\Inventario_SOA\src\main\java\com\ferreteria\inventario\ws\InventarioWebService.java
+C:\Users\User\Desktop\Inventario_SOA\src\main\java\com\ferreteria\inventario\model\Categoria.java
+C:\Users\User\Desktop\Inventario_SOA\src\main\java\com\ferreteria\inventario\exception\InventarioException.java
+C:\Users\User\Desktop\Inventario_SOA\src\main\java\com\ferreteria\inventario\dao\CategoriaDAO.java
+C:\Users\User\Desktop\Inventario_SOA\src\main\java\com\ferreteria\inventario\exception\ValidationException.java
+C:\Users\User\Desktop\Inventario_SOA\src\main\java\com\ferreteria\inventario\dto\ProveedorListResponse.java
+C:\Users\User\Desktop\Inventario_SOA\src\main\java\com\ferreteria\inventario\config\DatabaseConfig.java
+C:\Users\User\Desktop\Inventario_SOA\src\main\java\com\ferreteria\inventario\dto\ArticuloDTO.java
+C:\Users\User\Desktop\Inventario_SOA\src\main\java\com\ferreteria\inventario\service\ArticuloService.java
+C:\Users\User\Desktop\Inventario_SOA\src\main\java\com\ferreteria\inventario\util\LocalDateTimeAdapter.java
+C:\Users\User\Desktop\Inventario_SOA\src\main\java\com\ferreteria\inventario\model\MovimientoInventario.java
+C:\Users\User\Desktop\Inventario_SOA\src\main\java\com\ferreteria\inventario\model\Proveedor.java
+C:\Users\User\Desktop\Inventario_SOA\src\main\java\com\ferreteria\inventario\dao\ProveedorDAO.java

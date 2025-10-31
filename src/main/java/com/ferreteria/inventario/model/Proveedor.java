@@ -1,19 +1,56 @@
 package com.ferreteria.inventario.model;
 
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlType;
+import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.time.LocalDateTime;
 import java.util.Objects;
+import com.ferreteria.inventario.util.LocalDateTimeAdapter;
 
 /**
  * Entidad que representa un proveedor de artículos
  */
-public class Proveedor {
+@XmlRootElement(name = "proveedor", namespace = "http://ws.inventario.ferreteria.com/")
+@XmlType(name = "proveedor", propOrder = {
+    "id", 
+    "nombre", 
+    "contacto", 
+    "telefono", 
+    "email", 
+    "direccion", 
+    "fechaCreacion", 
+    "fechaActualizacion"
+})
+@XmlAccessorType(XmlAccessType.FIELD)
+public class Proveedor implements java.io.Serializable {
+    private static final long serialVersionUID = 1L;
+    @XmlElement(required = true, nillable = false)
     private Integer id;
+    
+    @XmlElement(required = true, nillable = false)
     private String nombre;
+    
+    @XmlElement(required = false)
     private String contacto;
+    
+    @XmlElement(required = false)
     private String telefono;
+    
+    @XmlElement(required = false)
     private String email;
+    
+    @XmlElement(required = false)
     private String direccion;
+    
+    @XmlElement(required = false)
+    @XmlJavaTypeAdapter(LocalDateTimeAdapter.class)
     private LocalDateTime fechaCreacion;
+    
+    @XmlElement(required = false)
+    @XmlJavaTypeAdapter(LocalDateTimeAdapter.class)
     private LocalDateTime fechaActualizacion;
 
     // Constructor por defecto

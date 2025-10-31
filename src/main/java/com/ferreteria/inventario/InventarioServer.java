@@ -13,7 +13,10 @@ import org.slf4j.LoggerFactory;
 public class InventarioServer {
     
     private static final Logger logger = LoggerFactory.getLogger(InventarioServer.class);
-    private static final String SOAP_URL = "http://localhost:8080/InventarioService";
+    private static final String HOST = "0.0.0.0"; // Escucha en todas las interfaces de red
+    private static final int PORT = 8080;
+    private static final String CONTEXT = "/InventarioService";
+    private static final String SOAP_URL = "http://" + HOST + ":" + PORT + CONTEXT;
     
     public static void main(String[] args) {
         logger.info("=== SISTEMA DE INVENTARIO FERRETERÍA ===");
@@ -69,7 +72,15 @@ public class InventarioServer {
             InventarioWebService servicioSOAP = new InventarioWebService();
             
             // Publicar el endpoint SOAP
-            Endpoint endpoint = Endpoint.publish(SOAP_URL, servicioSOAP);
+            String serverUrl = "http://" + HOST + ":" + PORT + CONTEXT;
+            String localUrl = "http://localhost:" + PORT + CONTEXT;
+            
+            // Publicar el servicio
+            Endpoint endpoint = Endpoint.create(new InventarioWebService());
+            endpoint.publish(serverUrl);
+            
+            logger.info("Servicio publicado en: {}", serverUrl);
+            logger.info("Acceso local en: {}", localUrl);
             
             if (endpoint.isPublished()) {
                 logger.info("Servicio SOAP publicado exitosamente");
@@ -87,24 +98,25 @@ public class InventarioServer {
     
     private static void mostrarInformacionServidor() {
         logger.info("");
-        logger.info("===== SERVIDOR INICIADO EXITOSAMENTE =====");
-        logger.info("Servidor ejecutándose en: http://localhost:8080");
-        logger.info("Servicio SOAP: {}", SOAP_URL);
-        logger.info("WSDL disponible en: {}?wsdl", SOAP_URL);
-        logger.info("");
-        logger.info("Operaciones SOAP disponibles:");
-        logger.info("  • insertarArticulo    - Insertar nuevo artículo");
-        logger.info("  • consultarArticulo   - Consultar artículo por código");
-        logger.info("  • actualizarStock     - Actualizar stock de artículo");
-        logger.info("  • verificarEstado     - Verificar estado del servicio");
-        logger.info("");
-        logger.info("Herramientas de prueba recomendadas:");
-        logger.info("  • SoapUI - Para pruebas profesionales SOAP");
-        logger.info("  • Postman - Cliente REST/SOAP");
-        logger.info("  • Navegador web - Para ver el WSDL");
-        logger.info("");
-        logger.info("Para detener el servidor: Presiona Ctrl+C o detén desde NetBeans");
-        logger.info("===============================================");
+        logger.info("╔══════════════════════════════════════════════╗");
+        logger.info("║     SERVIDOR DE INVENTARIO INICIADO          ║");
+        logger.info("╠══════════════════════════════════════════════╣");
+        logger.info("║  • URL del Servidor: http://localhost:{}    ║", PORT);
+        logger.info("║  • Servicio SOAP: {}", String.format("%-25s", SOAP_URL) + "║");
+        logger.info("║  • WSDL: {}?wsdl", String.format("%-33s", SOAP_URL) + "║");
+        logger.info("╠══════════════════════════════════════════════╣");
+        logger.info("║         OPERACIONES DISPONIBLES:             ║");
+        logger.info("╠══════════════════════════════════════════════╣");
+        logger.info("║  • insertarArticulo    - Insertar nuevo artículo");
+        logger.info("║  • consultarArticulo   - Consultar artículo por código");
+        logger.info("║  • actualizarStock     - Actualizar stock de artículo");
+        logger.info("║  • listarCategorias    - Listar todas las categorías");
+        logger.info("║  • listarProveedores   - Listar todos los proveedores");
+        logger.info("║  • verificarEstado     - Verificar estado del servicio");
+        logger.info("╠══════════════════════════════════════════════╣");
+        logger.info("║  Para detener el servidor:                   ║");
+        logger.info("║  Presiona Ctrl+C o detén desde NetBeans      ║");
+        logger.info("╚══════════════════════════════════════════════╝");
         logger.info("");
     }
     

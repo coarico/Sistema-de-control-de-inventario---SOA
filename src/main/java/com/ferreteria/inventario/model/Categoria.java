@@ -1,16 +1,33 @@
 package com.ferreteria.inventario.model;
 
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlType;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
 /**
  * Entidad que representa una categoría de artículos
  */
+@XmlRootElement(name = "categoria")
+@XmlType(propOrder = {"id", "nombre", "descripcion", "fechaCreacion", "fechaActualizacion"})
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Categoria {
+    @XmlElement(required = true)
     private Integer id;
+    
+    @XmlElement(required = true)
     private String nombre;
+    
+    @XmlElement(required = false)
     private String descripcion;
+    
+    @XmlElement(required = false)
     private LocalDateTime fechaCreacion;
+    
+    @XmlElement(required = false)
     private LocalDateTime fechaActualizacion;
 
     // Constructor por defecto

@@ -7,15 +7,29 @@ import com.ferreteria.inventario.exception.InventarioException;
 import com.ferreteria.inventario.exception.ValidationException;
 import com.ferreteria.inventario.model.Articulo;
 import com.ferreteria.inventario.service.ArticuloService;
+import com.ferreteria.inventario.dao.CategoriaDAO;
+import com.ferreteria.inventario.dao.ProveedorDAO;
+import com.ferreteria.inventario.model.Categoria;
+import com.ferreteria.inventario.model.Proveedor;
+import com.ferreteria.inventario.dto.ProveedorListResponse;
 import com.ferreteria.inventario.util.ArticuloMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import jakarta.jws.WebMethod;
 import jakarta.jws.WebParam;
+import jakarta.jws.soap.SOAPBinding;
+import jakarta.jws.soap.SOAPBinding.Style;
+import jakarta.jws.soap.SOAPBinding.Use;
 import jakarta.jws.WebResult;
 import jakarta.jws.WebService;
-import jakarta.jws.soap.SOAPBinding;
+import jakarta.xml.ws.BindingType;
+import jakarta.xml.ws.soap.MTOM;
+import jakarta.xml.ws.soap.SOAPFaultException;
+import jakarta.activation.MimeType;
+import jakarta.xml.bind.annotation.XmlMimeType;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Servicio Web SOAP para la gestión de inventario de ferretería
@@ -26,17 +40,25 @@ import jakarta.jws.soap.SOAPBinding;
 @WebService(
     name = "InventarioWebService",
     serviceName = "InventarioService",
-    targetNamespace = "http://ws.inventario.ferreteria.com/",
-    portName = "InventarioPort"
+    portName = "InventarioPort",
+    targetNamespace = "http://ws.inventario.ferreteria.com/"
 )
-@SOAPBinding(style = SOAPBinding.Style.DOCUMENT, use = SOAPBinding.Use.LITERAL)
+@SOAPBinding(
+    style = SOAPBinding.Style.DOCUMENT,
+    use = SOAPBinding.Use.LITERAL,
+    parameterStyle = SOAPBinding.ParameterStyle.WRAPPED
+)
 public class InventarioWebService {
     
     private static final Logger logger = LoggerFactory.getLogger(InventarioWebService.class);
     private final ArticuloService articuloService;
+    private final CategoriaDAO categoriaDAO;
+    private final ProveedorDAO proveedorDAO;
 
     public InventarioWebService() {
         this.articuloService = new ArticuloService();
+        this.categoriaDAO = new CategoriaDAO();
+        this.proveedorDAO = new ProveedorDAO();
         logger.info("Servicio Web SOAP de Inventario inicializado");
     }
 
@@ -170,96 +192,213 @@ public class InventarioWebService {
         }
     }
 
-    /**
-     * Actualiza el stock de un artículo existente
-     * 
-     * @param codigo Código del artículo (requerido)
-     * @param nuevoStock Nuevo valor de stock (requerido, debe ser no negativo)
-     * @return RespuestaOperacion con el resultado de la operación
-     */
-    @WebMethod(operationName = "actualizarStock")
-    @WebResult(name = "respuesta")
-    public RespuestaOperacion actualizarStock(
-            @WebParam(name = "codigo") String codigo,
-            @WebParam(name = "nuevoStock") Integer nuevoStock) {
-
-        logger.info("SOAP: Solicitud de actualización de stock - Código: {}, Nuevo Stock: {}", 
-                   codigo, nuevoStock);
-
-        try {
-            // Primero consultar el artículo para obtener su ID
-            Articulo articulo = articuloService.consultarPorCodigo(codigo);
-
-            // Actualizar el stock
-            articuloService.actualizarStock(articulo.getId(), nuevoStock);
-
-            // Consultar el artículo actualizado
-            Articulo articuloActualizado = articuloService.consultarPorId(articulo.getId());
-            ArticuloDTO articuloDTO = ArticuloMapper.toDTO(articuloActualizado);
-
-            logger.info("SOAP: Stock actualizado exitosamente - Código: {}, Nuevo Stock: {}", 
-                       codigo, nuevoStock);
-
-            String mensaje = "Stock actualizado exitosamente. Nuevo stock: " + nuevoStock;
-            if (articuloActualizado.tieneStockBajo()) {
-                mensaje += " (ALERTA: Stock bajo)";
-            }
-
-            return RespuestaOperacion.exito(mensaje, articuloDTO);
-
-        } catch (ArticuloNotFoundException e) {
-            logger.info("SOAP: Artículo no encontrado para actualizar stock - Código: {}", codigo);
-            return RespuestaOperacion.error(e.getMessage(), e.getCodigo(), e.getTipoError());
-
-        } catch (ValidationException e) {
-            logger.warn("SOAP: Error de validación al actualizar stock: {}", e.getMessage());
-            return RespuestaOperacion.error(e.getMessage(), e.getCodigo(), e.getTipoError());
-
-        } catch (InventarioException e) {
-            logger.error("SOAP: Error de negocio al actualizar stock: {}", e.getMessage());
-            return RespuestaOperacion.error(e.getMessage(), e.getCodigo(), e.getTipoError());
-
-        } catch (Exception e) {
-            logger.error("SOAP: Error inesperado al actualizar stock", e);
-            return RespuestaOperacion.error(
-                "Error interno del servidor: " + e.getMessage(), 
-                "INTERNAL_ERROR", 
-                "SISTEMA"
-            );
-        }
-    }
 
     /**
-     * Verifica el estado del servicio web
-     * 
-     * @return RespuestaOperacion indicando si el servicio está operativo
+     * Obtiene la lista de todos los proveedores disponibles
+     * @return Lista de proveedores o lista vacía en caso de error
      */
-    @WebMethod(operationName = "verificarEstado")
-    @WebResult(name = "respuesta")
-    public RespuestaOperacion verificarEstado() {
-        logger.debug("SOAP: Verificación de estado del servicio");
+    @WebMethod(operationName = "listarProveedores")
+    @WebResult(name = "proveedorListResponse", targetNamespace = "http://ws.inventario.ferreteria.com/")
+    @XmlMimeType("application/xml")
+    public ProveedorListResponse listarProveedores() {
+        final String METHOD_NAME = "listarProveedores";
+        logger.info("SOAP: Iniciando operación {}", METHOD_NAME);
         
         try {
-            // Verificar conectividad con la base de datos
-            com.ferreteria.inventario.config.DatabaseConfig dbConfig = 
-                com.ferreteria.inventario.config.DatabaseConfig.getInstance();
+            // 1. Obtener lista de proveedores
+            logger.debug("Obteniendo lista de proveedores desde la base de datos...");
+            List<Proveedor> proveedores = proveedorDAO.listarTodos();
             
-            if (dbConfig.testConnection()) {
-                return RespuestaOperacion.exito("Servicio operativo - Base de datos conectada");
-            } else {
-                return RespuestaOperacion.error(
-                    "Servicio con problemas - Error de conectividad con base de datos", 
-                    "DB_CONNECTION_ERROR", 
-                    "INFRAESTRUCTURA"
-                );
+            // 2. Validar y preparar la respuesta
+            if (proveedores == null) {
+                logger.warn("La lista de proveedores retornó null");
+                proveedores = Collections.emptyList();
             }
+            
+            logger.info("SOAP: Se encontraron {} proveedores", proveedores.size());
+            
+            // 3. Log detallado (solo en modo debug)
+            logProveedores(proveedores);
+            
+            // 4. Crear y validar la respuesta
+            ProveedorListResponse response = new ProveedorListResponse(proveedores);
+            if (response.getProveedores() == null) {
+                logger.warn("La respuesta no puede contener una lista de proveedores nula");
+                response.setProveedores(Collections.emptyList());
+            }
+            
+            logger.debug("SOAP: {} - Respuesta preparada con {} proveedores", 
+                       METHOD_NAME, 
+                       response.getProveedores().size());
+            
+            return response;
+            
         } catch (Exception e) {
-            logger.error("SOAP: Error al verificar estado del servicio", e);
-            return RespuestaOperacion.error(
-                "Error al verificar estado del servicio: " + e.getMessage(), 
-                "SERVICE_CHECK_ERROR", 
-                "SISTEMA"
-            );
+            // 5. Manejo de errores
+            logger.error("Error en {}: {}", METHOD_NAME, e.getMessage(), e);
+            return new ProveedorListResponse(Collections.emptyList());
         }
     }
+    
+    /**
+     * Registra información detallada de los proveedores en el log (solo en modo debug)
+     */
+    private void logProveedores(List<Proveedor> proveedores) {
+        if (logger.isDebugEnabled() && proveedores != null && !proveedores.isEmpty()) {
+            logger.debug("=== DETALLE DE PROVEEDORES ENCONTRADOS ===");
+            for (int i = 0; i < Math.min(proveedores.size(), 5); i++) {
+                Proveedor p = proveedores.get(i);
+                logger.debug("Proveedor[{}] - ID: {}, Nombre: {}", i, p.getId(), p.getNombre());
+            }
+            if (proveedores.size() > 5) {
+                logger.debug("... y {} más", proveedores.size() - 5);
+            }
+        }
+    }
+    
+    /**
+     * Método obsoleto - Se mantiene para compatibilidad
+     * @deprecated Este método ya no se utiliza. Los errores ahora se manejan directamente en el método listarProveedores.
+     */
+    @Deprecated
+    private RespuestaOperacion<ProveedorListResponse> manejarErrorProveedores(
+            Exception e, String methodName) {
+        logger.warn("Se ha llamado al método manejarErrorProveedores que está obsoleto");
+        return RespuestaOperacion.error(
+            "Error interno del servidor: " + e.getMessage(),
+            "INTERNAL_ERROR",
+            "SISTEMA"
+        );
+    }
+
+    /**
+ * 
+ * @param codigo Código del artículo (requerido)
+ * @param nuevoStock Nuevo valor de stock (requerido, debe ser no negativo)
+ * @return RespuestaOperacion con el resultado de la operación
+ */
+@WebMethod(operationName = "actualizarStock")
+@WebResult(name = "respuesta")
+public RespuestaOperacion actualizarStock(
+        @WebParam(name = "codigo") String codigo,
+        @WebParam(name = "nuevoStock") Integer nuevoStock) {
+    
+    logger.info("Solicitud de actualización de stock - Código: {}, Nuevo Stock: {}", codigo, nuevoStock);
+    RespuestaOperacion respuesta = new RespuestaOperacion();
+    
+    try {
+        // Validaciones básicas
+        if (codigo == null || codigo.trim().isEmpty()) {
+            throw new ValidationException("El código del artículo es requerido");
+        }
+        
+        if (nuevoStock == null || nuevoStock < 0) {
+            throw new ValidationException("El stock debe ser un número no negativo");
+        }
+        
+        // Normalizar código
+        codigo = codigo.trim().toUpperCase();
+        
+        // Buscar el artículo
+        logger.debug("Buscando artículo con código: {}", codigo);
+        Articulo articulo = articuloService.consultarPorCodigo(codigo);
+
+        // Actualizar el stock
+        logger.debug("Actualizando stock del artículo ID: {} a {}", articulo.getId(), nuevoStock);
+        articuloService.actualizarStock(articulo.getId(), nuevoStock);
+
+        // Consultar el artículo actualizado
+        Articulo articuloActualizado = articuloService.consultarPorCodigo(codigo);
+        
+        // Configurar respuesta exitosa
+        respuesta = RespuestaOperacion.exito("Stock actualizado exitosamente", articuloActualizado);
+        
+        logger.info("Stock actualizado exitosamente para el artículo: {}", codigo);
+        
+    } catch (ArticuloNotFoundException e) {
+        String errorMsg = "Artículo no encontrado: " + codigo;
+        logger.error("SOAP: {}", errorMsg);
+        
+        respuesta = RespuestaOperacion.error(errorMsg, "ARTICULO_NO_ENCONTRADO", "NEGOCIO");
+    } catch (Exception e) {
+        String errorMsg = "Error inesperado: " + e.getMessage();
+        logger.error("SOAP: {}", errorMsg, e);
+        
+        respuesta = RespuestaOperacion.error(errorMsg, "ERROR_INTERNO", "SISTEMA");
+    }
+    
+    return respuesta;
+}
+
+/**
+ * Verifica el estado del servicio web
+ * 
+ * @return RespuestaOperacion indicando si el servicio está operativo
+ */
+@WebMethod(operationName = "verificarEstado")
+@WebResult(name = "respuesta")
+public RespuestaOperacion verificarEstado() {
+    logger.debug("SOAP: Verificación de estado del servicio");
+    
+    try {
+        // Verificar conectividad con la base de datos
+        com.ferreteria.inventario.config.DatabaseConfig dbConfig = 
+            com.ferreteria.inventario.config.DatabaseConfig.getInstance();
+        
+        if (dbConfig.testConnection()) {
+            return RespuestaOperacion.exito("Servicio operativo - Base de datos conectada");
+        } else {
+            return RespuestaOperacion.error(
+                "Servicio con problemas - Error de conectividad con base de datos", 
+                "DB_CONNECTION_ERROR", 
+                "INFRAESTRUCTURA"
+            );
+        }
+    } catch (Exception e) {
+        logger.error("SOAP: Error al verificar estado del servicio", e);
+        return RespuestaOperacion.error(
+            "Error al verificar estado del servicio: " + e.getMessage(), 
+            "SERVICE_CHECK_ERROR", 
+            "SISTEMA"
+        );
+    }
+}
+
+/**
+ * Obtiene la lista de todas las categorías disponibles
+ * @return Lista de categorías
+ */
+/**
+ * Obtiene la lista de todas las categorías disponibles
+ * @return RespuestaOperacion con la lista de categorías o mensaje de error
+ */
+@WebMethod(operationName = "listarCategorias")
+@WebResult(name = "respuesta")
+public RespuestaOperacion listarCategorias() {
+    logger.info("SOAP: Solicitando lista de categorías");
+    
+    RespuestaOperacion respuesta = new RespuestaOperacion();
+    
+    try {
+        List<Categoria> categorias = categoriaDAO.listarTodas();
+        logger.info("SOAP: Se encontraron {} categorías", categorias.size());
+        
+        // Configurar la respuesta manualmente
+        respuesta.setExitoso(true);
+        respuesta.setMensaje("Categorías obtenidas exitosamente");
+        respuesta.setDatos(categorias);
+        
+    } catch (Exception e) {
+        String errorMsg = "Error al obtener la lista de categorías: " + e.getMessage();
+        logger.error("SOAP: {}", errorMsg, e);
+        
+        respuesta.setExitoso(false);
+        respuesta.setMensaje(errorMsg);
+        respuesta.setCodigoError("CATEGORIAS_ERROR");
+        respuesta.setTipoError("NEGOCIO");
+    }
+    
+    return respuesta;
+}
+
 }

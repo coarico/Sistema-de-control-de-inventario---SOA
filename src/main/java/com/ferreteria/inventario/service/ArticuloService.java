@@ -8,6 +8,11 @@ import com.ferreteria.inventario.exception.ValidationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.ferreteria.inventario.dao.MovimientoInventarioDAO;
+import com.ferreteria.inventario.model.MovimientoInventario;
+import com.ferreteria.inventario.model.TipoMovimiento;
+
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
@@ -21,16 +26,19 @@ public class ArticuloService {
     
     private final ArticuloDAO articuloDAO;
     private final ArticuloValidator validator;
+    private final MovimientoInventarioDAO movimientoInventarioDAO;
 
     public ArticuloService() {
         this.articuloDAO = new ArticuloDAO();
         this.validator = new ArticuloValidator();
+        this.movimientoInventarioDAO = new MovimientoInventarioDAO();
     }
 
     // Constructor para inyección de dependencias (útil para testing)
-    public ArticuloService(ArticuloDAO articuloDAO, ArticuloValidator validator) {
+    public ArticuloService(ArticuloDAO articuloDAO, ArticuloValidator validator, MovimientoInventarioDAO movimientoInventarioDAO) {
         this.articuloDAO = articuloDAO;
         this.validator = validator;
+        this.movimientoInventarioDAO = movimientoInventarioDAO != null ? movimientoInventarioDAO : new MovimientoInventarioDAO();
     }
 
     /**
@@ -320,6 +328,119 @@ public class ArticuloService {
             logger.error("Error de base de datos al obtener artículos con stock bajo: {}", e.getMessage(), e);
             throw new InventarioException("ERROR_BD", "BASE_DATOS", 
                 "Error al acceder a la base de datos: " + e.getMessage(), e);
+        }
+    }
+
+    /**
+     * Actualiza el stock de un artículo y registra el movimiento
+     * @param idArticulo ID del artículo a actualizar
+     * @param cantidad Cantidad a sumar (positiva) o restar (negativa)
+     * @param motivo Motivo del movimiento (opcional)
+     * @param usuario Usuario que realiza el movimiento
+     * @return Artículo actualizado
+     */
+    public Articulo actualizarStockConMovimiento(Integer idArticulo, int cantidad, String motivo, String usuario) 
+            throws InventarioException {
+        logger.info("Actualizando stock del artículo ID: {} en {}", idArticulo, cantidad);
+        
+        if (idArticulo == null || idArticulo <= 0) {
+            throw new ValidationException("ID de artículo inválido");
+        }
+        
+        if (cantidad == 0) {
+            throw new ValidationException("La cantidad no puede ser cero");
+        }
+        
+        try {
+            // Obtener el artículo actual
+            Articulo articulo = articuloDAO.buscarPorId(idArticulo)
+                .orElseThrow(() -> new ArticuloNotFoundException(idArticulo));
+                
+            int stockAnterior = articulo.getStockActual();
+            int nuevoStock = stockAnterior + cantidad;
+            
+            // Validar que el stock no sea negativo
+            if (nuevoStock < 0) {
+                throw new ValidationException("Stock insuficiente. Stock actual: " + stockAnterior + ", Intento de retiro: " + (-cantidad));
+            }
+            
+            // Actualizar el stock
+            articulo.setStockActual(nuevoStock);
+            boolean actualizado = articuloDAO.actualizarStock(articulo.getId(), nuevoStock);
+            
+            if (!actualizado) {
+                throw new InventarioException("ERROR_ACTUALIZACION", "STOCK", 
+                    "No se pudo actualizar el stock del artículo ID: " + idArticulo);
+            }
+            
+            // Registrar el movimiento
+            MovimientoInventario movimiento = new MovimientoInventario();
+            movimiento.setArticuloId(articulo.getId());
+            movimiento.setTipoMovimiento(cantidad > 0 ? TipoMovimiento.ENTRADA : TipoMovimiento.SALIDA);
+            movimiento.setCantidad(Math.abs(cantidad));
+            movimiento.setStockAnterior(stockAnterior);
+            movimiento.setStockNuevo(nuevoStock);
+            movimiento.setMotivo(motivo);
+            movimiento.setUsuario(usuario);
+            
+            movimientoInventarioDAO.registrarMovimiento(movimiento);
+            
+            logger.info("Stock actualizado para artículo ID: {}. Stock anterior: {}, Cantidad: {}, Nuevo stock: {}", 
+                idArticulo, stockAnterior, cantidad, nuevoStock);
+                
+            // Verificar si el stock está bajo después de la actualización
+            if (articulo.tieneStockBajo()) {
+                logger.warn("ALERTA: El artículo {} tiene stock bajo después de la actualización. Stock actual: {}, Stock mínimo: {}", 
+                    articulo.getCodigo(), nuevoStock, articulo.getStockMinimo());
+            }
+            
+            return articulo;
+            
+        } catch (SQLException e) {
+            logger.error("Error al actualizar stock del artículo ID {}: {}", idArticulo, e.getMessage(), e);
+            throw new InventarioException("ERROR_BD", "STOCK", 
+                "Error al actualizar el stock: " + e.getMessage(), e);
+        }
+    }
+    
+    /**
+     * Registra una entrada de stock
+     */
+    public Articulo registrarEntradaStock(Integer idArticulo, int cantidad, String motivo, String usuario) 
+            throws InventarioException {
+        if (cantidad <= 0) {
+            throw new ValidationException("La cantidad de entrada debe ser mayor que cero");
+        }
+        return actualizarStockConMovimiento(idArticulo, cantidad, motivo, usuario);
+    }
+    
+    /**
+     * Registra una salida de stock
+     */
+    public Articulo registrarSalidaStock(Integer idArticulo, int cantidad, String motivo, String usuario) 
+            throws InventarioException {
+        if (cantidad <= 0) {
+            throw new ValidationException("La cantidad de salida debe ser mayor que cero");
+        }
+        return actualizarStockConMovimiento(idArticulo, -cantidad, motivo, usuario);
+    }
+    
+    /**
+     * Obtiene el historial de movimientos de un artículo
+     */
+    public List<MovimientoInventario> obtenerMovimientosArticulo(Integer idArticulo) throws InventarioException {
+        try {
+            // Verificar que el artículo existe
+            if (!articuloDAO.existePorId(idArticulo)) {
+                throw new ArticuloNotFoundException(idArticulo);
+            }
+            
+            return movimientoInventarioDAO.obtenerMovimientosPorArticulo(idArticulo);
+            
+        } catch (SQLException e) {
+            logger.error("Error al obtener movimientos del artículo ID {}: {}", idArticulo, e.getMessage(), e);
+            throw new InventarioException("ERROR_BD", "CONSULTA", 
+                "Error al obtener el historial de movimientos: " + e.getMessage(), e);
         }
     }
 

@@ -66,7 +66,10 @@ public class ArticuloDAO {
         "UPDATE articulos SET activo = FALSE, fecha_actualizacion = CURRENT_TIMESTAMP WHERE id = ?";
 
     private static final String EXISTS_BY_CODIGO = 
-        "SELECT COUNT(*) FROM articulos WHERE codigo = ? AND id != ?";
+        "SELECT COUNT(*) > 0 FROM articulos WHERE codigo = ? AND (? IS NULL OR id != ?)";
+
+    private static final String EXISTS_BY_ID = 
+        "SELECT COUNT(*) > 0 FROM articulos WHERE id = ?";
 
     private static final String SELECT_ARTICULOS_STOCK_BAJO = 
         "SELECT a.*, c.nombre as categoria_nombre, p.nombre as proveedor_nombre " +
@@ -315,6 +318,31 @@ public class ArticuloDAO {
         }
     }
 
+    /**
+     * Verifica si existe un artículo con el código dado (excluyendo el ID especificado)
+     */
+    /**
+     * Verifica si existe un artículo con el ID dado
+     * @param id ID del artículo a verificar
+     * @return true si existe, false en caso contrario
+     * @throws SQLException si ocurre un error de base de datos
+     */
+    public boolean existePorId(Integer id) throws SQLException {
+        if (id == null) {
+            return false;
+        }
+        
+        try (Connection connection = databaseConfig.getConnection();
+             PreparedStatement statement = connection.prepareStatement(EXISTS_BY_ID)) {
+            
+            statement.setInt(1, id);
+            
+            try (ResultSet resultSet = statement.executeQuery()) {
+                return resultSet.next() && resultSet.getBoolean(1);
+            }
+        }
+    }
+    
     /**
      * Verifica si existe un artículo con el código dado (excluyendo el ID especificado)
      */
