@@ -94,7 +94,13 @@ public class ArticuloDAO {
             
             statement.setString(1, articulo.getCodigo());
             statement.setString(2, articulo.getNombre());
-            statement.setString(3, articulo.getDescripcion());
+            // Asegurar que la descripción nunca sea null para evitar "No value specified for parameter 3"
+            String descripcion = articulo.getDescripcion();
+            if (descripcion == null) {
+                logger.warn("Descripción es null, estableciendo cadena vacía");
+                descripcion = "";
+            }
+            statement.setString(3, descripcion);
             statement.setObject(4, articulo.getCategoriaId());
             statement.setObject(5, articulo.getProveedorId());
             statement.setBigDecimal(6, articulo.getPrecioCompra());
@@ -351,7 +357,15 @@ public class ArticuloDAO {
              PreparedStatement statement = connection.prepareStatement(EXISTS_BY_CODIGO)) {
             
             statement.setString(1, codigo);
-            statement.setInt(2, excludeId != null ? excludeId : 0);
+            
+            // Manejar correctamente los parámetros 2 y 3 para excludeId
+            if (excludeId != null) {
+                statement.setInt(2, excludeId);
+                statement.setInt(3, excludeId);
+            } else {
+                statement.setNull(2, java.sql.Types.INTEGER);
+                statement.setNull(3, java.sql.Types.INTEGER);
+            }
             
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {

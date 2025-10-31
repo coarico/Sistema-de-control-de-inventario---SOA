@@ -457,8 +457,13 @@ public class ArticuloService {
         }
         
         if (articulo.getDescripcion() != null) {
+            logger.debug("NORMALIZAR: Descripción original: '{}'", articulo.getDescripcion());
             String descripcion = articulo.getDescripcion().trim();
+            logger.debug("NORMALIZAR: Descripción después de trim: '{}', length: {}", descripcion, descripcion.length());
             articulo.setDescripcion(descripcion.isEmpty() ? null : descripcion);
+            logger.debug("NORMALIZAR: Descripción final: '{}'", articulo.getDescripcion());
+        } else {
+            logger.debug("NORMALIZAR: Descripción es null");
         }
         
         // Asegurar valores por defecto

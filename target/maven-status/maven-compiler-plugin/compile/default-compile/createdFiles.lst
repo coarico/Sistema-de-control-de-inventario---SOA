@@ -10,6 +10,7 @@ com\ferreteria\inventario\model\Proveedor.class
 com\ferreteria\inventario\dao\ProveedorDAO.class
 com\ferreteria\inventario\dto\RespuestaOperacion.class
 com\ferreteria\inventario\util\ProveedorListAdapter$AdaptedList.class
+com\ferreteria\inventario\dto\StockUpdateResponse.class
 com\ferreteria\inventario\dto\CategoriaListResponse.class
 com\ferreteria\inventario\exception\ArticuloNotFoundException.class
 com\ferreteria\inventario\service\ArticuloValidator.class

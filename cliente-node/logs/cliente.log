@@ -903,3 +903,4033 @@ Iniciando operación: listarCategorias
 [2025-10-31T05:19:34.759Z] [31mERROR[0m: Error en listarCategorias: connect ECONNREFUSED 192.168.0.109:8080
 [2025-10-31T05:19:34.760Z] [36mDEBUG[0m: Detalles del error: {"name":"Error","message":"connect ECONNREFUSED 192.168.0.109:8080","code":"ECONNREFUSED","stack":"Error: connect ECONNREFUSED 192.168.0.109:8080\n    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1636:16)..."}
 [2025-10-31T05:19:34.761Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T05:21:57.479Z] [INFO] Iniciando cliente SOAP
+[2025-10-31T05:21:57.484Z] [36mINFO[0m: Iniciando cliente SOAP...
+[2025-10-31T05:21:57.484Z] [36mINFO[0m: Conectando a: http://192.168.0.109:8080/InventarioService?wsdl
+[2025-10-31T05:21:57.847Z] [36mSUCCESS[0m: Conexión exitosa al servicio SOAP
+[2025-10-31T05:21:57.849Z] [36mINFO[0m: Operaciones disponibles:
+[2025-10-31T05:21:57.851Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T05:21:57.853Z] [36mINFO[0m: - listarProveedores
+[2025-10-31T05:21:57.854Z] [36mINFO[0m: - actualizarStock
+[2025-10-31T05:21:57.856Z] [36mINFO[0m: - verificarEstado
+[2025-10-31T05:21:57.858Z] [36mINFO[0m: - listarCategorias
+[2025-10-31T05:21:57.859Z] [36mINFO[0m: - consultarArticulo
+[2025-10-31T05:21:57.860Z] [36mINFO[0m: - insertarArticulo
+[2025-10-31T05:21:57.862Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T05:21:59.864Z] [36mINFO[0m: 
+Iniciando operación: listarProveedores
+[2025-10-31T05:21:59.865Z] [36mINFO[0m: Obteniendo lista de proveedores...
+[2025-10-31T05:21:59.866Z] [36mDEBUG[0m: Enviando petición SOAP: listarProveedores
+[2025-10-31T05:21:59.867Z] [36mDEBUG[0m: Argumentos: {}
+[2025-10-31T05:21:59.999Z] [36mDEBUG[0m: Respuesta de listarProveedores:
+[2025-10-31T05:22:00.000Z] [36mDEBUG[0m: Respuesta recibida (listarProveedores):
+[2025-10-31T05:22:00.001Z] [36mDEBUG[0m: {
+  "proveedorListResponse": {
+    "proveedores": {
+      "proveedor": [
+        {
+          "id": 1,
+          "nombre": "Distribuidora Central",
+          "contacto": "Juan Pérez",
+          "telefono": "555-0101",
+          "email": "ventas@distcentral.com",
+          "direccion": "Av. Industrial 123"
+        },
+        {
+          "id": 2,
+          "nombre": "Ferretería Mayorista",
+          "contacto": "María García",
+          "telefono": "555-0102",
+          "email": "pedidos@ferremayorista.com",
+          "direccion": "Calle Comercio 456"
+        },
+        {
+          "id": 3,
+          "nombre": "Suministros Técnicos",
+          "contacto": "Carlos López",
+          "telefono": "555-0103",
+          "email": "info@sumtecnicos.com",
+          "direccion": "Zona Industrial Norte"
+        }
+      ]
+    }
+  }
+}
+[2025-10-31T05:22:00.002Z] [36mDEBUG[0m: 
+=== INICIO RESPUESTA [2025-10-31T05:22:00.002Z] ===
+[2025-10-31T05:22:00.003Z] [36mDEBUG[0m: Operación: No especificada
+[2025-10-31T05:22:00.010Z] [36mSUCCESS[0m: ✅ Operación completada exitosamente
+[2025-10-31T05:22:00.011Z] [36mDEBUG[0m: 
+📊 Metadatos adicionales:
+[2025-10-31T05:22:00.011Z] [36mDEBUG[0m: proveedorListResponse:
+[2025-10-31T05:22:00.012Z] [36mDEBUG[0m:   proveedores:
+[2025-10-31T05:22:00.013Z] [36mDEBUG[0m:     proveedor:
+[2025-10-31T05:22:00.014Z] [36mDEBUG[0m:       [0]:
+[2025-10-31T05:22:00.015Z] [36mDEBUG[0m:         id: 1
+[2025-10-31T05:22:00.016Z] [36mDEBUG[0m:         nombre: Distribuidora Central
+[2025-10-31T05:22:00.017Z] [36mDEBUG[0m:         contacto: Juan Pérez
+[2025-10-31T05:22:00.017Z] [36mDEBUG[0m:         telefono: 555-0101
+[2025-10-31T05:22:00.018Z] [36mDEBUG[0m:         email: ventas@distcentral.com
+[2025-10-31T05:22:00.019Z] [36mDEBUG[0m:         direccion: Av. Industrial 123
+[2025-10-31T05:22:00.020Z] [36mDEBUG[0m:       [1]:
+[2025-10-31T05:22:00.020Z] [36mDEBUG[0m:         id: 2
+[2025-10-31T05:22:00.022Z] [36mDEBUG[0m:         nombre: Ferretería Mayorista
+[2025-10-31T05:22:00.022Z] [36mDEBUG[0m:         contacto: María García
+[2025-10-31T05:22:00.023Z] [36mDEBUG[0m:         telefono: 555-0102
+[2025-10-31T05:22:00.023Z] [36mDEBUG[0m:         email: pedidos@ferremayorista.com
+[2025-10-31T05:22:00.024Z] [36mDEBUG[0m:         direccion: Calle Comercio 456
+[2025-10-31T05:22:00.025Z] [36mDEBUG[0m:       [2]:
+[2025-10-31T05:22:00.026Z] [36mDEBUG[0m:         id: 3
+[2025-10-31T05:22:00.026Z] [36mDEBUG[0m:         nombre: Suministros Técnicos
+[2025-10-31T05:22:00.027Z] [36mDEBUG[0m:         contacto: Carlos López
+[2025-10-31T05:22:00.028Z] [36mDEBUG[0m:         telefono: 555-0103
+[2025-10-31T05:22:00.029Z] [36mDEBUG[0m:         email: info@sumtecnicos.com
+[2025-10-31T05:22:00.029Z] [36mDEBUG[0m:         direccion: Zona Industrial Norte
+[2025-10-31T05:22:00.030Z] [36mDEBUG[0m: === FIN RESPUESTA EXITOSA ===
+
+[2025-10-31T05:22:00.031Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T05:22:07.332Z] [36mINFO[0m: 
+Iniciando operación: listarCategorias
+[2025-10-31T05:22:07.333Z] [36mINFO[0m: Obteniendo lista de categorías...
+[2025-10-31T05:22:07.334Z] [36mDEBUG[0m: Enviando petición SOAP: listarCategorias
+[2025-10-31T05:22:07.335Z] [36mDEBUG[0m: Argumentos: {}
+[2025-10-31T05:22:07.351Z] [36mDEBUG[0m: Respuesta de listarCategorias:
+[2025-10-31T05:22:07.352Z] [36mDEBUG[0m: Respuesta recibida (listarCategorias):
+[2025-10-31T05:22:07.354Z] [36mDEBUG[0m: {
+  "categoriaListResponse": {
+    "categorias": {
+      "categoria": [
+        {
+          "id": 3,
+          "nombre": "Electricidad",
+          "descripcion": "Cables, interruptores, enchufes, etc."
+        },
+        {
+          "id": 2,
+          "nombre": "Ferretería General",
+          "descripcion": "Tornillos, tuercas, clavos, etc."
+        },
+        {
+          "id": 1,
+          "nombre": "Herramientas Manuales",
+          "descripcion": "Martillos, destornilladores, llaves, etc."
+        },
+        {
+          "id": 5,
+          "nombre": "Pintura",
+          "descripcion": "Pinturas, brochas, rodillos, etc."
+        },
+        {
+          "id": 4,
+          "nombre": "Plomería",
+          "descripcion": "Tuberías, llaves, accesorios de baño, etc."
+        }
+      ]
+    }
+  }
+}
+[2025-10-31T05:22:07.355Z] [36mDEBUG[0m: 
+=== INICIO RESPUESTA [2025-10-31T05:22:07.355Z] ===
+[2025-10-31T05:22:07.356Z] [36mDEBUG[0m: Operación: No especificada
+[2025-10-31T05:22:07.360Z] [36mSUCCESS[0m: ✅ Operación completada exitosamente
+[2025-10-31T05:22:07.361Z] [36mDEBUG[0m: 
+📊 Metadatos adicionales:
+[2025-10-31T05:22:07.362Z] [36mDEBUG[0m: categoriaListResponse:
+[2025-10-31T05:22:07.362Z] [36mDEBUG[0m:   categorias:
+[2025-10-31T05:22:07.363Z] [36mDEBUG[0m:     categoria:
+[2025-10-31T05:22:07.363Z] [36mDEBUG[0m:       [0]:
+[2025-10-31T05:22:07.364Z] [36mDEBUG[0m:         id: 3
+[2025-10-31T05:22:07.364Z] [36mDEBUG[0m:         nombre: Electricidad
+[2025-10-31T05:22:07.365Z] [36mDEBUG[0m:         descripcion: Cables, interruptores, enchufes, etc.
+[2025-10-31T05:22:07.366Z] [36mDEBUG[0m:       [1]:
+[2025-10-31T05:22:07.366Z] [36mDEBUG[0m:         id: 2
+[2025-10-31T05:22:07.367Z] [36mDEBUG[0m:         nombre: Ferretería General
+[2025-10-31T05:22:07.367Z] [36mDEBUG[0m:         descripcion: Tornillos, tuercas, clavos, etc.
+[2025-10-31T05:22:07.368Z] [36mDEBUG[0m:       [2]:
+[2025-10-31T05:22:07.368Z] [36mDEBUG[0m:         id: 1
+[2025-10-31T05:22:07.369Z] [36mDEBUG[0m:         nombre: Herramientas Manuales
+[2025-10-31T05:22:07.369Z] [36mDEBUG[0m:         descripcion: Martillos, destornilladores, llaves, etc.
+[2025-10-31T05:22:07.371Z] [36mDEBUG[0m:       [3]:
+[2025-10-31T05:22:07.372Z] [36mDEBUG[0m:         id: 5
+[2025-10-31T05:22:07.373Z] [36mDEBUG[0m:         nombre: Pintura
+[2025-10-31T05:22:07.373Z] [36mDEBUG[0m:         descripcion: Pinturas, brochas, rodillos, etc.
+[2025-10-31T05:22:07.374Z] [36mDEBUG[0m:       [4]:
+[2025-10-31T05:22:07.375Z] [36mDEBUG[0m:         id: 4
+[2025-10-31T05:22:07.375Z] [36mDEBUG[0m:         nombre: Plomería
+[2025-10-31T05:22:07.376Z] [36mDEBUG[0m:         descripcion: Tuberías, llaves, accesorios de baño, etc.
+[2025-10-31T05:22:07.377Z] [36mDEBUG[0m: === FIN RESPUESTA EXITOSA ===
+
+[2025-10-31T05:22:07.377Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T05:22:21.312Z] [36mINFO[0m: 
+Iniciando operación: actualizarStock
+[2025-10-31T05:22:21.313Z] [36mWARN[0m: Operación no implementada: actualizarStock
+[2025-10-31T05:22:21.314Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T05:24:08.343Z] [INFO] Iniciando cliente SOAP
+[2025-10-31T05:24:08.349Z] [36mINFO[0m: Iniciando cliente SOAP...
+[2025-10-31T05:24:08.350Z] [36mINFO[0m: Conectando a: http://192.168.0.109:8080/InventarioService?wsdl
+[2025-10-31T05:24:08.576Z] [36mSUCCESS[0m: Conexión exitosa al servicio SOAP
+[2025-10-31T05:24:08.577Z] [36mINFO[0m: Operaciones disponibles:
+[2025-10-31T05:24:08.579Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T05:24:08.581Z] [36mINFO[0m: - listarProveedores
+[2025-10-31T05:24:08.582Z] [36mINFO[0m: - actualizarStock
+[2025-10-31T05:24:08.584Z] [36mINFO[0m: - verificarEstado
+[2025-10-31T05:24:08.585Z] [36mINFO[0m: - listarCategorias
+[2025-10-31T05:24:08.586Z] [36mINFO[0m: - consultarArticulo
+[2025-10-31T05:24:08.587Z] [36mINFO[0m: - insertarArticulo
+[2025-10-31T05:24:08.592Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T05:24:11.008Z] [36mINFO[0m: 
+Iniciando operación: actualizarStock
+[2025-10-31T05:24:11.010Z] [36mINFO[0m: Actualizando stock de artículo...
+[2025-10-31T05:24:20.214Z] [36mINFO[0m: Actualizando stock del artículo MART001 a 56 unidades
+[2025-10-31T05:24:20.298Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T05:26:44.603Z] [36mINFO[0m: 
+Iniciando operación: listarProveedores
+[2025-10-31T05:26:44.605Z] [36mINFO[0m: Obteniendo lista de proveedores...
+[2025-10-31T05:26:44.606Z] [36mDEBUG[0m: Enviando petición SOAP: listarProveedores
+[2025-10-31T05:26:44.607Z] [36mDEBUG[0m: Argumentos: {}
+[2025-10-31T05:26:44.626Z] [36mDEBUG[0m: Respuesta de listarProveedores:
+[2025-10-31T05:26:44.628Z] [36mDEBUG[0m: Respuesta recibida (listarProveedores):
+[2025-10-31T05:26:44.629Z] [36mDEBUG[0m: {
+  "proveedorListResponse": {
+    "proveedores": {
+      "proveedor": [
+        {
+          "id": 1,
+          "nombre": "Distribuidora Central",
+          "contacto": "Juan Pérez",
+          "telefono": "555-0101",
+          "email": "ventas@distcentral.com",
+          "direccion": "Av. Industrial 123"
+        },
+        {
+          "id": 2,
+          "nombre": "Ferretería Mayorista",
+          "contacto": "María García",
+          "telefono": "555-0102",
+          "email": "pedidos@ferremayorista.com",
+          "direccion": "Calle Comercio 456"
+        },
+        {
+          "id": 3,
+          "nombre": "Suministros Técnicos",
+          "contacto": "Carlos López",
+          "telefono": "555-0103",
+          "email": "info@sumtecnicos.com",
+          "direccion": "Zona Industrial Norte"
+        }
+      ]
+    }
+  }
+}
+[2025-10-31T05:26:44.631Z] [36mDEBUG[0m: 
+=== INICIO RESPUESTA [2025-10-31T05:26:44.631Z] ===
+[2025-10-31T05:26:44.632Z] [36mDEBUG[0m: Operación: No especificada
+[2025-10-31T05:26:44.637Z] [36mSUCCESS[0m: ✅ Operación completada exitosamente
+[2025-10-31T05:26:44.638Z] [36mDEBUG[0m: 
+📊 Metadatos adicionales:
+[2025-10-31T05:26:44.639Z] [36mDEBUG[0m: proveedorListResponse:
+[2025-10-31T05:26:44.639Z] [36mDEBUG[0m:   proveedores:
+[2025-10-31T05:26:44.640Z] [36mDEBUG[0m:     proveedor:
+[2025-10-31T05:26:44.640Z] [36mDEBUG[0m:       [0]:
+[2025-10-31T05:26:44.641Z] [36mDEBUG[0m:         id: 1
+[2025-10-31T05:26:44.642Z] [36mDEBUG[0m:         nombre: Distribuidora Central
+[2025-10-31T05:26:44.642Z] [36mDEBUG[0m:         contacto: Juan Pérez
+[2025-10-31T05:26:44.643Z] [36mDEBUG[0m:         telefono: 555-0101
+[2025-10-31T05:26:44.643Z] [36mDEBUG[0m:         email: ventas@distcentral.com
+[2025-10-31T05:26:44.644Z] [36mDEBUG[0m:         direccion: Av. Industrial 123
+[2025-10-31T05:26:44.644Z] [36mDEBUG[0m:       [1]:
+[2025-10-31T05:26:44.645Z] [36mDEBUG[0m:         id: 2
+[2025-10-31T05:26:44.646Z] [36mDEBUG[0m:         nombre: Ferretería Mayorista
+[2025-10-31T05:26:44.646Z] [36mDEBUG[0m:         contacto: María García
+[2025-10-31T05:26:44.647Z] [36mDEBUG[0m:         telefono: 555-0102
+[2025-10-31T05:26:44.648Z] [36mDEBUG[0m:         email: pedidos@ferremayorista.com
+[2025-10-31T05:26:44.648Z] [36mDEBUG[0m:         direccion: Calle Comercio 456
+[2025-10-31T05:26:44.649Z] [36mDEBUG[0m:       [2]:
+[2025-10-31T05:26:44.649Z] [36mDEBUG[0m:         id: 3
+[2025-10-31T05:26:44.650Z] [36mDEBUG[0m:         nombre: Suministros Técnicos
+[2025-10-31T05:26:44.650Z] [36mDEBUG[0m:         contacto: Carlos López
+[2025-10-31T05:26:44.651Z] [36mDEBUG[0m:         telefono: 555-0103
+[2025-10-31T05:26:44.652Z] [36mDEBUG[0m:         email: info@sumtecnicos.com
+[2025-10-31T05:26:44.653Z] [36mDEBUG[0m:         direccion: Zona Industrial Norte
+[2025-10-31T05:26:44.654Z] [36mDEBUG[0m: === FIN RESPUESTA EXITOSA ===
+
+[2025-10-31T05:26:44.655Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T05:27:05.757Z] [INFO] Iniciando cliente SOAP
+[2025-10-31T05:27:05.765Z] [36mINFO[0m: Iniciando cliente SOAP...
+[2025-10-31T05:27:05.766Z] [36mINFO[0m: Conectando a: http://192.168.0.109:8080/InventarioService?wsdl
+[2025-10-31T05:27:05.992Z] [36mSUCCESS[0m: Conexión exitosa al servicio SOAP
+[2025-10-31T05:27:05.993Z] [36mINFO[0m: Operaciones disponibles:
+[2025-10-31T05:27:05.994Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T05:27:05.997Z] [36mINFO[0m: - listarProveedores
+[2025-10-31T05:27:05.998Z] [36mINFO[0m: - actualizarStock
+[2025-10-31T05:27:06.000Z] [36mINFO[0m: - verificarEstado
+[2025-10-31T05:27:06.001Z] [36mINFO[0m: - listarCategorias
+[2025-10-31T05:27:06.003Z] [36mINFO[0m: - consultarArticulo
+[2025-10-31T05:27:06.005Z] [36mINFO[0m: - insertarArticulo
+[2025-10-31T05:27:06.006Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T05:27:08.000Z] [36mINFO[0m: 
+Iniciando operación: listarProveedores
+[2025-10-31T05:27:08.001Z] [36mINFO[0m: Obteniendo lista de proveedores...
+[2025-10-31T05:27:08.003Z] [36mDEBUG[0m: Enviando petición SOAP: listarProveedores
+[2025-10-31T05:27:08.004Z] [36mDEBUG[0m: Argumentos: {}
+[2025-10-31T05:27:08.024Z] [36mDEBUG[0m: Respuesta de listarProveedores:
+[2025-10-31T05:27:08.025Z] [36mDEBUG[0m: Respuesta recibida (listarProveedores):
+[2025-10-31T05:27:08.026Z] [36mDEBUG[0m: {
+  "proveedorListResponse": {
+    "proveedores": {
+      "proveedor": [
+        {
+          "id": 1,
+          "nombre": "Distribuidora Central",
+          "contacto": "Juan Pérez",
+          "telefono": "555-0101",
+          "email": "ventas@distcentral.com",
+          "direccion": "Av. Industrial 123"
+        },
+        {
+          "id": 2,
+          "nombre": "Ferretería Mayorista",
+          "contacto": "María García",
+          "telefono": "555-0102",
+          "email": "pedidos@ferremayorista.com",
+          "direccion": "Calle Comercio 456"
+        },
+        {
+          "id": 3,
+          "nombre": "Suministros Técnicos",
+          "contacto": "Carlos López",
+          "telefono": "555-0103",
+          "email": "info@sumtecnicos.com",
+          "direccion": "Zona Industrial Norte"
+        }
+      ]
+    }
+  }
+}
+[2025-10-31T05:27:08.028Z] [36mDEBUG[0m: 
+=== INICIO RESPUESTA [2025-10-31T05:27:08.028Z] ===
+[2025-10-31T05:27:08.029Z] [36mDEBUG[0m: Operación: No especificada
+[2025-10-31T05:27:08.034Z] [36mSUCCESS[0m: ✅ Operación completada exitosamente
+[2025-10-31T05:27:08.034Z] [36mDEBUG[0m: 
+📊 Metadatos adicionales:
+[2025-10-31T05:27:08.035Z] [36mDEBUG[0m: proveedorListResponse:
+[2025-10-31T05:27:08.036Z] [36mDEBUG[0m:   proveedores:
+[2025-10-31T05:27:08.036Z] [36mDEBUG[0m:     proveedor:
+[2025-10-31T05:27:08.037Z] [36mDEBUG[0m:       [0]:
+[2025-10-31T05:27:08.037Z] [36mDEBUG[0m:         id: 1
+[2025-10-31T05:27:08.038Z] [36mDEBUG[0m:         nombre: Distribuidora Central
+[2025-10-31T05:27:08.038Z] [36mDEBUG[0m:         contacto: Juan Pérez
+[2025-10-31T05:27:08.039Z] [36mDEBUG[0m:         telefono: 555-0101
+[2025-10-31T05:27:08.039Z] [36mDEBUG[0m:         email: ventas@distcentral.com
+[2025-10-31T05:27:08.040Z] [36mDEBUG[0m:         direccion: Av. Industrial 123
+[2025-10-31T05:27:08.041Z] [36mDEBUG[0m:       [1]:
+[2025-10-31T05:27:08.041Z] [36mDEBUG[0m:         id: 2
+[2025-10-31T05:27:08.042Z] [36mDEBUG[0m:         nombre: Ferretería Mayorista
+[2025-10-31T05:27:08.043Z] [36mDEBUG[0m:         contacto: María García
+[2025-10-31T05:27:08.043Z] [36mDEBUG[0m:         telefono: 555-0102
+[2025-10-31T05:27:08.044Z] [36mDEBUG[0m:         email: pedidos@ferremayorista.com
+[2025-10-31T05:27:08.044Z] [36mDEBUG[0m:         direccion: Calle Comercio 456
+[2025-10-31T05:27:08.045Z] [36mDEBUG[0m:       [2]:
+[2025-10-31T05:27:08.045Z] [36mDEBUG[0m:         id: 3
+[2025-10-31T05:27:08.046Z] [36mDEBUG[0m:         nombre: Suministros Técnicos
+[2025-10-31T05:27:08.046Z] [36mDEBUG[0m:         contacto: Carlos López
+[2025-10-31T05:27:08.047Z] [36mDEBUG[0m:         telefono: 555-0103
+[2025-10-31T05:27:08.047Z] [36mDEBUG[0m:         email: info@sumtecnicos.com
+[2025-10-31T05:27:08.048Z] [36mDEBUG[0m:         direccion: Zona Industrial Norte
+[2025-10-31T05:27:08.048Z] [36mDEBUG[0m: === FIN RESPUESTA EXITOSA ===
+
+[2025-10-31T05:27:08.049Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T05:27:14.325Z] [36mINFO[0m: 
+Iniciando operación: listarCategorias
+[2025-10-31T05:27:14.327Z] [36mINFO[0m: Obteniendo lista de categorías...
+[2025-10-31T05:27:14.328Z] [36mDEBUG[0m: Enviando petición SOAP: listarCategorias
+[2025-10-31T05:27:14.328Z] [36mDEBUG[0m: Argumentos: {}
+[2025-10-31T05:27:14.342Z] [36mDEBUG[0m: Respuesta de listarCategorias:
+[2025-10-31T05:27:14.343Z] [36mDEBUG[0m: Respuesta recibida (listarCategorias):
+[2025-10-31T05:27:14.344Z] [36mDEBUG[0m: {
+  "categoriaListResponse": {
+    "categorias": {
+      "categoria": [
+        {
+          "id": 3,
+          "nombre": "Electricidad",
+          "descripcion": "Cables, interruptores, enchufes, etc."
+        },
+        {
+          "id": 2,
+          "nombre": "Ferretería General",
+          "descripcion": "Tornillos, tuercas, clavos, etc."
+        },
+        {
+          "id": 1,
+          "nombre": "Herramientas Manuales",
+          "descripcion": "Martillos, destornilladores, llaves, etc."
+        },
+        {
+          "id": 5,
+          "nombre": "Pintura",
+          "descripcion": "Pinturas, brochas, rodillos, etc."
+        },
+        {
+          "id": 4,
+          "nombre": "Plomería",
+          "descripcion": "Tuberías, llaves, accesorios de baño, etc."
+        }
+      ]
+    }
+  }
+}
+[2025-10-31T05:27:14.346Z] [36mDEBUG[0m: 
+=== INICIO RESPUESTA [2025-10-31T05:27:14.345Z] ===
+[2025-10-31T05:27:14.347Z] [36mDEBUG[0m: Operación: No especificada
+[2025-10-31T05:27:14.353Z] [36mSUCCESS[0m: ✅ Operación completada exitosamente
+[2025-10-31T05:27:14.354Z] [36mDEBUG[0m: 
+📊 Metadatos adicionales:
+[2025-10-31T05:27:14.355Z] [36mDEBUG[0m: categoriaListResponse:
+[2025-10-31T05:27:14.356Z] [36mDEBUG[0m:   categorias:
+[2025-10-31T05:27:14.357Z] [36mDEBUG[0m:     categoria:
+[2025-10-31T05:27:14.357Z] [36mDEBUG[0m:       [0]:
+[2025-10-31T05:27:14.358Z] [36mDEBUG[0m:         id: 3
+[2025-10-31T05:27:14.359Z] [36mDEBUG[0m:         nombre: Electricidad
+[2025-10-31T05:27:14.359Z] [36mDEBUG[0m:         descripcion: Cables, interruptores, enchufes, etc.
+[2025-10-31T05:27:14.360Z] [36mDEBUG[0m:       [1]:
+[2025-10-31T05:27:14.361Z] [36mDEBUG[0m:         id: 2
+[2025-10-31T05:27:14.361Z] [36mDEBUG[0m:         nombre: Ferretería General
+[2025-10-31T05:27:14.362Z] [36mDEBUG[0m:         descripcion: Tornillos, tuercas, clavos, etc.
+[2025-10-31T05:27:14.363Z] [36mDEBUG[0m:       [2]:
+[2025-10-31T05:27:14.363Z] [36mDEBUG[0m:         id: 1
+[2025-10-31T05:27:14.364Z] [36mDEBUG[0m:         nombre: Herramientas Manuales
+[2025-10-31T05:27:14.364Z] [36mDEBUG[0m:         descripcion: Martillos, destornilladores, llaves, etc.
+[2025-10-31T05:27:14.365Z] [36mDEBUG[0m:       [3]:
+[2025-10-31T05:27:14.365Z] [36mDEBUG[0m:         id: 5
+[2025-10-31T05:27:14.366Z] [36mDEBUG[0m:         nombre: Pintura
+[2025-10-31T05:27:14.367Z] [36mDEBUG[0m:         descripcion: Pinturas, brochas, rodillos, etc.
+[2025-10-31T05:27:14.367Z] [36mDEBUG[0m:       [4]:
+[2025-10-31T05:27:14.368Z] [36mDEBUG[0m:         id: 4
+[2025-10-31T05:27:14.368Z] [36mDEBUG[0m:         nombre: Plomería
+[2025-10-31T05:27:14.370Z] [36mDEBUG[0m:         descripcion: Tuberías, llaves, accesorios de baño, etc.
+[2025-10-31T05:27:14.370Z] [36mDEBUG[0m: === FIN RESPUESTA EXITOSA ===
+
+[2025-10-31T05:27:14.371Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T05:27:19.617Z] [36mINFO[0m: 
+Iniciando operación: verificarEstado
+[2025-10-31T05:27:19.618Z] [36mDEBUG[0m: Enviando petición SOAP: verificarEstado
+[2025-10-31T05:27:19.619Z] [36mDEBUG[0m: Argumentos: {}
+[2025-10-31T05:27:19.632Z] [36mDEBUG[0m: Respuesta de verificarEstado:
+[2025-10-31T05:27:19.633Z] [36mDEBUG[0m: Respuesta recibida (verificarEstado):
+[2025-10-31T05:27:19.634Z] [36mDEBUG[0m: {
+  "exitoso": true,
+  "mensaje": "Servicio operativo - Base de datos conectada"
+}
+[2025-10-31T05:27:19.634Z] [36mSUCCESS[0m: Verificación de estado completada
+[2025-10-31T05:27:27.115Z] [INFO] Iniciando cliente SOAP
+[2025-10-31T05:27:27.120Z] [36mINFO[0m: Iniciando cliente SOAP...
+[2025-10-31T05:27:27.121Z] [36mINFO[0m: Conectando a: http://192.168.0.109:8080/InventarioService?wsdl
+[2025-10-31T05:27:27.351Z] [36mSUCCESS[0m: Conexión exitosa al servicio SOAP
+[2025-10-31T05:27:27.353Z] [36mINFO[0m: Operaciones disponibles:
+[2025-10-31T05:27:27.354Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T05:27:27.357Z] [36mINFO[0m: - listarProveedores
+[2025-10-31T05:27:27.358Z] [36mINFO[0m: - actualizarStock
+[2025-10-31T05:27:27.359Z] [36mINFO[0m: - verificarEstado
+[2025-10-31T05:27:27.360Z] [36mINFO[0m: - listarCategorias
+[2025-10-31T05:27:27.362Z] [36mINFO[0m: - consultarArticulo
+[2025-10-31T05:27:27.362Z] [36mINFO[0m: - insertarArticulo
+[2025-10-31T05:27:27.363Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T05:27:31.169Z] [36mINFO[0m: 
+Iniciando operación: actualizarStock
+[2025-10-31T05:27:31.170Z] [36mINFO[0m: Actualizando stock de artículo...
+[2025-10-31T05:27:37.832Z] [36mINFO[0m: Actualizando stock del artículo MART001 a 78 unidades
+[2025-10-31T05:27:37.833Z] [36mDEBUG[0m: Enviando petición SOAP: actualizarStock
+[2025-10-31T05:27:37.834Z] [36mDEBUG[0m: Argumentos: {
+  "codigo": "MART001",
+  "nuevoStock": 78
+}
+[2025-10-31T05:27:37.871Z] [31mERROR[0m: Respuesta de actualizarStock:
+[2025-10-31T05:27:37.872Z] [31mERROR[0m: Error HTTP undefined: undefined
+[2025-10-31T05:27:37.873Z] [36mDEBUG[0m: Headers: {
+  "date": "Fri, 31 Oct 2025 05:27:37 GMT",
+  "transfer-encoding": "chunked",
+  "content-type": "text/xml; charset=utf-8"
+}
+[2025-10-31T05:27:37.874Z] [31mERROR[0m: Error en actualizarStock: Error desconocido
+[2025-10-31T05:27:37.875Z] [36mDEBUG[0m: Detalles del error: {"response":{"headers":{"date":"Fri, 31 Oct 2025 05:27:37 GMT","transfer-encoding":"chunked","content-type":"text/xml; charset=utf-8"},"data":"<?xml version='1.0' encoding='UTF-8'?><S:Envelope xmlns:S=\"http://schemas.xmlsoap.org/soap/envelope/\"><S:Body>"}}
+[2025-10-31T05:27:37.876Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T05:28:31.858Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T05:31:08.233Z] [INFO] Iniciando cliente SOAP
+[2025-10-31T05:31:08.238Z] [36mINFO[0m: Iniciando cliente SOAP...
+[2025-10-31T05:31:08.239Z] [36mINFO[0m: Conectando a: http://192.168.0.109:8080/InventarioService?wsdl
+[2025-10-31T05:31:08.527Z] [36mSUCCESS[0m: Conexión exitosa al servicio SOAP
+[2025-10-31T05:31:08.527Z] [36mINFO[0m: Operaciones disponibles:
+[2025-10-31T05:31:08.528Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T05:31:08.530Z] [36mINFO[0m: - insertarArticulo
+[2025-10-31T05:31:08.530Z] [36mINFO[0m: - listarCategorias
+[2025-10-31T05:31:08.531Z] [36mINFO[0m: - listarProveedores
+[2025-10-31T05:31:08.531Z] [36mINFO[0m: - consultarArticulo
+[2025-10-31T05:31:08.532Z] [36mINFO[0m: - verificarEstado
+[2025-10-31T05:31:08.533Z] [36mINFO[0m: - actualizarStock
+[2025-10-31T05:31:08.534Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T05:31:14.081Z] [36mINFO[0m: 
+Iniciando operación: actualizarStock
+[2025-10-31T05:31:14.082Z] [36mINFO[0m: Actualizando stock de artículo...
+[2025-10-31T05:31:20.548Z] [36mINFO[0m: Actualizando stock del artículo MART001 a 32 unidades
+[2025-10-31T05:31:20.549Z] [36mDEBUG[0m: Enviando petición SOAP: actualizarStock
+[2025-10-31T05:31:20.550Z] [36mDEBUG[0m: Argumentos: {
+  "codigo": "MART001",
+  "nuevoStock": 32
+}
+[2025-10-31T05:31:20.734Z] [36mDEBUG[0m: Respuesta de actualizarStock:
+[2025-10-31T05:31:20.735Z] [36mDEBUG[0m: Respuesta recibida (actualizarStock):
+[2025-10-31T05:31:20.736Z] [36mDEBUG[0m: {
+  "stockUpdateResponse": {
+    "exitoso": true,
+    "mensaje": "Stock actualizado exitosamente para el artículo MART001",
+    "articulo": {
+      "activo": true,
+      "categoriaId": 1,
+      "categoriaNombre": "Herramientas Manuales",
+      "codigo": "MART001",
+      "descripcion": "Martillo con mango de madera, cabeza de acero",
+      "fechaActualizacion": null,
+      "fechaCreacion": null,
+      "id": 1,
+      "nombre": "Martillo de Carpintero 16oz",
+      "precioCompra": 15.5,
+      "precioVenta": 25,
+      "proveedorId": 1,
+      "proveedorNombre": "Distribuidora Central",
+      "stockActual": 32,
+      "stockMinimo": 10
+    },
+    "stockAnterior": 78,
+    "stockNuevo": 32
+  }
+}
+[2025-10-31T05:31:20.737Z] [DEBUG] Respuesta de actualizarStock: {
+  "stockUpdateResponse": {
+    "exitoso": true,
+    "mensaje": "Stock actualizado exitosamente para el artículo MART001",
+    "articulo": {
+      "activo": true,
+      "categoriaId": 1,
+      "categoriaNombre": "Herramientas Manuales",
+      "codigo": "MART001",
+      "descripcion": "Martillo con mango de madera, cabeza de acero",
+      "fechaActualizacion": null,
+      "fechaCreacion": null,
+      "id": 1,
+      "nombre": "Martillo de Carpintero 16oz",
+      "precioCompra": 15.5,
+      "precioVenta": 25,
+      "proveedorId": 1,
+      "proveedorNombre": "Distribuidora Central",
+      "stockActual": 32,
+      "stockMinimo": 10
+    },
+    "stockAnterior": 78,
+    "stockNuevo": 32
+  }
+}
+[2025-10-31T05:31:26.495Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T05:32:38.892Z] [INFO] Iniciando cliente SOAP
+[2025-10-31T05:32:38.900Z] [36mINFO[0m: Iniciando cliente SOAP...
+[2025-10-31T05:32:38.901Z] [36mINFO[0m: Conectando a: http://192.168.0.109:8080/InventarioService?wsdl
+[2025-10-31T05:32:39.139Z] [36mSUCCESS[0m: Conexión exitosa al servicio SOAP
+[2025-10-31T05:32:39.140Z] [36mINFO[0m: Operaciones disponibles:
+[2025-10-31T05:32:39.141Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T05:32:39.143Z] [36mINFO[0m: - insertarArticulo
+[2025-10-31T05:32:39.143Z] [36mINFO[0m: - listarCategorias
+[2025-10-31T05:32:39.144Z] [36mINFO[0m: - listarProveedores
+[2025-10-31T05:32:39.145Z] [36mINFO[0m: - consultarArticulo
+[2025-10-31T05:32:39.147Z] [36mINFO[0m: - verificarEstado
+[2025-10-31T05:32:39.148Z] [36mINFO[0m: - actualizarStock
+[2025-10-31T05:32:39.151Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T05:32:40.842Z] [36mINFO[0m: 
+Iniciando operación: actualizarStock
+[2025-10-31T05:32:40.843Z] [36mINFO[0m: Actualizando stock de artículo...
+[2025-10-31T05:32:49.061Z] [36mINFO[0m: Actualizando stock del artículo HERR025 a 78 unidades
+[2025-10-31T05:32:49.062Z] [36mDEBUG[0m: Enviando petición SOAP: actualizarStock
+[2025-10-31T05:32:49.063Z] [36mDEBUG[0m: Argumentos: {
+  "codigo": "HERR025",
+  "nuevoStock": 78
+}
+[2025-10-31T05:32:49.083Z] [36mDEBUG[0m: Respuesta de actualizarStock:
+[2025-10-31T05:32:49.084Z] [36mDEBUG[0m: Respuesta recibida (actualizarStock):
+[2025-10-31T05:32:49.086Z] [36mDEBUG[0m: {
+  "stockUpdateResponse": {
+    "exitoso": false,
+    "mensaje": "Artículo no encontrado con código: HERR025"
+  }
+}
+[2025-10-31T05:32:49.087Z] [DEBUG] Respuesta de actualizarStock: {
+  "stockUpdateResponse": {
+    "exitoso": false,
+    "mensaje": "Artículo no encontrado con código: HERR025"
+  }
+}
+[2025-10-31T05:33:18.788Z] [36mINFO[0m: Actualizando stock del artículo MART001 a 67 unidades
+[2025-10-31T05:33:18.789Z] [36mDEBUG[0m: Enviando petición SOAP: actualizarStock
+[2025-10-31T05:33:18.790Z] [36mDEBUG[0m: Argumentos: {
+  "codigo": "MART001",
+  "nuevoStock": 67
+}
+[2025-10-31T05:33:18.827Z] [36mDEBUG[0m: Respuesta de actualizarStock:
+[2025-10-31T05:33:18.828Z] [36mDEBUG[0m: Respuesta recibida (actualizarStock):
+[2025-10-31T05:33:18.829Z] [36mDEBUG[0m: {
+  "stockUpdateResponse": {
+    "exitoso": true,
+    "mensaje": "Stock actualizado exitosamente para el artículo MART001",
+    "articulo": {
+      "activo": true,
+      "categoriaId": 1,
+      "categoriaNombre": "Herramientas Manuales",
+      "codigo": "MART001",
+      "descripcion": "Martillo con mango de madera, cabeza de acero",
+      "fechaActualizacion": null,
+      "fechaCreacion": null,
+      "id": 1,
+      "nombre": "Martillo de Carpintero 16oz",
+      "precioCompra": 15.5,
+      "precioVenta": 25,
+      "proveedorId": 1,
+      "proveedorNombre": "Distribuidora Central",
+      "stockActual": 67,
+      "stockMinimo": 10
+    },
+    "stockAnterior": 32,
+    "stockNuevo": 67
+  }
+}
+[2025-10-31T05:33:18.831Z] [DEBUG] Respuesta de actualizarStock: {
+  "stockUpdateResponse": {
+    "exitoso": true,
+    "mensaje": "Stock actualizado exitosamente para el artículo MART001",
+    "articulo": {
+      "activo": true,
+      "categoriaId": 1,
+      "categoriaNombre": "Herramientas Manuales",
+      "codigo": "MART001",
+      "descripcion": "Martillo con mango de madera, cabeza de acero",
+      "fechaActualizacion": null,
+      "fechaCreacion": null,
+      "id": 1,
+      "nombre": "Martillo de Carpintero 16oz",
+      "precioCompra": 15.5,
+      "precioVenta": 25,
+      "proveedorId": 1,
+      "proveedorNombre": "Distribuidora Central",
+      "stockActual": 67,
+      "stockMinimo": 10
+    },
+    "stockAnterior": 32,
+    "stockNuevo": 67
+  }
+}
+[2025-10-31T05:34:40.136Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T05:34:45.464Z] [36mINFO[0m: 
+Iniciando operación: insertarArticulo
+[2025-10-31T05:34:58.688Z] [INFO] === INICIANDO CONSULTA DE CATEGORÍAS ===
+[2025-10-31T05:34:58.690Z] [DEBUG] Enviando petición SOAP para listar categorías
+[2025-10-31T05:34:58.713Z] [DEBUG] Respuesta cruda de listarCategorias: {
+  "categoriaListResponse": {
+    "categorias": {
+      "categoria": [
+        {
+          "id": 3,
+          "nombre": "Electricidad",
+          "descripcion": "Cables, interruptores, enchufes, etc."
+        },
+        {
+          "id": 2,
+          "nombre": "Ferretería General",
+          "descripcion": "Tornillos, tuercas, clavos, etc."
+        },
+        {
+          "id": 1,
+          "nombre": "Herramientas Manuales",
+          "descripcion": "Martillos, destornilladores, llaves, etc."
+        },
+        {
+          "id": 5,
+          "nombre": "Pintura",
+          "descripcion": "Pinturas, brochas, rodillos, etc."
+        },
+        {
+          "id": 4,
+          "nombre": "Plomería",
+          "descripcion": "Tuberías, llaves, accesorios de baño, etc."
+        }
+      ]
+    }
+  }
+}
+[2025-10-31T05:34:58.714Z] [INFO] Categorías obtenidas: 0
+[2025-10-31T05:35:02.079Z] [INFO] === INICIANDO CONSULTA DE PROVEEDORES ===
+[2025-10-31T05:35:02.081Z] [DEBUG] Enviando petición SOAP para listar proveedores
+[2025-10-31T05:35:02.097Z] [DEBUG] Respuesta cruda de listarProveedores: {
+  "proveedorListResponse": {
+    "proveedores": {
+      "proveedor": [
+        {
+          "id": 1,
+          "nombre": "Distribuidora Central",
+          "contacto": "Juan Pérez",
+          "telefono": "555-0101",
+          "email": "ventas@distcentral.com",
+          "direccion": "Av. Industrial 123"
+        },
+        {
+          "id": 2,
+          "nombre": "Ferretería Mayorista",
+          "contacto": "María García",
+          "telefono": "555-0102",
+          "email": "pedidos@ferremayorista.com",
+          "direccion": "Calle Comercio 456"
+        },
+        {
+          "id": 3,
+          "nombre": "Suministros Técnicos",
+          "contacto": "Carlos López",
+          "telefono": "555-0103",
+          "email": "info@sumtecnicos.com",
+          "direccion": "Zona Industrial Norte"
+        }
+      ]
+    }
+  }
+}
+[2025-10-31T05:35:02.098Z] [INFO] Proveedores obtenidos: 0
+[2025-10-31T05:35:02.099Z] [INFO] No se encontraron proveedores
+[2025-10-31T05:35:58.243Z] [INFO] Iniciando cliente SOAP
+[2025-10-31T05:35:58.250Z] [36mINFO[0m: Iniciando cliente SOAP...
+[2025-10-31T05:35:58.251Z] [36mINFO[0m: Conectando a: http://192.168.0.109:8080/InventarioService?wsdl
+[2025-10-31T05:35:58.498Z] [36mSUCCESS[0m: Conexión exitosa al servicio SOAP
+[2025-10-31T05:35:58.500Z] [36mINFO[0m: Operaciones disponibles:
+[2025-10-31T05:35:58.502Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T05:35:58.506Z] [36mINFO[0m: - insertarArticulo
+[2025-10-31T05:35:58.508Z] [36mINFO[0m: - listarCategorias
+[2025-10-31T05:35:58.510Z] [36mINFO[0m: - listarProveedores
+[2025-10-31T05:35:58.511Z] [36mINFO[0m: - consultarArticulo
+[2025-10-31T05:35:58.512Z] [36mINFO[0m: - verificarEstado
+[2025-10-31T05:35:58.514Z] [36mINFO[0m: - actualizarStock
+[2025-10-31T05:35:58.517Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T05:36:00.877Z] [36mINFO[0m: 
+Iniciando operación: insertarArticulo
+[2025-10-31T05:36:09.260Z] [INFO] === INICIANDO CONSULTA DE CATEGORÍAS ===
+[2025-10-31T05:36:09.261Z] [DEBUG] Enviando petición SOAP para listar categorías
+[2025-10-31T05:36:09.281Z] [DEBUG] Respuesta cruda de listarCategorias: {
+  "categoriaListResponse": {
+    "categorias": {
+      "categoria": [
+        {
+          "id": 3,
+          "nombre": "Electricidad",
+          "descripcion": "Cables, interruptores, enchufes, etc."
+        },
+        {
+          "id": 2,
+          "nombre": "Ferretería General",
+          "descripcion": "Tornillos, tuercas, clavos, etc."
+        },
+        {
+          "id": 1,
+          "nombre": "Herramientas Manuales",
+          "descripcion": "Martillos, destornilladores, llaves, etc."
+        },
+        {
+          "id": 5,
+          "nombre": "Pintura",
+          "descripcion": "Pinturas, brochas, rodillos, etc."
+        },
+        {
+          "id": 4,
+          "nombre": "Plomería",
+          "descripcion": "Tuberías, llaves, accesorios de baño, etc."
+        }
+      ]
+    }
+  }
+}
+[2025-10-31T05:36:09.282Z] [INFO] Categorías obtenidas: 5
+[2025-10-31T05:36:16.196Z] [INFO] === INICIANDO CONSULTA DE PROVEEDORES ===
+[2025-10-31T05:36:16.198Z] [DEBUG] Enviando petición SOAP para listar proveedores
+[2025-10-31T05:36:16.216Z] [DEBUG] Respuesta cruda de listarProveedores: {
+  "proveedorListResponse": {
+    "proveedores": {
+      "proveedor": [
+        {
+          "id": 1,
+          "nombre": "Distribuidora Central",
+          "contacto": "Juan Pérez",
+          "telefono": "555-0101",
+          "email": "ventas@distcentral.com",
+          "direccion": "Av. Industrial 123"
+        },
+        {
+          "id": 2,
+          "nombre": "Ferretería Mayorista",
+          "contacto": "María García",
+          "telefono": "555-0102",
+          "email": "pedidos@ferremayorista.com",
+          "direccion": "Calle Comercio 456"
+        },
+        {
+          "id": 3,
+          "nombre": "Suministros Técnicos",
+          "contacto": "Carlos López",
+          "telefono": "555-0103",
+          "email": "info@sumtecnicos.com",
+          "direccion": "Zona Industrial Norte"
+        }
+      ]
+    }
+  }
+}
+[2025-10-31T05:36:16.217Z] [INFO] Proveedores obtenidos: 3
+[2025-10-31T05:36:16.219Z] [DEBUG] Proveedor #1: ID=1, Nombre=Distribuidora Central
+[2025-10-31T05:36:16.220Z] [DEBUG] Detalles: {
+  "contacto": "Juan Pérez",
+  "telefono": "555-0101",
+  "email": "ventas@distcentral.com",
+  "direccion": "Av. Industrial 123"
+}
+[2025-10-31T05:36:16.223Z] [DEBUG] Proveedor #2: ID=2, Nombre=Ferretería Mayorista
+[2025-10-31T05:36:16.224Z] [DEBUG] Detalles: {
+  "contacto": "María García",
+  "telefono": "555-0102",
+  "email": "pedidos@ferremayorista.com",
+  "direccion": "Calle Comercio 456"
+}
+[2025-10-31T05:36:16.226Z] [DEBUG] Proveedor #3: ID=3, Nombre=Suministros Técnicos
+[2025-10-31T05:36:16.227Z] [DEBUG] Detalles: {
+  "contacto": "Carlos López",
+  "telefono": "555-0103",
+  "email": "info@sumtecnicos.com",
+  "direccion": "Zona Industrial Norte"
+}
+[2025-10-31T05:39:22.811Z] [INFO] Iniciando cliente SOAP
+[2025-10-31T05:39:22.817Z] [36mINFO[0m: Iniciando cliente SOAP...
+[2025-10-31T05:39:22.818Z] [36mINFO[0m: Conectando a: http://192.168.0.109:8080/InventarioService?wsdl
+[2025-10-31T05:39:23.056Z] [36mSUCCESS[0m: Conexión exitosa al servicio SOAP
+[2025-10-31T05:39:23.057Z] [36mINFO[0m: Operaciones disponibles:
+[2025-10-31T05:39:23.058Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T05:39:23.060Z] [36mINFO[0m: - insertarArticulo
+[2025-10-31T05:39:23.061Z] [36mINFO[0m: - listarCategorias
+[2025-10-31T05:39:23.061Z] [36mINFO[0m: - listarProveedores
+[2025-10-31T05:39:23.063Z] [36mINFO[0m: - consultarArticulo
+[2025-10-31T05:39:23.064Z] [36mINFO[0m: - verificarEstado
+[2025-10-31T05:39:23.065Z] [36mINFO[0m: - actualizarStock
+[2025-10-31T05:39:23.066Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T05:39:26.042Z] [36mINFO[0m: 
+Iniciando operación: listarCategorias
+[2025-10-31T05:39:26.044Z] [36mINFO[0m: Obteniendo lista de categorías...
+[2025-10-31T05:39:26.045Z] [36mDEBUG[0m: Enviando petición SOAP: listarCategorias
+[2025-10-31T05:39:26.046Z] [36mDEBUG[0m: Argumentos: {}
+[2025-10-31T05:39:26.066Z] [36mDEBUG[0m: Respuesta de listarCategorias:
+[2025-10-31T05:39:26.067Z] [36mDEBUG[0m: Respuesta recibida (listarCategorias):
+[2025-10-31T05:39:26.069Z] [36mDEBUG[0m: {
+  "categoriaListResponse": {
+    "categorias": {
+      "categoria": [
+        {
+          "id": 3,
+          "nombre": "Electricidad",
+          "descripcion": "Cables, interruptores, enchufes, etc."
+        },
+        {
+          "id": 2,
+          "nombre": "Ferretería General",
+          "descripcion": "Tornillos, tuercas, clavos, etc."
+        },
+        {
+          "id": 1,
+          "nombre": "Herramientas Manuales",
+          "descripcion": "Martillos, destornilladores, llaves, etc."
+        },
+        {
+          "id": 5,
+          "nombre": "Pintura",
+          "descripcion": "Pinturas, brochas, rodillos, etc."
+        },
+        {
+          "id": 4,
+          "nombre": "Plomería",
+          "descripcion": "Tuberías, llaves, accesorios de baño, etc."
+        }
+      ]
+    }
+  }
+}
+[2025-10-31T05:39:26.070Z] [36mDEBUG[0m: 
+=== INICIO RESPUESTA [2025-10-31T05:39:26.070Z] ===
+[2025-10-31T05:39:26.071Z] [36mDEBUG[0m: Operación: No especificada
+[2025-10-31T05:39:26.076Z] [36mSUCCESS[0m: ✅ Operación completada exitosamente
+[2025-10-31T05:39:26.077Z] [36mDEBUG[0m: 
+📊 Metadatos adicionales:
+[2025-10-31T05:39:26.077Z] [36mDEBUG[0m: categoriaListResponse:
+[2025-10-31T05:39:26.078Z] [36mDEBUG[0m:   categorias:
+[2025-10-31T05:39:26.078Z] [36mDEBUG[0m:     categoria:
+[2025-10-31T05:39:26.079Z] [36mDEBUG[0m:       [0]:
+[2025-10-31T05:39:26.079Z] [36mDEBUG[0m:         id: 3
+[2025-10-31T05:39:26.080Z] [36mDEBUG[0m:         nombre: Electricidad
+[2025-10-31T05:39:26.081Z] [36mDEBUG[0m:         descripcion: Cables, interruptores, enchufes, etc.
+[2025-10-31T05:39:26.081Z] [36mDEBUG[0m:       [1]:
+[2025-10-31T05:39:26.082Z] [36mDEBUG[0m:         id: 2
+[2025-10-31T05:39:26.082Z] [36mDEBUG[0m:         nombre: Ferretería General
+[2025-10-31T05:39:26.083Z] [36mDEBUG[0m:         descripcion: Tornillos, tuercas, clavos, etc.
+[2025-10-31T05:39:26.083Z] [36mDEBUG[0m:       [2]:
+[2025-10-31T05:39:26.084Z] [36mDEBUG[0m:         id: 1
+[2025-10-31T05:39:26.084Z] [36mDEBUG[0m:         nombre: Herramientas Manuales
+[2025-10-31T05:39:26.085Z] [36mDEBUG[0m:         descripcion: Martillos, destornilladores, llaves, etc.
+[2025-10-31T05:39:26.086Z] [36mDEBUG[0m:       [3]:
+[2025-10-31T05:39:26.086Z] [36mDEBUG[0m:         id: 5
+[2025-10-31T05:39:26.087Z] [36mDEBUG[0m:         nombre: Pintura
+[2025-10-31T05:39:26.088Z] [36mDEBUG[0m:         descripcion: Pinturas, brochas, rodillos, etc.
+[2025-10-31T05:39:26.088Z] [36mDEBUG[0m:       [4]:
+[2025-10-31T05:39:26.089Z] [36mDEBUG[0m:         id: 4
+[2025-10-31T05:39:26.089Z] [36mDEBUG[0m:         nombre: Plomería
+[2025-10-31T05:39:26.090Z] [36mDEBUG[0m:         descripcion: Tuberías, llaves, accesorios de baño, etc.
+[2025-10-31T05:39:26.091Z] [36mDEBUG[0m: === FIN RESPUESTA EXITOSA ===
+
+[2025-10-31T05:39:26.091Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T05:39:53.869Z] [36mINFO[0m: 
+Iniciando operación: listarProveedores
+[2025-10-31T05:39:53.870Z] [36mINFO[0m: Obteniendo lista de proveedores...
+[2025-10-31T05:39:53.871Z] [36mDEBUG[0m: Enviando petición SOAP: listarProveedores
+[2025-10-31T05:39:53.872Z] [36mDEBUG[0m: Argumentos: {}
+[2025-10-31T05:39:53.889Z] [36mDEBUG[0m: Respuesta de listarProveedores:
+[2025-10-31T05:39:53.891Z] [36mDEBUG[0m: Respuesta recibida (listarProveedores):
+[2025-10-31T05:39:53.892Z] [36mDEBUG[0m: {
+  "proveedorListResponse": {
+    "proveedores": {
+      "proveedor": [
+        {
+          "id": 1,
+          "nombre": "Distribuidora Central",
+          "contacto": "Juan Pérez",
+          "telefono": "555-0101",
+          "email": "ventas@distcentral.com",
+          "direccion": "Av. Industrial 123"
+        },
+        {
+          "id": 2,
+          "nombre": "Ferretería Mayorista",
+          "contacto": "María García",
+          "telefono": "555-0102",
+          "email": "pedidos@ferremayorista.com",
+          "direccion": "Calle Comercio 456"
+        },
+        {
+          "id": 3,
+          "nombre": "Suministros Técnicos",
+          "contacto": "Carlos López",
+          "telefono": "555-0103",
+          "email": "info@sumtecnicos.com",
+          "direccion": "Zona Industrial Norte"
+        }
+      ]
+    }
+  }
+}
+[2025-10-31T05:39:53.893Z] [36mDEBUG[0m: 
+=== INICIO RESPUESTA [2025-10-31T05:39:53.893Z] ===
+[2025-10-31T05:39:53.894Z] [36mDEBUG[0m: Operación: No especificada
+[2025-10-31T05:39:53.900Z] [36mSUCCESS[0m: ✅ Operación completada exitosamente
+[2025-10-31T05:39:53.900Z] [36mDEBUG[0m: 
+📊 Metadatos adicionales:
+[2025-10-31T05:39:53.901Z] [36mDEBUG[0m: proveedorListResponse:
+[2025-10-31T05:39:53.902Z] [36mDEBUG[0m:   proveedores:
+[2025-10-31T05:39:53.902Z] [36mDEBUG[0m:     proveedor:
+[2025-10-31T05:39:53.903Z] [36mDEBUG[0m:       [0]:
+[2025-10-31T05:39:53.903Z] [36mDEBUG[0m:         id: 1
+[2025-10-31T05:39:53.904Z] [36mDEBUG[0m:         nombre: Distribuidora Central
+[2025-10-31T05:39:53.905Z] [36mDEBUG[0m:         contacto: Juan Pérez
+[2025-10-31T05:39:53.906Z] [36mDEBUG[0m:         telefono: 555-0101
+[2025-10-31T05:39:53.906Z] [36mDEBUG[0m:         email: ventas@distcentral.com
+[2025-10-31T05:39:53.907Z] [36mDEBUG[0m:         direccion: Av. Industrial 123
+[2025-10-31T05:39:53.908Z] [36mDEBUG[0m:       [1]:
+[2025-10-31T05:39:53.908Z] [36mDEBUG[0m:         id: 2
+[2025-10-31T05:39:53.909Z] [36mDEBUG[0m:         nombre: Ferretería Mayorista
+[2025-10-31T05:39:53.909Z] [36mDEBUG[0m:         contacto: María García
+[2025-10-31T05:39:53.910Z] [36mDEBUG[0m:         telefono: 555-0102
+[2025-10-31T05:39:53.911Z] [36mDEBUG[0m:         email: pedidos@ferremayorista.com
+[2025-10-31T05:39:53.911Z] [36mDEBUG[0m:         direccion: Calle Comercio 456
+[2025-10-31T05:39:53.912Z] [36mDEBUG[0m:       [2]:
+[2025-10-31T05:39:53.913Z] [36mDEBUG[0m:         id: 3
+[2025-10-31T05:39:53.913Z] [36mDEBUG[0m:         nombre: Suministros Técnicos
+[2025-10-31T05:39:53.914Z] [36mDEBUG[0m:         contacto: Carlos López
+[2025-10-31T05:39:53.915Z] [36mDEBUG[0m:         telefono: 555-0103
+[2025-10-31T05:39:53.915Z] [36mDEBUG[0m:         email: info@sumtecnicos.com
+[2025-10-31T05:39:53.916Z] [36mDEBUG[0m:         direccion: Zona Industrial Norte
+[2025-10-31T05:39:53.917Z] [36mDEBUG[0m: === FIN RESPUESTA EXITOSA ===
+
+[2025-10-31T05:39:53.918Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T05:40:00.271Z] [36mINFO[0m: 
+Iniciando operación: insertarArticulo
+[2025-10-31T05:40:08.747Z] [INFO] === INICIANDO CONSULTA DE CATEGORÍAS ===
+[2025-10-31T05:40:08.749Z] [DEBUG] Enviando petición SOAP para listar categorías
+[2025-10-31T05:40:08.761Z] [DEBUG] Respuesta cruda de listarCategorias: {
+  "categoriaListResponse": {
+    "categorias": {
+      "categoria": [
+        {
+          "id": 3,
+          "nombre": "Electricidad",
+          "descripcion": "Cables, interruptores, enchufes, etc."
+        },
+        {
+          "id": 2,
+          "nombre": "Ferretería General",
+          "descripcion": "Tornillos, tuercas, clavos, etc."
+        },
+        {
+          "id": 1,
+          "nombre": "Herramientas Manuales",
+          "descripcion": "Martillos, destornilladores, llaves, etc."
+        },
+        {
+          "id": 5,
+          "nombre": "Pintura",
+          "descripcion": "Pinturas, brochas, rodillos, etc."
+        },
+        {
+          "id": 4,
+          "nombre": "Plomería",
+          "descripcion": "Tuberías, llaves, accesorios de baño, etc."
+        }
+      ]
+    }
+  }
+}
+[2025-10-31T05:40:08.762Z] [INFO] Categorías obtenidas: 5
+[2025-10-31T05:40:18.992Z] [INFO] === INICIANDO CONSULTA DE PROVEEDORES ===
+[2025-10-31T05:40:18.994Z] [DEBUG] Enviando petición SOAP para listar proveedores
+[2025-10-31T05:40:19.007Z] [DEBUG] Respuesta cruda de listarProveedores: {
+  "proveedorListResponse": {
+    "proveedores": {
+      "proveedor": [
+        {
+          "id": 1,
+          "nombre": "Distribuidora Central",
+          "contacto": "Juan Pérez",
+          "telefono": "555-0101",
+          "email": "ventas@distcentral.com",
+          "direccion": "Av. Industrial 123"
+        },
+        {
+          "id": 2,
+          "nombre": "Ferretería Mayorista",
+          "contacto": "María García",
+          "telefono": "555-0102",
+          "email": "pedidos@ferremayorista.com",
+          "direccion": "Calle Comercio 456"
+        },
+        {
+          "id": 3,
+          "nombre": "Suministros Técnicos",
+          "contacto": "Carlos López",
+          "telefono": "555-0103",
+          "email": "info@sumtecnicos.com",
+          "direccion": "Zona Industrial Norte"
+        }
+      ]
+    }
+  }
+}
+[2025-10-31T05:40:19.008Z] [INFO] Proveedores obtenidos: 3
+[2025-10-31T05:40:19.010Z] [DEBUG] Proveedor #1: ID=1, Nombre=Distribuidora Central
+[2025-10-31T05:40:19.010Z] [DEBUG] Detalles: {
+  "contacto": "Juan Pérez",
+  "telefono": "555-0101",
+  "email": "ventas@distcentral.com",
+  "direccion": "Av. Industrial 123"
+}
+[2025-10-31T05:40:19.014Z] [DEBUG] Proveedor #2: ID=2, Nombre=Ferretería Mayorista
+[2025-10-31T05:40:19.014Z] [DEBUG] Detalles: {
+  "contacto": "María García",
+  "telefono": "555-0102",
+  "email": "pedidos@ferremayorista.com",
+  "direccion": "Calle Comercio 456"
+}
+[2025-10-31T05:40:19.017Z] [DEBUG] Proveedor #3: ID=3, Nombre=Suministros Técnicos
+[2025-10-31T05:40:19.018Z] [DEBUG] Detalles: {
+  "contacto": "Carlos López",
+  "telefono": "555-0103",
+  "email": "info@sumtecnicos.com",
+  "direccion": "Zona Industrial Norte"
+}
+[2025-10-31T05:40:42.156Z] [36mDEBUG[0m: {
+  "codigo": "HERRE001",
+  "nombre": "HERRE",
+  "descripcion": "HERRE",
+  "categoria": {
+    "id": 2
+  },
+  "proveedor": {
+    "id": 1
+  },
+  "precioCompra": 25,
+  "precioVenta": 65,
+  "stockActual": 40,
+  "stockMinimo": 10
+}
+[2025-10-31T05:40:42.157Z] [36mDEBUG[0m: Enviando petición SOAP: insertarArticulo
+[2025-10-31T05:40:42.158Z] [36mDEBUG[0m: Argumentos: {
+  "codigo": "HERRE001",
+  "nombre": "HERRE",
+  "descripcion": "HERRE",
+  "categoria": {
+    "id": 2
+  },
+  "proveedor": {
+    "id": 1
+  },
+  "precioCompra": 25,
+  "precioVenta": 65,
+  "stockActual": 40,
+  "stockMinimo": 10
+}
+[2025-10-31T05:40:42.208Z] [36mDEBUG[0m: Respuesta de insertarArticulo:
+[2025-10-31T05:40:42.209Z] [36mDEBUG[0m: Respuesta recibida (insertarArticulo):
+[2025-10-31T05:40:42.210Z] [36mDEBUG[0m: {
+  "exitoso": false,
+  "mensaje": "Error al acceder a la base de datos: No value specified for parameter 3",
+  "codigoError": "ERROR_BD",
+  "tipoError": "BASE_DATOS"
+}
+[2025-10-31T05:40:42.211Z] [36mDEBUG[0m: 
+=== INICIO RESPUESTA [2025-10-31T05:40:42.211Z] ===
+[2025-10-31T05:40:42.212Z] [36mDEBUG[0m: Operación: No especificada
+[2025-10-31T05:40:42.213Z] [31mERROR[0m: Operación fallida: Error al acceder a la base de datos: No value specified for parameter 3
+[2025-10-31T05:40:42.214Z] [31mERROR[0m: Código de error: ERROR_BD
+[2025-10-31T05:40:42.215Z] [31mERROR[0m: Tipo de error: BASE_DATOS
+[2025-10-31T05:40:42.216Z] [36mDEBUG[0m: === FIN RESPUESTA CON FALLO ===
+
+[2025-10-31T05:40:42.216Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T05:41:05.405Z] [36mINFO[0m: 
+Iniciando operación: insertarArticulo
+[2025-10-31T05:41:07.424Z] [INFO] === INICIANDO CONSULTA DE CATEGORÍAS ===
+[2025-10-31T05:41:07.426Z] [DEBUG] Enviando petición SOAP para listar categorías
+[2025-10-31T05:41:07.440Z] [DEBUG] Respuesta cruda de listarCategorias: {
+  "categoriaListResponse": {
+    "categorias": {
+      "categoria": [
+        {
+          "id": 3,
+          "nombre": "Electricidad",
+          "descripcion": "Cables, interruptores, enchufes, etc."
+        },
+        {
+          "id": 2,
+          "nombre": "Ferretería General",
+          "descripcion": "Tornillos, tuercas, clavos, etc."
+        },
+        {
+          "id": 1,
+          "nombre": "Herramientas Manuales",
+          "descripcion": "Martillos, destornilladores, llaves, etc."
+        },
+        {
+          "id": 5,
+          "nombre": "Pintura",
+          "descripcion": "Pinturas, brochas, rodillos, etc."
+        },
+        {
+          "id": 4,
+          "nombre": "Plomería",
+          "descripcion": "Tuberías, llaves, accesorios de baño, etc."
+        }
+      ]
+    }
+  }
+}
+[2025-10-31T05:41:07.441Z] [INFO] Categorías obtenidas: 5
+[2025-10-31T05:41:07.565Z] [INFO] === INICIANDO CONSULTA DE PROVEEDORES ===
+[2025-10-31T05:41:07.567Z] [DEBUG] Enviando petición SOAP para listar proveedores
+[2025-10-31T05:41:07.579Z] [DEBUG] Respuesta cruda de listarProveedores: {
+  "proveedorListResponse": {
+    "proveedores": {
+      "proveedor": [
+        {
+          "id": 1,
+          "nombre": "Distribuidora Central",
+          "contacto": "Juan Pérez",
+          "telefono": "555-0101",
+          "email": "ventas@distcentral.com",
+          "direccion": "Av. Industrial 123"
+        },
+        {
+          "id": 2,
+          "nombre": "Ferretería Mayorista",
+          "contacto": "María García",
+          "telefono": "555-0102",
+          "email": "pedidos@ferremayorista.com",
+          "direccion": "Calle Comercio 456"
+        },
+        {
+          "id": 3,
+          "nombre": "Suministros Técnicos",
+          "contacto": "Carlos López",
+          "telefono": "555-0103",
+          "email": "info@sumtecnicos.com",
+          "direccion": "Zona Industrial Norte"
+        }
+      ]
+    }
+  }
+}
+[2025-10-31T05:41:07.580Z] [INFO] Proveedores obtenidos: 3
+[2025-10-31T05:41:07.582Z] [DEBUG] Proveedor #1: ID=1, Nombre=Distribuidora Central
+[2025-10-31T05:41:07.583Z] [DEBUG] Detalles: {
+  "contacto": "Juan Pérez",
+  "telefono": "555-0101",
+  "email": "ventas@distcentral.com",
+  "direccion": "Av. Industrial 123"
+}
+[2025-10-31T05:41:07.586Z] [DEBUG] Proveedor #2: ID=2, Nombre=Ferretería Mayorista
+[2025-10-31T05:41:07.586Z] [DEBUG] Detalles: {
+  "contacto": "María García",
+  "telefono": "555-0102",
+  "email": "pedidos@ferremayorista.com",
+  "direccion": "Calle Comercio 456"
+}
+[2025-10-31T05:41:07.589Z] [DEBUG] Proveedor #3: ID=3, Nombre=Suministros Técnicos
+[2025-10-31T05:41:07.589Z] [DEBUG] Detalles: {
+  "contacto": "Carlos López",
+  "telefono": "555-0103",
+  "email": "info@sumtecnicos.com",
+  "direccion": "Zona Industrial Norte"
+}
+[2025-10-31T05:41:09.560Z] [36mDEBUG[0m: {
+  "codigo": "2",
+  "nombre": "",
+  "descripcion": "2",
+  "categoria": {
+    "id": 2
+  },
+  "proveedor": {
+    "id": 2
+  },
+  "precioCompra": 2,
+  "precioVenta": null,
+  "stockActual": 2,
+  "stockMinimo": 2
+}
+[2025-10-31T05:41:09.561Z] [36mDEBUG[0m: Enviando petición SOAP: insertarArticulo
+[2025-10-31T05:41:09.562Z] [36mDEBUG[0m: Argumentos: {
+  "codigo": "2",
+  "nombre": "",
+  "descripcion": "2",
+  "categoria": {
+    "id": 2
+  },
+  "proveedor": {
+    "id": 2
+  },
+  "precioCompra": 2,
+  "precioVenta": null,
+  "stockActual": 2,
+  "stockMinimo": 2
+}
+[2025-10-31T05:41:09.574Z] [36mDEBUG[0m: Respuesta de insertarArticulo:
+[2025-10-31T05:41:09.575Z] [36mDEBUG[0m: Respuesta recibida (insertarArticulo):
+[2025-10-31T05:41:09.576Z] [36mDEBUG[0m: {
+  "exitoso": false,
+  "mensaje": "Error interno del servidor: Character N is neither a decimal digit number, decimal point, nor \"e\" notation exponential mark.",
+  "codigoError": "INTERNAL_ERROR",
+  "tipoError": "SISTEMA"
+}
+[2025-10-31T05:41:09.577Z] [36mDEBUG[0m: 
+=== INICIO RESPUESTA [2025-10-31T05:41:09.577Z] ===
+[2025-10-31T05:41:09.578Z] [36mDEBUG[0m: Operación: No especificada
+[2025-10-31T05:41:09.582Z] [31mERROR[0m: Operación fallida: Error interno del servidor: Character N is neither a decimal digit number, decimal point, nor "e" notation exponential mark.
+[2025-10-31T05:41:09.583Z] [31mERROR[0m: Código de error: INTERNAL_ERROR
+[2025-10-31T05:41:09.584Z] [31mERROR[0m: Tipo de error: SISTEMA
+[2025-10-31T05:41:09.606Z] [36mDEBUG[0m: === FIN RESPUESTA CON FALLO ===
+
+[2025-10-31T05:41:09.626Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T05:48:15.618Z] [INFO] Iniciando cliente SOAP
+[2025-10-31T05:48:15.625Z] [36mINFO[0m: Iniciando cliente SOAP...
+[2025-10-31T05:48:15.626Z] [36mINFO[0m: Conectando a: http://192.168.0.109:8080/InventarioService?wsdl
+[2025-10-31T05:48:16.148Z] [36mSUCCESS[0m: Conexión exitosa al servicio SOAP
+[2025-10-31T05:48:16.150Z] [36mINFO[0m: Operaciones disponibles:
+[2025-10-31T05:48:16.151Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T05:48:16.152Z] [36mINFO[0m: - listarProveedores
+[2025-10-31T05:48:16.153Z] [36mINFO[0m: - actualizarStock
+[2025-10-31T05:48:16.154Z] [36mINFO[0m: - insertarArticulo
+[2025-10-31T05:48:16.155Z] [36mINFO[0m: - verificarEstado
+[2025-10-31T05:48:16.156Z] [36mINFO[0m: - listarCategorias
+[2025-10-31T05:48:16.159Z] [36mINFO[0m: - consultarArticulo
+[2025-10-31T05:48:16.161Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T05:48:20.481Z] [36mINFO[0m: 
+Iniciando operación: insertarArticulo
+[2025-10-31T05:48:29.349Z] [INFO] === INICIANDO CONSULTA DE CATEGORÍAS ===
+[2025-10-31T05:48:29.351Z] [DEBUG] Enviando petición SOAP para listar categorías
+[2025-10-31T05:48:29.489Z] [DEBUG] Respuesta cruda de listarCategorias: {
+  "categoriaListResponse": {
+    "categorias": {
+      "categoria": [
+        {
+          "id": 3,
+          "nombre": "Electricidad",
+          "descripcion": "Cables, interruptores, enchufes, etc."
+        },
+        {
+          "id": 2,
+          "nombre": "Ferretería General",
+          "descripcion": "Tornillos, tuercas, clavos, etc."
+        },
+        {
+          "id": 1,
+          "nombre": "Herramientas Manuales",
+          "descripcion": "Martillos, destornilladores, llaves, etc."
+        },
+        {
+          "id": 5,
+          "nombre": "Pintura",
+          "descripcion": "Pinturas, brochas, rodillos, etc."
+        },
+        {
+          "id": 4,
+          "nombre": "Plomería",
+          "descripcion": "Tuberías, llaves, accesorios de baño, etc."
+        }
+      ]
+    }
+  }
+}
+[2025-10-31T05:48:29.490Z] [INFO] Categorías obtenidas: 5
+[2025-10-31T05:48:31.287Z] [INFO] === INICIANDO CONSULTA DE PROVEEDORES ===
+[2025-10-31T05:48:31.289Z] [DEBUG] Enviando petición SOAP para listar proveedores
+[2025-10-31T05:48:31.306Z] [DEBUG] Respuesta cruda de listarProveedores: {
+  "proveedorListResponse": {
+    "proveedores": {
+      "proveedor": [
+        {
+          "id": 1,
+          "nombre": "Distribuidora Central",
+          "contacto": "Juan Pérez",
+          "telefono": "555-0101",
+          "email": "ventas@distcentral.com",
+          "direccion": "Av. Industrial 123"
+        },
+        {
+          "id": 2,
+          "nombre": "Ferretería Mayorista",
+          "contacto": "María García",
+          "telefono": "555-0102",
+          "email": "pedidos@ferremayorista.com",
+          "direccion": "Calle Comercio 456"
+        },
+        {
+          "id": 3,
+          "nombre": "Suministros Técnicos",
+          "contacto": "Carlos López",
+          "telefono": "555-0103",
+          "email": "info@sumtecnicos.com",
+          "direccion": "Zona Industrial Norte"
+        }
+      ]
+    }
+  }
+}
+[2025-10-31T05:48:31.306Z] [INFO] Proveedores obtenidos: 3
+[2025-10-31T05:48:31.311Z] [DEBUG] Proveedor #1: ID=1, Nombre=Distribuidora Central
+[2025-10-31T05:48:31.312Z] [DEBUG] Detalles: {
+  "contacto": "Juan Pérez",
+  "telefono": "555-0101",
+  "email": "ventas@distcentral.com",
+  "direccion": "Av. Industrial 123"
+}
+[2025-10-31T05:48:31.314Z] [DEBUG] Proveedor #2: ID=2, Nombre=Ferretería Mayorista
+[2025-10-31T05:48:31.314Z] [DEBUG] Detalles: {
+  "contacto": "María García",
+  "telefono": "555-0102",
+  "email": "pedidos@ferremayorista.com",
+  "direccion": "Calle Comercio 456"
+}
+[2025-10-31T05:48:31.316Z] [DEBUG] Proveedor #3: ID=3, Nombre=Suministros Técnicos
+[2025-10-31T05:48:31.317Z] [DEBUG] Detalles: {
+  "contacto": "Carlos López",
+  "telefono": "555-0103",
+  "email": "info@sumtecnicos.com",
+  "direccion": "Zona Industrial Norte"
+}
+[2025-10-31T05:48:43.605Z] [36mDEBUG[0m: {
+  "codigo": "HERR001",
+  "nombre": "HERRE",
+  "descripcion": "HERRE",
+  "categoriaId": 2,
+  "proveedorId": 2,
+  "precioCompra": 20,
+  "precioVenta": 50,
+  "stockActual": 60,
+  "stockMinimo": 20
+}
+[2025-10-31T05:48:43.606Z] [36mDEBUG[0m: Enviando petición SOAP: insertarArticulo
+[2025-10-31T05:48:43.607Z] [36mDEBUG[0m: Argumentos: {
+  "codigo": "HERR001",
+  "nombre": "HERRE",
+  "descripcion": "HERRE",
+  "categoriaId": 2,
+  "proveedorId": 2,
+  "precioCompra": 20,
+  "precioVenta": 50,
+  "stockActual": 60,
+  "stockMinimo": 20
+}
+[2025-10-31T05:48:43.667Z] [36mDEBUG[0m: Respuesta de insertarArticulo:
+[2025-10-31T05:48:43.669Z] [36mDEBUG[0m: Respuesta recibida (insertarArticulo):
+[2025-10-31T05:48:43.670Z] [36mDEBUG[0m: {
+  "exitoso": false,
+  "mensaje": "Error al acceder a la base de datos: No value specified for parameter 3",
+  "codigoError": "ERROR_BD",
+  "tipoError": "BASE_DATOS"
+}
+[2025-10-31T05:48:43.671Z] [36mDEBUG[0m: 
+=== INICIO RESPUESTA [2025-10-31T05:48:43.671Z] ===
+[2025-10-31T05:48:43.671Z] [36mDEBUG[0m: Operación: No especificada
+[2025-10-31T05:48:43.673Z] [31mERROR[0m: Operación fallida: Error al acceder a la base de datos: No value specified for parameter 3
+[2025-10-31T05:48:43.674Z] [31mERROR[0m: Código de error: ERROR_BD
+[2025-10-31T05:48:43.680Z] [31mERROR[0m: Tipo de error: BASE_DATOS
+[2025-10-31T05:48:43.680Z] [36mDEBUG[0m: === FIN RESPUESTA CON FALLO ===
+
+[2025-10-31T05:48:43.681Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T05:50:24.407Z] [INFO] Iniciando cliente SOAP
+[2025-10-31T05:50:24.413Z] [36mINFO[0m: Iniciando cliente SOAP...
+[2025-10-31T05:50:24.413Z] [36mINFO[0m: Conectando a: http://192.168.0.109:8080/InventarioService?wsdl
+[2025-10-31T05:50:24.644Z] [36mSUCCESS[0m: Conexión exitosa al servicio SOAP
+[2025-10-31T05:50:24.646Z] [36mINFO[0m: Operaciones disponibles:
+[2025-10-31T05:50:24.647Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T05:50:24.649Z] [36mINFO[0m: - listarProveedores
+[2025-10-31T05:50:24.650Z] [36mINFO[0m: - actualizarStock
+[2025-10-31T05:50:24.651Z] [36mINFO[0m: - insertarArticulo
+[2025-10-31T05:50:24.652Z] [36mINFO[0m: - verificarEstado
+[2025-10-31T05:50:24.653Z] [36mINFO[0m: - listarCategorias
+[2025-10-31T05:50:24.655Z] [36mINFO[0m: - consultarArticulo
+[2025-10-31T05:50:24.656Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T05:52:26.523Z] [INFO] Iniciando cliente SOAP
+[2025-10-31T05:52:26.528Z] [36mINFO[0m: Iniciando cliente SOAP...
+[2025-10-31T05:52:26.529Z] [36mINFO[0m: Conectando a: http://192.168.0.109:8080/InventarioService?wsdl
+[2025-10-31T05:52:28.571Z] [31mERROR[0m: Error conectando al servicio: connect ECONNREFUSED 192.168.0.109:8080
+[2025-10-31T05:52:28.572Z] [31mERROR[0m: - Verifica que el servidor esté corriendo en: http://192.168.0.109:8080/InventarioService?wsdl
+[2025-10-31T05:52:28.574Z] [31mERROR[0m: - Detalles del error: {
+  "message": "connect ECONNREFUSED 192.168.0.109:8080",
+  "name": "Error",
+  "stack": "Error: connect ECONNREFUSED 192.168.0.109:8080\n    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1636:16)",
+  "config": {
+    "url": "http://192.168.0.109:8080/InventarioService?wsdl",
+    "method": "get",
+    "data": null,
+    "headers": {
+      "Accept": "text/html,application/xhtml+xml,application/xml,text/xml;q=0.9,*/*;q=0.8",
+      "User-Agent": "Node-SOAP-Client",
+      "Accept-Encoding": "none",
+      "Accept-Charset": "utf-8",
+      "Connection": "keep-alive",
+      "Host": "192.168.0.109:8080",
+      "Authorization": "Basic YWRtaW46YWRtaW4="
+    },
+    "transformRequest": [
+      null
+    ],
+    "timeout": 0,
+    "xsrfCookieName": "XSRF-TOKEN",
+    "xsrfHeaderName": "X-XSRF-TOKEN",
+    "maxContentLength": -1,
+    "maxBodyLength": -1,
+    "validateStatus": null,
+    "transitional": {
+      "silentJSONParsing": true,
+      "forcedJSONParsing": true,
+      "clarifyTimeoutError": false
+    },
+    "rejectUnauthorized": false,
+    "strictSSL": false,
+    "forever": true
+  },
+  "code": "ECONNREFUSED"
+}
+[2025-10-31T05:52:33.460Z] [INFO] Iniciando cliente SOAP
+[2025-10-31T05:52:33.466Z] [36mINFO[0m: Iniciando cliente SOAP...
+[2025-10-31T05:52:33.467Z] [36mINFO[0m: Conectando a: http://192.168.0.109:8080/InventarioService?wsdl
+[2025-10-31T05:52:33.938Z] [36mSUCCESS[0m: Conexión exitosa al servicio SOAP
+[2025-10-31T05:52:33.939Z] [36mINFO[0m: Operaciones disponibles:
+[2025-10-31T05:52:33.941Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T05:52:33.942Z] [36mINFO[0m: - listarProveedores
+[2025-10-31T05:52:33.943Z] [36mINFO[0m: - consultarArticulo
+[2025-10-31T05:52:33.945Z] [36mINFO[0m: - insertarArticulo
+[2025-10-31T05:52:33.946Z] [36mINFO[0m: - verificarEstado
+[2025-10-31T05:52:33.947Z] [36mINFO[0m: - listarCategorias
+[2025-10-31T05:52:33.949Z] [36mINFO[0m: - actualizarStock
+[2025-10-31T05:52:33.950Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T05:52:36.226Z] [36mINFO[0m: 
+Iniciando operación: listarProveedores
+[2025-10-31T05:52:36.227Z] [36mINFO[0m: Obteniendo lista de proveedores...
+[2025-10-31T05:52:36.228Z] [36mDEBUG[0m: Enviando petición SOAP: listarProveedores
+[2025-10-31T05:52:36.229Z] [36mDEBUG[0m: Argumentos: {}
+[2025-10-31T05:52:36.361Z] [36mDEBUG[0m: Respuesta de listarProveedores:
+[2025-10-31T05:52:36.362Z] [36mDEBUG[0m: Respuesta recibida (listarProveedores):
+[2025-10-31T05:52:36.363Z] [36mDEBUG[0m: {
+  "proveedorListResponse": {
+    "proveedores": {
+      "proveedor": [
+        {
+          "id": 1,
+          "nombre": "Distribuidora Central",
+          "contacto": "Juan Pérez",
+          "telefono": "555-0101",
+          "email": "ventas@distcentral.com",
+          "direccion": "Av. Industrial 123"
+        },
+        {
+          "id": 2,
+          "nombre": "Ferretería Mayorista",
+          "contacto": "María García",
+          "telefono": "555-0102",
+          "email": "pedidos@ferremayorista.com",
+          "direccion": "Calle Comercio 456"
+        },
+        {
+          "id": 3,
+          "nombre": "Suministros Técnicos",
+          "contacto": "Carlos López",
+          "telefono": "555-0103",
+          "email": "info@sumtecnicos.com",
+          "direccion": "Zona Industrial Norte"
+        }
+      ]
+    }
+  }
+}
+[2025-10-31T05:52:36.364Z] [36mDEBUG[0m: 
+=== INICIO RESPUESTA [2025-10-31T05:52:36.364Z] ===
+[2025-10-31T05:52:36.365Z] [36mDEBUG[0m: Operación: No especificada
+[2025-10-31T05:52:36.370Z] [36mSUCCESS[0m: ✅ Operación completada exitosamente
+[2025-10-31T05:52:36.371Z] [36mDEBUG[0m: 
+📊 Metadatos adicionales:
+[2025-10-31T05:52:36.371Z] [36mDEBUG[0m: proveedorListResponse:
+[2025-10-31T05:52:36.372Z] [36mDEBUG[0m:   proveedores:
+[2025-10-31T05:52:36.373Z] [36mDEBUG[0m:     proveedor:
+[2025-10-31T05:52:36.373Z] [36mDEBUG[0m:       [0]:
+[2025-10-31T05:52:36.373Z] [36mDEBUG[0m:         id: 1
+[2025-10-31T05:52:36.374Z] [36mDEBUG[0m:         nombre: Distribuidora Central
+[2025-10-31T05:52:36.375Z] [36mDEBUG[0m:         contacto: Juan Pérez
+[2025-10-31T05:52:36.376Z] [36mDEBUG[0m:         telefono: 555-0101
+[2025-10-31T05:52:36.377Z] [36mDEBUG[0m:         email: ventas@distcentral.com
+[2025-10-31T05:52:36.378Z] [36mDEBUG[0m:         direccion: Av. Industrial 123
+[2025-10-31T05:52:36.378Z] [36mDEBUG[0m:       [1]:
+[2025-10-31T05:52:36.379Z] [36mDEBUG[0m:         id: 2
+[2025-10-31T05:52:36.379Z] [36mDEBUG[0m:         nombre: Ferretería Mayorista
+[2025-10-31T05:52:36.380Z] [36mDEBUG[0m:         contacto: María García
+[2025-10-31T05:52:36.380Z] [36mDEBUG[0m:         telefono: 555-0102
+[2025-10-31T05:52:36.381Z] [36mDEBUG[0m:         email: pedidos@ferremayorista.com
+[2025-10-31T05:52:36.381Z] [36mDEBUG[0m:         direccion: Calle Comercio 456
+[2025-10-31T05:52:36.382Z] [36mDEBUG[0m:       [2]:
+[2025-10-31T05:52:36.382Z] [36mDEBUG[0m:         id: 3
+[2025-10-31T05:52:36.383Z] [36mDEBUG[0m:         nombre: Suministros Técnicos
+[2025-10-31T05:52:36.384Z] [36mDEBUG[0m:         contacto: Carlos López
+[2025-10-31T05:52:36.384Z] [36mDEBUG[0m:         telefono: 555-0103
+[2025-10-31T05:52:36.385Z] [36mDEBUG[0m:         email: info@sumtecnicos.com
+[2025-10-31T05:52:36.385Z] [36mDEBUG[0m:         direccion: Zona Industrial Norte
+[2025-10-31T05:52:36.386Z] [36mDEBUG[0m: === FIN RESPUESTA EXITOSA ===
+
+[2025-10-31T05:52:36.387Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T05:52:44.491Z] [36mINFO[0m: 
+Iniciando operación: insertarArticulo
+[2025-10-31T05:52:51.259Z] [INFO] === INICIANDO CONSULTA DE CATEGORÍAS ===
+[2025-10-31T05:52:51.261Z] [DEBUG] Enviando petición SOAP para listar categorías
+[2025-10-31T05:52:51.281Z] [DEBUG] Respuesta cruda de listarCategorias: {
+  "categoriaListResponse": {
+    "categorias": {
+      "categoria": [
+        {
+          "id": 3,
+          "nombre": "Electricidad",
+          "descripcion": "Cables, interruptores, enchufes, etc."
+        },
+        {
+          "id": 2,
+          "nombre": "Ferretería General",
+          "descripcion": "Tornillos, tuercas, clavos, etc."
+        },
+        {
+          "id": 1,
+          "nombre": "Herramientas Manuales",
+          "descripcion": "Martillos, destornilladores, llaves, etc."
+        },
+        {
+          "id": 5,
+          "nombre": "Pintura",
+          "descripcion": "Pinturas, brochas, rodillos, etc."
+        },
+        {
+          "id": 4,
+          "nombre": "Plomería",
+          "descripcion": "Tuberías, llaves, accesorios de baño, etc."
+        }
+      ]
+    }
+  }
+}
+[2025-10-31T05:52:51.282Z] [INFO] Categorías obtenidas: 5
+[2025-10-31T05:52:53.098Z] [INFO] === INICIANDO CONSULTA DE PROVEEDORES ===
+[2025-10-31T05:52:53.100Z] [DEBUG] Enviando petición SOAP para listar proveedores
+[2025-10-31T05:52:53.116Z] [DEBUG] Respuesta cruda de listarProveedores: {
+  "proveedorListResponse": {
+    "proveedores": {
+      "proveedor": [
+        {
+          "id": 1,
+          "nombre": "Distribuidora Central",
+          "contacto": "Juan Pérez",
+          "telefono": "555-0101",
+          "email": "ventas@distcentral.com",
+          "direccion": "Av. Industrial 123"
+        },
+        {
+          "id": 2,
+          "nombre": "Ferretería Mayorista",
+          "contacto": "María García",
+          "telefono": "555-0102",
+          "email": "pedidos@ferremayorista.com",
+          "direccion": "Calle Comercio 456"
+        },
+        {
+          "id": 3,
+          "nombre": "Suministros Técnicos",
+          "contacto": "Carlos López",
+          "telefono": "555-0103",
+          "email": "info@sumtecnicos.com",
+          "direccion": "Zona Industrial Norte"
+        }
+      ]
+    }
+  }
+}
+[2025-10-31T05:52:53.117Z] [INFO] Proveedores obtenidos: 3
+[2025-10-31T05:52:53.118Z] [DEBUG] Proveedor #1: ID=1, Nombre=Distribuidora Central
+[2025-10-31T05:52:53.118Z] [DEBUG] Detalles: {
+  "contacto": "Juan Pérez",
+  "telefono": "555-0101",
+  "email": "ventas@distcentral.com",
+  "direccion": "Av. Industrial 123"
+}
+[2025-10-31T05:52:53.120Z] [DEBUG] Proveedor #2: ID=2, Nombre=Ferretería Mayorista
+[2025-10-31T05:52:53.120Z] [DEBUG] Detalles: {
+  "contacto": "María García",
+  "telefono": "555-0102",
+  "email": "pedidos@ferremayorista.com",
+  "direccion": "Calle Comercio 456"
+}
+[2025-10-31T05:52:53.121Z] [DEBUG] Proveedor #3: ID=3, Nombre=Suministros Técnicos
+[2025-10-31T05:52:53.122Z] [DEBUG] Detalles: {
+  "contacto": "Carlos López",
+  "telefono": "555-0103",
+  "email": "info@sumtecnicos.com",
+  "direccion": "Zona Industrial Norte"
+}
+[2025-10-31T05:53:04.545Z] [36mDEBUG[0m: {
+  "codigo": "herre2001",
+  "nombre": "herre",
+  "descripcion": "herre",
+  "categoriaId": 2,
+  "proveedorId": 2,
+  "precioCompra": 40,
+  "precioVenta": 80,
+  "stockActual": 60,
+  "stockMinimo": 20
+}
+[2025-10-31T05:53:04.546Z] [36mDEBUG[0m: Enviando petición SOAP: insertarArticulo
+[2025-10-31T05:53:04.547Z] [36mDEBUG[0m: Argumentos: {
+  "codigo": "herre2001",
+  "nombre": "herre",
+  "descripcion": "herre",
+  "categoriaId": 2,
+  "proveedorId": 2,
+  "precioCompra": 40,
+  "precioVenta": 80,
+  "stockActual": 60,
+  "stockMinimo": 20
+}
+[2025-10-31T05:53:04.608Z] [36mDEBUG[0m: Respuesta de insertarArticulo:
+[2025-10-31T05:53:04.609Z] [36mDEBUG[0m: Respuesta recibida (insertarArticulo):
+[2025-10-31T05:53:04.610Z] [36mDEBUG[0m: {
+  "exitoso": false,
+  "mensaje": "Error al acceder a la base de datos: No value specified for parameter 3",
+  "codigoError": "ERROR_BD",
+  "tipoError": "BASE_DATOS"
+}
+[2025-10-31T05:53:04.611Z] [36mDEBUG[0m: 
+=== INICIO RESPUESTA [2025-10-31T05:53:04.611Z] ===
+[2025-10-31T05:53:04.611Z] [36mDEBUG[0m: Operación: No especificada
+[2025-10-31T05:53:04.612Z] [31mERROR[0m: Operación fallida: Error al acceder a la base de datos: No value specified for parameter 3
+[2025-10-31T05:53:04.613Z] [31mERROR[0m: Código de error: ERROR_BD
+[2025-10-31T05:53:04.613Z] [31mERROR[0m: Tipo de error: BASE_DATOS
+[2025-10-31T05:53:04.614Z] [36mDEBUG[0m: === FIN RESPUESTA CON FALLO ===
+
+[2025-10-31T05:53:04.615Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T05:54:47.248Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T05:54:57.302Z] [36mINFO[0m: 
+Iniciando operación: insertarArticulo
+[2025-10-31T05:55:25.659Z] [INFO] === INICIANDO CONSULTA DE CATEGORÍAS ===
+[2025-10-31T05:55:25.660Z] [DEBUG] Enviando petición SOAP para listar categorías
+[2025-10-31T05:55:25.903Z] [DEBUG] Respuesta cruda de listarCategorias: {
+  "categoriaListResponse": {
+    "categorias": {
+      "categoria": [
+        {
+          "id": 3,
+          "nombre": "Electricidad",
+          "descripcion": "Cables, interruptores, enchufes, etc."
+        },
+        {
+          "id": 2,
+          "nombre": "Ferretería General",
+          "descripcion": "Tornillos, tuercas, clavos, etc."
+        },
+        {
+          "id": 1,
+          "nombre": "Herramientas Manuales",
+          "descripcion": "Martillos, destornilladores, llaves, etc."
+        },
+        {
+          "id": 5,
+          "nombre": "Pintura",
+          "descripcion": "Pinturas, brochas, rodillos, etc."
+        },
+        {
+          "id": 4,
+          "nombre": "Plomería",
+          "descripcion": "Tuberías, llaves, accesorios de baño, etc."
+        }
+      ]
+    }
+  }
+}
+[2025-10-31T05:55:25.903Z] [INFO] Categorías obtenidas: 5
+[2025-10-31T05:55:32.971Z] [INFO] === INICIANDO CONSULTA DE PROVEEDORES ===
+[2025-10-31T05:55:32.973Z] [DEBUG] Enviando petición SOAP para listar proveedores
+[2025-10-31T05:55:33.001Z] [DEBUG] Respuesta cruda de listarProveedores: {
+  "proveedorListResponse": {
+    "proveedores": {
+      "proveedor": [
+        {
+          "id": 1,
+          "nombre": "Distribuidora Central",
+          "contacto": "Juan Pérez",
+          "telefono": "555-0101",
+          "email": "ventas@distcentral.com",
+          "direccion": "Av. Industrial 123"
+        },
+        {
+          "id": 2,
+          "nombre": "Ferretería Mayorista",
+          "contacto": "María García",
+          "telefono": "555-0102",
+          "email": "pedidos@ferremayorista.com",
+          "direccion": "Calle Comercio 456"
+        },
+        {
+          "id": 3,
+          "nombre": "Suministros Técnicos",
+          "contacto": "Carlos López",
+          "telefono": "555-0103",
+          "email": "info@sumtecnicos.com",
+          "direccion": "Zona Industrial Norte"
+        }
+      ]
+    }
+  }
+}
+[2025-10-31T05:55:33.002Z] [INFO] Proveedores obtenidos: 3
+[2025-10-31T05:55:33.004Z] [DEBUG] Proveedor #1: ID=1, Nombre=Distribuidora Central
+[2025-10-31T05:55:33.004Z] [DEBUG] Detalles: {
+  "contacto": "Juan Pérez",
+  "telefono": "555-0101",
+  "email": "ventas@distcentral.com",
+  "direccion": "Av. Industrial 123"
+}
+[2025-10-31T05:55:33.008Z] [DEBUG] Proveedor #2: ID=2, Nombre=Ferretería Mayorista
+[2025-10-31T05:55:33.009Z] [DEBUG] Detalles: {
+  "contacto": "María García",
+  "telefono": "555-0102",
+  "email": "pedidos@ferremayorista.com",
+  "direccion": "Calle Comercio 456"
+}
+[2025-10-31T05:55:33.011Z] [DEBUG] Proveedor #3: ID=3, Nombre=Suministros Técnicos
+[2025-10-31T05:55:33.012Z] [DEBUG] Detalles: {
+  "contacto": "Carlos López",
+  "telefono": "555-0103",
+  "email": "info@sumtecnicos.com",
+  "direccion": "Zona Industrial Norte"
+}
+[2025-10-31T05:56:13.598Z] [36mDEBUG[0m: {
+  "codigo": "TEST001",
+  "nombre": "Artículo de Prueba",
+  "descripcion": "Descripción de prueba para diagnosticar el error",
+  "categoriaId": 2,
+  "proveedorId": 1,
+  "precioCompra": 15.5,
+  "precioVenta": 25,
+  "stockActual": 100,
+  "stockMinimo": 10
+}
+[2025-10-31T05:56:13.599Z] [36mDEBUG[0m: Enviando petición SOAP: insertarArticulo
+[2025-10-31T05:56:13.600Z] [36mDEBUG[0m: Argumentos: {
+  "codigo": "TEST001",
+  "nombre": "Artículo de Prueba",
+  "descripcion": "Descripción de prueba para diagnosticar el error",
+  "categoriaId": 2,
+  "proveedorId": 1,
+  "precioCompra": 15.5,
+  "precioVenta": 25,
+  "stockActual": 100,
+  "stockMinimo": 10
+}
+[2025-10-31T05:56:13.652Z] [36mDEBUG[0m: Respuesta de insertarArticulo:
+[2025-10-31T05:56:13.653Z] [36mDEBUG[0m: Respuesta recibida (insertarArticulo):
+[2025-10-31T05:56:13.654Z] [36mDEBUG[0m: {
+  "exitoso": false,
+  "mensaje": "Error al acceder a la base de datos: No value specified for parameter 3",
+  "codigoError": "ERROR_BD",
+  "tipoError": "BASE_DATOS"
+}
+[2025-10-31T05:56:13.655Z] [36mDEBUG[0m: 
+=== INICIO RESPUESTA [2025-10-31T05:56:13.655Z] ===
+[2025-10-31T05:56:13.656Z] [36mDEBUG[0m: Operación: No especificada
+[2025-10-31T05:56:13.658Z] [31mERROR[0m: Operación fallida: Error al acceder a la base de datos: No value specified for parameter 3
+[2025-10-31T05:56:13.659Z] [31mERROR[0m: Código de error: ERROR_BD
+[2025-10-31T05:56:13.660Z] [31mERROR[0m: Tipo de error: BASE_DATOS
+[2025-10-31T05:56:13.660Z] [36mDEBUG[0m: === FIN RESPUESTA CON FALLO ===
+
+[2025-10-31T05:56:13.661Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T06:00:19.897Z] [INFO] Iniciando cliente SOAP
+[2025-10-31T06:00:19.903Z] [36mINFO[0m: Iniciando cliente SOAP...
+[2025-10-31T06:00:19.904Z] [36mINFO[0m: Conectando a: http://192.168.0.109:8080/InventarioService?wsdl
+[2025-10-31T06:00:20.283Z] [36mSUCCESS[0m: Conexión exitosa al servicio SOAP
+[2025-10-31T06:00:20.285Z] [36mINFO[0m: Operaciones disponibles:
+[2025-10-31T06:00:20.287Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T06:00:20.290Z] [36mINFO[0m: - insertarArticulo
+[2025-10-31T06:00:20.291Z] [36mINFO[0m: - listarCategorias
+[2025-10-31T06:00:20.293Z] [36mINFO[0m: - consultarArticulo
+[2025-10-31T06:00:20.294Z] [36mINFO[0m: - verificarEstado
+[2025-10-31T06:00:20.296Z] [36mINFO[0m: - listarProveedores
+[2025-10-31T06:00:20.296Z] [36mINFO[0m: - actualizarStock
+[2025-10-31T06:00:20.298Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T06:00:27.575Z] [36mINFO[0m: 
+Iniciando operación: insertarArticulo
+[2025-10-31T06:00:44.171Z] [INFO] === INICIANDO CONSULTA DE CATEGORÍAS ===
+[2025-10-31T06:00:44.176Z] [DEBUG] Enviando petición SOAP para listar categorías
+[2025-10-31T06:00:44.430Z] [DEBUG] Respuesta cruda de listarCategorias: {
+  "categoriaListResponse": {
+    "categorias": {
+      "categoria": [
+        {
+          "id": 3,
+          "nombre": "Electricidad",
+          "descripcion": "Cables, interruptores, enchufes, etc."
+        },
+        {
+          "id": 2,
+          "nombre": "Ferretería General",
+          "descripcion": "Tornillos, tuercas, clavos, etc."
+        },
+        {
+          "id": 1,
+          "nombre": "Herramientas Manuales",
+          "descripcion": "Martillos, destornilladores, llaves, etc."
+        },
+        {
+          "id": 5,
+          "nombre": "Pintura",
+          "descripcion": "Pinturas, brochas, rodillos, etc."
+        },
+        {
+          "id": 4,
+          "nombre": "Plomería",
+          "descripcion": "Tuberías, llaves, accesorios de baño, etc."
+        }
+      ]
+    }
+  }
+}
+[2025-10-31T06:00:44.432Z] [INFO] Categorías obtenidas: 5
+[2025-10-31T06:00:50.437Z] [INFO] === INICIANDO CONSULTA DE PROVEEDORES ===
+[2025-10-31T06:00:50.441Z] [DEBUG] Enviando petición SOAP para listar proveedores
+[2025-10-31T06:00:50.470Z] [DEBUG] Respuesta cruda de listarProveedores: {
+  "proveedorListResponse": {
+    "proveedores": {
+      "proveedor": [
+        {
+          "id": 1,
+          "nombre": "Distribuidora Central",
+          "contacto": "Juan Pérez",
+          "telefono": "555-0101",
+          "email": "ventas@distcentral.com",
+          "direccion": "Av. Industrial 123"
+        },
+        {
+          "id": 2,
+          "nombre": "Ferretería Mayorista",
+          "contacto": "María García",
+          "telefono": "555-0102",
+          "email": "pedidos@ferremayorista.com",
+          "direccion": "Calle Comercio 456"
+        },
+        {
+          "id": 3,
+          "nombre": "Suministros Técnicos",
+          "contacto": "Carlos López",
+          "telefono": "555-0103",
+          "email": "info@sumtecnicos.com",
+          "direccion": "Zona Industrial Norte"
+        }
+      ]
+    }
+  }
+}
+[2025-10-31T06:00:50.471Z] [INFO] Proveedores obtenidos: 3
+[2025-10-31T06:00:50.472Z] [DEBUG] Proveedor #1: ID=1, Nombre=Distribuidora Central
+[2025-10-31T06:00:50.473Z] [DEBUG] Detalles: {
+  "contacto": "Juan Pérez",
+  "telefono": "555-0101",
+  "email": "ventas@distcentral.com",
+  "direccion": "Av. Industrial 123"
+}
+[2025-10-31T06:00:50.475Z] [DEBUG] Proveedor #2: ID=2, Nombre=Ferretería Mayorista
+[2025-10-31T06:00:50.475Z] [DEBUG] Detalles: {
+  "contacto": "María García",
+  "telefono": "555-0102",
+  "email": "pedidos@ferremayorista.com",
+  "direccion": "Calle Comercio 456"
+}
+[2025-10-31T06:00:50.477Z] [DEBUG] Proveedor #3: ID=3, Nombre=Suministros Técnicos
+[2025-10-31T06:00:50.478Z] [DEBUG] Detalles: {
+  "contacto": "Carlos López",
+  "telefono": "555-0103",
+  "email": "info@sumtecnicos.com",
+  "direccion": "Zona Industrial Norte"
+}
+[2025-10-31T06:01:17.987Z] [36mDEBUG[0m: {
+  "codigo": "TEST002",
+  "nombre": "Test Article",
+  "descripcion": "Test description",
+  "categoriaId": 3,
+  "proveedorId": 1,
+  "precioCompra": 10,
+  "precioVenta": 15,
+  "stockActual": 50,
+  "stockMinimo": 5
+}
+[2025-10-31T06:01:17.990Z] [36mDEBUG[0m: Enviando petición SOAP: insertarArticulo
+[2025-10-31T06:01:17.992Z] [36mDEBUG[0m: Argumentos: {
+  "codigo": "TEST002",
+  "nombre": "Test Article",
+  "descripcion": "Test description",
+  "categoriaId": 3,
+  "proveedorId": 1,
+  "precioCompra": 10,
+  "precioVenta": 15,
+  "stockActual": 50,
+  "stockMinimo": 5
+}
+[2025-10-31T06:01:18.051Z] [36mDEBUG[0m: Respuesta de insertarArticulo:
+[2025-10-31T06:01:18.053Z] [36mDEBUG[0m: Respuesta recibida (insertarArticulo):
+[2025-10-31T06:01:18.054Z] [36mDEBUG[0m: {
+  "exitoso": false,
+  "mensaje": "Error al acceder a la base de datos: No value specified for parameter 3",
+  "codigoError": "ERROR_BD",
+  "tipoError": "BASE_DATOS"
+}
+[2025-10-31T06:01:18.055Z] [36mDEBUG[0m: 
+=== INICIO RESPUESTA [2025-10-31T06:01:18.055Z] ===
+[2025-10-31T06:01:18.056Z] [36mDEBUG[0m: Operación: No especificada
+[2025-10-31T06:01:18.058Z] [31mERROR[0m: Operación fallida: Error al acceder a la base de datos: No value specified for parameter 3
+[2025-10-31T06:01:18.059Z] [31mERROR[0m: Código de error: ERROR_BD
+[2025-10-31T06:01:18.059Z] [31mERROR[0m: Tipo de error: BASE_DATOS
+[2025-10-31T06:01:18.060Z] [36mDEBUG[0m: === FIN RESPUESTA CON FALLO ===
+
+[2025-10-31T06:01:18.061Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T06:03:58.144Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T06:04:09.282Z] [36mINFO[0m: 
+Iniciando operación: insertarArticulo
+[2025-10-31T06:04:37.405Z] [INFO] === INICIANDO CONSULTA DE CATEGORÍAS ===
+[2025-10-31T06:04:37.406Z] [DEBUG] Enviando petición SOAP para listar categorías
+[2025-10-31T06:04:37.635Z] [DEBUG] Respuesta cruda de listarCategorias: {
+  "categoriaListResponse": {
+    "categorias": {
+      "categoria": [
+        {
+          "id": 3,
+          "nombre": "Electricidad",
+          "descripcion": "Cables, interruptores, enchufes, etc."
+        },
+        {
+          "id": 2,
+          "nombre": "Ferretería General",
+          "descripcion": "Tornillos, tuercas, clavos, etc."
+        },
+        {
+          "id": 1,
+          "nombre": "Herramientas Manuales",
+          "descripcion": "Martillos, destornilladores, llaves, etc."
+        },
+        {
+          "id": 5,
+          "nombre": "Pintura",
+          "descripcion": "Pinturas, brochas, rodillos, etc."
+        },
+        {
+          "id": 4,
+          "nombre": "Plomería",
+          "descripcion": "Tuberías, llaves, accesorios de baño, etc."
+        }
+      ]
+    }
+  }
+}
+[2025-10-31T06:04:37.636Z] [INFO] Categorías obtenidas: 5
+[2025-10-31T06:04:43.775Z] [INFO] === INICIANDO CONSULTA DE PROVEEDORES ===
+[2025-10-31T06:04:43.776Z] [DEBUG] Enviando petición SOAP para listar proveedores
+[2025-10-31T06:04:43.794Z] [DEBUG] Respuesta cruda de listarProveedores: {
+  "proveedorListResponse": {
+    "proveedores": {
+      "proveedor": [
+        {
+          "id": 1,
+          "nombre": "Distribuidora Central",
+          "contacto": "Juan Pérez",
+          "telefono": "555-0101",
+          "email": "ventas@distcentral.com",
+          "direccion": "Av. Industrial 123"
+        },
+        {
+          "id": 2,
+          "nombre": "Ferretería Mayorista",
+          "contacto": "María García",
+          "telefono": "555-0102",
+          "email": "pedidos@ferremayorista.com",
+          "direccion": "Calle Comercio 456"
+        },
+        {
+          "id": 3,
+          "nombre": "Suministros Técnicos",
+          "contacto": "Carlos López",
+          "telefono": "555-0103",
+          "email": "info@sumtecnicos.com",
+          "direccion": "Zona Industrial Norte"
+        }
+      ]
+    }
+  }
+}
+[2025-10-31T06:04:43.794Z] [INFO] Proveedores obtenidos: 3
+[2025-10-31T06:04:43.795Z] [DEBUG] Proveedor #1: ID=1, Nombre=Distribuidora Central
+[2025-10-31T06:04:43.796Z] [DEBUG] Detalles: {
+  "contacto": "Juan Pérez",
+  "telefono": "555-0101",
+  "email": "ventas@distcentral.com",
+  "direccion": "Av. Industrial 123"
+}
+[2025-10-31T06:04:43.798Z] [DEBUG] Proveedor #2: ID=2, Nombre=Ferretería Mayorista
+[2025-10-31T06:04:43.798Z] [DEBUG] Detalles: {
+  "contacto": "María García",
+  "telefono": "555-0102",
+  "email": "pedidos@ferremayorista.com",
+  "direccion": "Calle Comercio 456"
+}
+[2025-10-31T06:04:43.800Z] [DEBUG] Proveedor #3: ID=3, Nombre=Suministros Técnicos
+[2025-10-31T06:04:43.800Z] [DEBUG] Detalles: {
+  "contacto": "Carlos López",
+  "telefono": "555-0103",
+  "email": "info@sumtecnicos.com",
+  "direccion": "Zona Industrial Norte"
+}
+[2025-10-31T06:05:39.300Z] [36mDEBUG[0m: {
+  "codigo": "TEST003",
+  "nombre": "Artículo Final",
+  "descripcion": "Prueba final después del fix",
+  "categoriaId": 3,
+  "proveedorId": 2,
+  "precioCompra": 30,
+  "precioVenta": 45.5,
+  "stockActual": 50,
+  "stockMinimo": 5
+}
+[2025-10-31T06:05:39.302Z] [36mDEBUG[0m: Enviando petición SOAP: insertarArticulo
+[2025-10-31T06:05:39.303Z] [36mDEBUG[0m: Argumentos: {
+  "codigo": "TEST003",
+  "nombre": "Artículo Final",
+  "descripcion": "Prueba final después del fix",
+  "categoriaId": 3,
+  "proveedorId": 2,
+  "precioCompra": 30,
+  "precioVenta": 45.5,
+  "stockActual": 50,
+  "stockMinimo": 5
+}
+[2025-10-31T06:05:39.388Z] [31mERROR[0m: Respuesta de insertarArticulo:
+[2025-10-31T06:05:39.389Z] [31mERROR[0m: Error HTTP undefined: undefined
+[2025-10-31T06:05:39.390Z] [36mDEBUG[0m: Headers: {
+  "date": "Fri, 31 Oct 2025 06:05:39 GMT",
+  "transfer-encoding": "chunked",
+  "content-type": "text/xml; charset=utf-8"
+}
+[2025-10-31T06:05:39.390Z] [31mERROR[0m: Error en insertarArticulo: Error desconocido
+[2025-10-31T06:05:39.391Z] [36mDEBUG[0m: Detalles del error: {"response":{"headers":{"date":"Fri, 31 Oct 2025 06:05:39 GMT","transfer-encoding":"chunked","content-type":"text/xml; charset=utf-8"},"data":"<?xml version='1.0' encoding='UTF-8'?><S:Envelope xmlns:S=\"http://schemas.xmlsoap.org/soap/envelope/\"><S:Body>"}}
+[2025-10-31T06:05:39.392Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T06:06:09.417Z] [INFO] Iniciando cliente SOAP
+[2025-10-31T06:06:09.424Z] [36mINFO[0m: Iniciando cliente SOAP...
+[2025-10-31T06:06:09.425Z] [36mINFO[0m: Conectando a: http://192.168.0.109:8080/InventarioService?wsdl
+[2025-10-31T06:06:09.675Z] [36mSUCCESS[0m: Conexión exitosa al servicio SOAP
+[2025-10-31T06:06:09.676Z] [36mINFO[0m: Operaciones disponibles:
+[2025-10-31T06:06:09.677Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T06:06:09.679Z] [36mINFO[0m: - listarProveedores
+[2025-10-31T06:06:09.679Z] [36mINFO[0m: - actualizarStock
+[2025-10-31T06:06:09.680Z] [36mINFO[0m: - listarCategorias
+[2025-10-31T06:06:09.681Z] [36mINFO[0m: - consultarArticulo
+[2025-10-31T06:06:09.683Z] [36mINFO[0m: - insertarArticulo
+[2025-10-31T06:06:09.683Z] [36mINFO[0m: - verificarEstado
+[2025-10-31T06:06:09.685Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T06:06:31.056Z] [36mINFO[0m: 
+Iniciando operación: consultarArticulo
+[2025-10-31T06:06:31.058Z] [36mINFO[0m: Consultando artículo...
+[2025-10-31T06:06:41.787Z] [36mINFO[0m: Consultando artículo con código: TEST003
+[2025-10-31T06:06:41.817Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T06:06:50.420Z] [36mINFO[0m: 
+Iniciando operación: consultarArticulo
+[2025-10-31T06:06:50.421Z] [36mINFO[0m: Consultando artículo...
+[2025-10-31T06:07:01.277Z] [36mINFO[0m: Consultando artículo con código: MART001
+[2025-10-31T06:07:01.297Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T06:07:17.775Z] [36mINFO[0m: 
+Iniciando operación: verificarEstado
+[2025-10-31T06:07:17.777Z] [36mDEBUG[0m: Enviando petición SOAP: verificarEstado
+[2025-10-31T06:07:17.779Z] [36mDEBUG[0m: Argumentos: {}
+[2025-10-31T06:07:17.798Z] [36mDEBUG[0m: Respuesta de verificarEstado:
+[2025-10-31T06:07:17.799Z] [36mDEBUG[0m: Respuesta recibida (verificarEstado):
+[2025-10-31T06:07:17.801Z] [36mDEBUG[0m: {
+  "exitoso": true,
+  "mensaje": "Servicio operativo - Base de datos conectada"
+}
+[2025-10-31T06:07:17.802Z] [36mSUCCESS[0m: Verificación de estado completada
+[2025-10-31T06:07:43.797Z] [INFO] Iniciando cliente SOAP
+[2025-10-31T06:07:43.803Z] [36mINFO[0m: Iniciando cliente SOAP...
+[2025-10-31T06:07:43.804Z] [36mINFO[0m: Conectando a: http://192.168.0.109:8080/InventarioService?wsdl
+[2025-10-31T06:07:44.042Z] [36mSUCCESS[0m: Conexión exitosa al servicio SOAP
+[2025-10-31T06:07:44.043Z] [36mINFO[0m: Operaciones disponibles:
+[2025-10-31T06:07:44.044Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T06:07:44.046Z] [36mINFO[0m: - listarProveedores
+[2025-10-31T06:07:44.047Z] [36mINFO[0m: - actualizarStock
+[2025-10-31T06:07:44.048Z] [36mINFO[0m: - listarCategorias
+[2025-10-31T06:07:44.049Z] [36mINFO[0m: - consultarArticulo
+[2025-10-31T06:07:44.051Z] [36mINFO[0m: - insertarArticulo
+[2025-10-31T06:07:44.052Z] [36mINFO[0m: - verificarEstado
+[2025-10-31T06:07:44.053Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T06:07:46.759Z] [36mINFO[0m: 
+Iniciando operación: listarCategorias
+[2025-10-31T06:07:46.761Z] [36mINFO[0m: Obteniendo lista de categorías...
+[2025-10-31T06:07:46.762Z] [36mDEBUG[0m: Enviando petición SOAP: listarCategorias
+[2025-10-31T06:07:46.763Z] [36mDEBUG[0m: Argumentos: {}
+[2025-10-31T06:07:46.787Z] [36mDEBUG[0m: Respuesta de listarCategorias:
+[2025-10-31T06:07:46.788Z] [36mDEBUG[0m: Respuesta recibida (listarCategorias):
+[2025-10-31T06:07:46.789Z] [36mDEBUG[0m: {
+  "categoriaListResponse": {
+    "categorias": {
+      "categoria": [
+        {
+          "id": 3,
+          "nombre": "Electricidad",
+          "descripcion": "Cables, interruptores, enchufes, etc."
+        },
+        {
+          "id": 2,
+          "nombre": "Ferretería General",
+          "descripcion": "Tornillos, tuercas, clavos, etc."
+        },
+        {
+          "id": 1,
+          "nombre": "Herramientas Manuales",
+          "descripcion": "Martillos, destornilladores, llaves, etc."
+        },
+        {
+          "id": 5,
+          "nombre": "Pintura",
+          "descripcion": "Pinturas, brochas, rodillos, etc."
+        },
+        {
+          "id": 4,
+          "nombre": "Plomería",
+          "descripcion": "Tuberías, llaves, accesorios de baño, etc."
+        }
+      ]
+    }
+  }
+}
+[2025-10-31T06:07:46.792Z] [36mDEBUG[0m: 
+=== INICIO RESPUESTA [2025-10-31T06:07:46.791Z] ===
+[2025-10-31T06:07:46.793Z] [36mDEBUG[0m: Operación: No especificada
+[2025-10-31T06:07:46.798Z] [36mSUCCESS[0m: ✅ Operación completada exitosamente
+[2025-10-31T06:07:46.799Z] [36mDEBUG[0m: 
+📊 Metadatos adicionales:
+[2025-10-31T06:07:46.800Z] [36mDEBUG[0m: categoriaListResponse:
+[2025-10-31T06:07:46.801Z] [36mDEBUG[0m:   categorias:
+[2025-10-31T06:07:46.801Z] [36mDEBUG[0m:     categoria:
+[2025-10-31T06:07:46.802Z] [36mDEBUG[0m:       [0]:
+[2025-10-31T06:07:46.803Z] [36mDEBUG[0m:         id: 3
+[2025-10-31T06:07:46.804Z] [36mDEBUG[0m:         nombre: Electricidad
+[2025-10-31T06:07:46.804Z] [36mDEBUG[0m:         descripcion: Cables, interruptores, enchufes, etc.
+[2025-10-31T06:07:46.805Z] [36mDEBUG[0m:       [1]:
+[2025-10-31T06:07:46.806Z] [36mDEBUG[0m:         id: 2
+[2025-10-31T06:07:46.806Z] [36mDEBUG[0m:         nombre: Ferretería General
+[2025-10-31T06:07:46.807Z] [36mDEBUG[0m:         descripcion: Tornillos, tuercas, clavos, etc.
+[2025-10-31T06:07:46.807Z] [36mDEBUG[0m:       [2]:
+[2025-10-31T06:07:46.808Z] [36mDEBUG[0m:         id: 1
+[2025-10-31T06:07:46.809Z] [36mDEBUG[0m:         nombre: Herramientas Manuales
+[2025-10-31T06:07:46.809Z] [36mDEBUG[0m:         descripcion: Martillos, destornilladores, llaves, etc.
+[2025-10-31T06:07:46.810Z] [36mDEBUG[0m:       [3]:
+[2025-10-31T06:07:46.810Z] [36mDEBUG[0m:         id: 5
+[2025-10-31T06:07:46.811Z] [36mDEBUG[0m:         nombre: Pintura
+[2025-10-31T06:07:46.812Z] [36mDEBUG[0m:         descripcion: Pinturas, brochas, rodillos, etc.
+[2025-10-31T06:07:46.812Z] [36mDEBUG[0m:       [4]:
+[2025-10-31T06:07:46.813Z] [36mDEBUG[0m:         id: 4
+[2025-10-31T06:07:46.814Z] [36mDEBUG[0m:         nombre: Plomería
+[2025-10-31T06:07:46.814Z] [36mDEBUG[0m:         descripcion: Tuberías, llaves, accesorios de baño, etc.
+[2025-10-31T06:07:46.815Z] [36mDEBUG[0m: === FIN RESPUESTA EXITOSA ===
+
+[2025-10-31T06:07:46.816Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T06:09:02.407Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T06:23:28.491Z] [INFO] Iniciando cliente SOAP
+[2025-10-31T06:23:28.497Z] [36mINFO[0m: Iniciando cliente SOAP...
+[2025-10-31T06:23:28.498Z] [36mINFO[0m: Conectando a: http://192.168.0.109:8080/InventarioService?wsdl
+[2025-10-31T06:23:28.732Z] [36mSUCCESS[0m: Conexión exitosa al servicio SOAP
+[2025-10-31T06:23:28.734Z] [36mINFO[0m: Operaciones disponibles:
+[2025-10-31T06:23:28.735Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T06:23:28.737Z] [36mINFO[0m: - listarProveedores
+[2025-10-31T06:23:28.738Z] [36mINFO[0m: - actualizarStock
+[2025-10-31T06:23:28.739Z] [36mINFO[0m: - listarCategorias
+[2025-10-31T06:23:28.739Z] [36mINFO[0m: - consultarArticulo
+[2025-10-31T06:23:28.741Z] [36mINFO[0m: - insertarArticulo
+[2025-10-31T06:23:28.742Z] [36mINFO[0m: - verificarEstado
+[2025-10-31T06:23:28.743Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T06:23:33.549Z] [36mINFO[0m: 
+Iniciando operación: consultarArticulo
+[2025-10-31T06:23:33.550Z] [36mINFO[0m: Consultando artículo...
+[2025-10-31T06:23:37.530Z] [36mINFO[0m: Consultando artículo con código: MART001
+[2025-10-31T06:23:37.555Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T06:24:41.480Z] [INFO] Iniciando cliente SOAP
+[2025-10-31T06:24:41.489Z] [36mINFO[0m: Iniciando cliente SOAP...
+[2025-10-31T06:24:41.490Z] [36mINFO[0m: Conectando a: http://192.168.0.109:8080/InventarioService?wsdl
+[2025-10-31T06:24:41.713Z] [36mSUCCESS[0m: Conexión exitosa al servicio SOAP
+[2025-10-31T06:24:41.714Z] [36mINFO[0m: Operaciones disponibles:
+[2025-10-31T06:24:41.716Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T06:24:41.717Z] [36mINFO[0m: - listarProveedores
+[2025-10-31T06:24:41.718Z] [36mINFO[0m: - actualizarStock
+[2025-10-31T06:24:41.719Z] [36mINFO[0m: - listarCategorias
+[2025-10-31T06:24:41.720Z] [36mINFO[0m: - consultarArticulo
+[2025-10-31T06:24:41.721Z] [36mINFO[0m: - insertarArticulo
+[2025-10-31T06:24:41.722Z] [36mINFO[0m: - verificarEstado
+[2025-10-31T06:24:41.724Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T06:24:44.126Z] [36mINFO[0m: 
+Iniciando operación: listarProveedores
+[2025-10-31T06:24:44.127Z] [36mINFO[0m: Obteniendo lista de proveedores...
+[2025-10-31T06:24:44.128Z] [36mDEBUG[0m: Enviando petición SOAP: listarProveedores
+[2025-10-31T06:24:44.129Z] [36mDEBUG[0m: Argumentos: {}
+[2025-10-31T06:24:44.147Z] [36mDEBUG[0m: Respuesta de listarProveedores:
+[2025-10-31T06:24:44.148Z] [36mDEBUG[0m: Respuesta recibida (listarProveedores):
+[2025-10-31T06:24:44.149Z] [36mDEBUG[0m: {
+  "proveedorListResponse": {
+    "proveedores": {
+      "proveedor": [
+        {
+          "id": 1,
+          "nombre": "Distribuidora Central",
+          "contacto": "Juan Pérez",
+          "telefono": "555-0101",
+          "email": "ventas@distcentral.com",
+          "direccion": "Av. Industrial 123"
+        },
+        {
+          "id": 2,
+          "nombre": "Ferretería Mayorista",
+          "contacto": "María García",
+          "telefono": "555-0102",
+          "email": "pedidos@ferremayorista.com",
+          "direccion": "Calle Comercio 456"
+        },
+        {
+          "id": 3,
+          "nombre": "Suministros Técnicos",
+          "contacto": "Carlos López",
+          "telefono": "555-0103",
+          "email": "info@sumtecnicos.com",
+          "direccion": "Zona Industrial Norte"
+        }
+      ]
+    }
+  }
+}
+[2025-10-31T06:24:44.151Z] [36mDEBUG[0m: 
+=== INICIO RESPUESTA [2025-10-31T06:24:44.151Z] ===
+[2025-10-31T06:24:44.153Z] [36mDEBUG[0m: Operación: No especificada
+[2025-10-31T06:24:44.160Z] [36mSUCCESS[0m: ✅ Operación completada exitosamente
+[2025-10-31T06:24:44.161Z] [36mDEBUG[0m: 
+📊 Metadatos adicionales:
+[2025-10-31T06:24:44.162Z] [36mDEBUG[0m: proveedorListResponse:
+[2025-10-31T06:24:44.162Z] [36mDEBUG[0m:   proveedores:
+[2025-10-31T06:24:44.163Z] [36mDEBUG[0m:     proveedor:
+[2025-10-31T06:24:44.163Z] [36mDEBUG[0m:       [0]:
+[2025-10-31T06:24:44.164Z] [36mDEBUG[0m:         id: 1
+[2025-10-31T06:24:44.164Z] [36mDEBUG[0m:         nombre: Distribuidora Central
+[2025-10-31T06:24:44.165Z] [36mDEBUG[0m:         contacto: Juan Pérez
+[2025-10-31T06:24:44.166Z] [36mDEBUG[0m:         telefono: 555-0101
+[2025-10-31T06:24:44.166Z] [36mDEBUG[0m:         email: ventas@distcentral.com
+[2025-10-31T06:24:44.167Z] [36mDEBUG[0m:         direccion: Av. Industrial 123
+[2025-10-31T06:24:44.167Z] [36mDEBUG[0m:       [1]:
+[2025-10-31T06:24:44.168Z] [36mDEBUG[0m:         id: 2
+[2025-10-31T06:24:44.168Z] [36mDEBUG[0m:         nombre: Ferretería Mayorista
+[2025-10-31T06:24:44.169Z] [36mDEBUG[0m:         contacto: María García
+[2025-10-31T06:24:44.170Z] [36mDEBUG[0m:         telefono: 555-0102
+[2025-10-31T06:24:44.170Z] [36mDEBUG[0m:         email: pedidos@ferremayorista.com
+[2025-10-31T06:24:44.171Z] [36mDEBUG[0m:         direccion: Calle Comercio 456
+[2025-10-31T06:24:44.171Z] [36mDEBUG[0m:       [2]:
+[2025-10-31T06:24:44.172Z] [36mDEBUG[0m:         id: 3
+[2025-10-31T06:24:44.172Z] [36mDEBUG[0m:         nombre: Suministros Técnicos
+[2025-10-31T06:24:44.173Z] [36mDEBUG[0m:         contacto: Carlos López
+[2025-10-31T06:24:44.173Z] [36mDEBUG[0m:         telefono: 555-0103
+[2025-10-31T06:24:44.174Z] [36mDEBUG[0m:         email: info@sumtecnicos.com
+[2025-10-31T06:24:44.175Z] [36mDEBUG[0m:         direccion: Zona Industrial Norte
+[2025-10-31T06:24:44.175Z] [36mDEBUG[0m: === FIN RESPUESTA EXITOSA ===
+
+[2025-10-31T06:24:44.176Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T06:24:48.210Z] [36mINFO[0m: 
+Iniciando operación: listarCategorias
+[2025-10-31T06:24:48.211Z] [36mINFO[0m: Obteniendo lista de categorías...
+[2025-10-31T06:24:48.212Z] [36mDEBUG[0m: Enviando petición SOAP: listarCategorias
+[2025-10-31T06:24:48.213Z] [36mDEBUG[0m: Argumentos: {}
+[2025-10-31T06:24:48.223Z] [36mDEBUG[0m: Respuesta de listarCategorias:
+[2025-10-31T06:24:48.224Z] [36mDEBUG[0m: Respuesta recibida (listarCategorias):
+[2025-10-31T06:24:48.225Z] [36mDEBUG[0m: {
+  "categoriaListResponse": {
+    "categorias": {
+      "categoria": [
+        {
+          "id": 3,
+          "nombre": "Electricidad",
+          "descripcion": "Cables, interruptores, enchufes, etc."
+        },
+        {
+          "id": 2,
+          "nombre": "Ferretería General",
+          "descripcion": "Tornillos, tuercas, clavos, etc."
+        },
+        {
+          "id": 1,
+          "nombre": "Herramientas Manuales",
+          "descripcion": "Martillos, destornilladores, llaves, etc."
+        },
+        {
+          "id": 5,
+          "nombre": "Pintura",
+          "descripcion": "Pinturas, brochas, rodillos, etc."
+        },
+        {
+          "id": 4,
+          "nombre": "Plomería",
+          "descripcion": "Tuberías, llaves, accesorios de baño, etc."
+        }
+      ]
+    }
+  }
+}
+[2025-10-31T06:24:48.226Z] [36mDEBUG[0m: 
+=== INICIO RESPUESTA [2025-10-31T06:24:48.226Z] ===
+[2025-10-31T06:24:48.227Z] [36mDEBUG[0m: Operación: No especificada
+[2025-10-31T06:24:48.231Z] [36mSUCCESS[0m: ✅ Operación completada exitosamente
+[2025-10-31T06:24:48.231Z] [36mDEBUG[0m: 
+📊 Metadatos adicionales:
+[2025-10-31T06:24:48.232Z] [36mDEBUG[0m: categoriaListResponse:
+[2025-10-31T06:24:48.235Z] [36mDEBUG[0m:   categorias:
+[2025-10-31T06:24:48.235Z] [36mDEBUG[0m:     categoria:
+[2025-10-31T06:24:48.236Z] [36mDEBUG[0m:       [0]:
+[2025-10-31T06:24:48.236Z] [36mDEBUG[0m:         id: 3
+[2025-10-31T06:24:48.237Z] [36mDEBUG[0m:         nombre: Electricidad
+[2025-10-31T06:24:48.238Z] [36mDEBUG[0m:         descripcion: Cables, interruptores, enchufes, etc.
+[2025-10-31T06:24:48.238Z] [36mDEBUG[0m:       [1]:
+[2025-10-31T06:24:48.240Z] [36mDEBUG[0m:         id: 2
+[2025-10-31T06:24:48.241Z] [36mDEBUG[0m:         nombre: Ferretería General
+[2025-10-31T06:24:48.242Z] [36mDEBUG[0m:         descripcion: Tornillos, tuercas, clavos, etc.
+[2025-10-31T06:24:48.243Z] [36mDEBUG[0m:       [2]:
+[2025-10-31T06:24:48.244Z] [36mDEBUG[0m:         id: 1
+[2025-10-31T06:24:48.245Z] [36mDEBUG[0m:         nombre: Herramientas Manuales
+[2025-10-31T06:24:48.245Z] [36mDEBUG[0m:         descripcion: Martillos, destornilladores, llaves, etc.
+[2025-10-31T06:24:48.246Z] [36mDEBUG[0m:       [3]:
+[2025-10-31T06:24:48.247Z] [36mDEBUG[0m:         id: 5
+[2025-10-31T06:24:48.248Z] [36mDEBUG[0m:         nombre: Pintura
+[2025-10-31T06:24:48.249Z] [36mDEBUG[0m:         descripcion: Pinturas, brochas, rodillos, etc.
+[2025-10-31T06:24:48.250Z] [36mDEBUG[0m:       [4]:
+[2025-10-31T06:24:48.251Z] [36mDEBUG[0m:         id: 4
+[2025-10-31T06:24:48.251Z] [36mDEBUG[0m:         nombre: Plomería
+[2025-10-31T06:24:48.252Z] [36mDEBUG[0m:         descripcion: Tuberías, llaves, accesorios de baño, etc.
+[2025-10-31T06:24:48.253Z] [36mDEBUG[0m: === FIN RESPUESTA EXITOSA ===
+
+[2025-10-31T06:24:48.254Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T06:24:50.823Z] [36mINFO[0m: 
+Iniciando operación: consultarArticulo
+[2025-10-31T06:24:50.824Z] [36mINFO[0m: Consultando artículo...
+[2025-10-31T06:24:54.367Z] [36mINFO[0m: Consultando artículo con código: MART001
+[2025-10-31T06:24:54.368Z] [36mDEBUG[0m: Enviando petición SOAP: consultarArticulo
+[2025-10-31T06:24:54.369Z] [36mDEBUG[0m: Argumentos: {
+  "codigo": "MART001"
+}
+[2025-10-31T06:24:54.373Z] [DEBUG] Respuesta de consultarArticulo: undefined
+[2025-10-31T06:24:54.374Z] [INFO] Consulta sin resultado: No se encontró el artículo o la respuesta está vacía
+[2025-10-31T06:24:54.389Z] [31mERROR[0m: Respuesta de consultarArticulo:
+[2025-10-31T06:24:54.390Z] [31mERROR[0m: Error HTTP undefined: undefined
+[2025-10-31T06:24:54.391Z] [36mDEBUG[0m: Headers: {
+  "date": "Fri, 31 Oct 2025 06:24:54 GMT",
+  "transfer-encoding": "chunked",
+  "content-type": "text/xml; charset=utf-8"
+}
+[2025-10-31T06:24:54.392Z] [31mERROR[0m: Error en consultarArticulo: Error desconocido
+[2025-10-31T06:24:54.393Z] [36mDEBUG[0m: Detalles del error: {"response":{"headers":{"date":"Fri, 31 Oct 2025 06:24:54 GMT","transfer-encoding":"chunked","content-type":"text/xml; charset=utf-8"},"data":"<?xml version='1.0' encoding='UTF-8'?><S:Envelope xmlns:S=\"http://schemas.xmlsoap.org/soap/envelope/\"><S:Body>"}}
+[2025-10-31T06:24:54.395Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T06:25:35.455Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T06:25:59.490Z] [INFO] Iniciando cliente SOAP
+[2025-10-31T06:25:59.530Z] [36mINFO[0m: Iniciando cliente SOAP...
+[2025-10-31T06:25:59.531Z] [36mINFO[0m: Conectando a: http://192.168.0.109:8080/InventarioService?wsdl
+[2025-10-31T06:25:59.764Z] [36mSUCCESS[0m: Conexión exitosa al servicio SOAP
+[2025-10-31T06:25:59.765Z] [36mINFO[0m: Operaciones disponibles:
+[2025-10-31T06:25:59.766Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T06:25:59.768Z] [36mINFO[0m: - listarProveedores
+[2025-10-31T06:25:59.770Z] [36mINFO[0m: - actualizarStock
+[2025-10-31T06:25:59.771Z] [36mINFO[0m: - listarCategorias
+[2025-10-31T06:25:59.773Z] [36mINFO[0m: - consultarArticulo
+[2025-10-31T06:25:59.774Z] [36mINFO[0m: - insertarArticulo
+[2025-10-31T06:25:59.775Z] [36mINFO[0m: - verificarEstado
+[2025-10-31T06:25:59.776Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T06:26:01.581Z] [36mINFO[0m: 
+Iniciando operación: listarCategorias
+[2025-10-31T06:26:01.582Z] [36mINFO[0m: Obteniendo lista de categorías...
+[2025-10-31T06:26:01.583Z] [36mDEBUG[0m: Enviando petición SOAP: listarCategorias
+[2025-10-31T06:26:01.583Z] [36mDEBUG[0m: Argumentos: {}
+[2025-10-31T06:26:01.597Z] [36mDEBUG[0m: Respuesta de listarCategorias:
+[2025-10-31T06:26:01.597Z] [36mDEBUG[0m: Respuesta recibida (listarCategorias):
+[2025-10-31T06:26:01.598Z] [36mDEBUG[0m: {
+  "categoriaListResponse": {
+    "categorias": {
+      "categoria": [
+        {
+          "id": 3,
+          "nombre": "Electricidad",
+          "descripcion": "Cables, interruptores, enchufes, etc."
+        },
+        {
+          "id": 2,
+          "nombre": "Ferretería General",
+          "descripcion": "Tornillos, tuercas, clavos, etc."
+        },
+        {
+          "id": 1,
+          "nombre": "Herramientas Manuales",
+          "descripcion": "Martillos, destornilladores, llaves, etc."
+        },
+        {
+          "id": 5,
+          "nombre": "Pintura",
+          "descripcion": "Pinturas, brochas, rodillos, etc."
+        },
+        {
+          "id": 4,
+          "nombre": "Plomería",
+          "descripcion": "Tuberías, llaves, accesorios de baño, etc."
+        }
+      ]
+    }
+  }
+}
+[2025-10-31T06:26:01.600Z] [36mDEBUG[0m: 
+=== INICIO RESPUESTA [2025-10-31T06:26:01.599Z] ===
+[2025-10-31T06:26:01.600Z] [36mDEBUG[0m: Operación: No especificada
+[2025-10-31T06:26:01.605Z] [36mSUCCESS[0m: ✅ Operación completada exitosamente
+[2025-10-31T06:26:01.606Z] [36mDEBUG[0m: 
+📊 Metadatos adicionales:
+[2025-10-31T06:26:01.606Z] [36mDEBUG[0m: categoriaListResponse:
+[2025-10-31T06:26:01.607Z] [36mDEBUG[0m:   categorias:
+[2025-10-31T06:26:01.607Z] [36mDEBUG[0m:     categoria:
+[2025-10-31T06:26:01.608Z] [36mDEBUG[0m:       [0]:
+[2025-10-31T06:26:01.610Z] [36mDEBUG[0m:         id: 3
+[2025-10-31T06:26:01.611Z] [36mDEBUG[0m:         nombre: Electricidad
+[2025-10-31T06:26:01.612Z] [36mDEBUG[0m:         descripcion: Cables, interruptores, enchufes, etc.
+[2025-10-31T06:26:01.613Z] [36mDEBUG[0m:       [1]:
+[2025-10-31T06:26:01.651Z] [36mDEBUG[0m:         id: 2
+[2025-10-31T06:26:01.673Z] [36mDEBUG[0m:         nombre: Ferretería General
+[2025-10-31T06:26:01.717Z] [36mDEBUG[0m:         descripcion: Tornillos, tuercas, clavos, etc.
+[2025-10-31T06:26:01.717Z] [36mDEBUG[0m:       [2]:
+[2025-10-31T06:26:01.718Z] [36mDEBUG[0m:         id: 1
+[2025-10-31T06:26:01.720Z] [36mDEBUG[0m:         nombre: Herramientas Manuales
+[2025-10-31T06:26:01.720Z] [36mDEBUG[0m:         descripcion: Martillos, destornilladores, llaves, etc.
+[2025-10-31T06:26:01.721Z] [36mDEBUG[0m:       [3]:
+[2025-10-31T06:26:01.722Z] [36mDEBUG[0m:         id: 5
+[2025-10-31T06:26:01.722Z] [36mDEBUG[0m:         nombre: Pintura
+[2025-10-31T06:26:01.723Z] [36mDEBUG[0m:         descripcion: Pinturas, brochas, rodillos, etc.
+[2025-10-31T06:26:01.724Z] [36mDEBUG[0m:       [4]:
+[2025-10-31T06:26:01.725Z] [36mDEBUG[0m:         id: 4
+[2025-10-31T06:26:01.725Z] [36mDEBUG[0m:         nombre: Plomería
+[2025-10-31T06:26:01.726Z] [36mDEBUG[0m:         descripcion: Tuberías, llaves, accesorios de baño, etc.
+[2025-10-31T06:26:01.726Z] [36mDEBUG[0m: === FIN RESPUESTA EXITOSA ===
+
+[2025-10-31T06:26:01.727Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T06:26:04.452Z] [36mINFO[0m: 
+Iniciando operación: listarProveedores
+[2025-10-31T06:26:04.453Z] [36mINFO[0m: Obteniendo lista de proveedores...
+[2025-10-31T06:26:04.454Z] [36mDEBUG[0m: Enviando petición SOAP: listarProveedores
+[2025-10-31T06:26:04.455Z] [36mDEBUG[0m: Argumentos: {}
+[2025-10-31T06:26:04.470Z] [36mDEBUG[0m: Respuesta de listarProveedores:
+[2025-10-31T06:26:04.471Z] [36mDEBUG[0m: Respuesta recibida (listarProveedores):
+[2025-10-31T06:26:04.472Z] [36mDEBUG[0m: {
+  "proveedorListResponse": {
+    "proveedores": {
+      "proveedor": [
+        {
+          "id": 1,
+          "nombre": "Distribuidora Central",
+          "contacto": "Juan Pérez",
+          "telefono": "555-0101",
+          "email": "ventas@distcentral.com",
+          "direccion": "Av. Industrial 123"
+        },
+        {
+          "id": 2,
+          "nombre": "Ferretería Mayorista",
+          "contacto": "María García",
+          "telefono": "555-0102",
+          "email": "pedidos@ferremayorista.com",
+          "direccion": "Calle Comercio 456"
+        },
+        {
+          "id": 3,
+          "nombre": "Suministros Técnicos",
+          "contacto": "Carlos López",
+          "telefono": "555-0103",
+          "email": "info@sumtecnicos.com",
+          "direccion": "Zona Industrial Norte"
+        }
+      ]
+    }
+  }
+}
+[2025-10-31T06:26:04.473Z] [36mDEBUG[0m: 
+=== INICIO RESPUESTA [2025-10-31T06:26:04.473Z] ===
+[2025-10-31T06:26:04.474Z] [36mDEBUG[0m: Operación: No especificada
+[2025-10-31T06:26:04.479Z] [36mSUCCESS[0m: ✅ Operación completada exitosamente
+[2025-10-31T06:26:04.480Z] [36mDEBUG[0m: 
+📊 Metadatos adicionales:
+[2025-10-31T06:26:04.481Z] [36mDEBUG[0m: proveedorListResponse:
+[2025-10-31T06:26:04.481Z] [36mDEBUG[0m:   proveedores:
+[2025-10-31T06:26:04.482Z] [36mDEBUG[0m:     proveedor:
+[2025-10-31T06:26:04.482Z] [36mDEBUG[0m:       [0]:
+[2025-10-31T06:26:04.483Z] [36mDEBUG[0m:         id: 1
+[2025-10-31T06:26:04.484Z] [36mDEBUG[0m:         nombre: Distribuidora Central
+[2025-10-31T06:26:04.484Z] [36mDEBUG[0m:         contacto: Juan Pérez
+[2025-10-31T06:26:04.485Z] [36mDEBUG[0m:         telefono: 555-0101
+[2025-10-31T06:26:04.485Z] [36mDEBUG[0m:         email: ventas@distcentral.com
+[2025-10-31T06:26:04.486Z] [36mDEBUG[0m:         direccion: Av. Industrial 123
+[2025-10-31T06:26:04.486Z] [36mDEBUG[0m:       [1]:
+[2025-10-31T06:26:04.486Z] [36mDEBUG[0m:         id: 2
+[2025-10-31T06:26:04.487Z] [36mDEBUG[0m:         nombre: Ferretería Mayorista
+[2025-10-31T06:26:04.487Z] [36mDEBUG[0m:         contacto: María García
+[2025-10-31T06:26:04.488Z] [36mDEBUG[0m:         telefono: 555-0102
+[2025-10-31T06:26:04.489Z] [36mDEBUG[0m:         email: pedidos@ferremayorista.com
+[2025-10-31T06:26:04.489Z] [36mDEBUG[0m:         direccion: Calle Comercio 456
+[2025-10-31T06:26:04.490Z] [36mDEBUG[0m:       [2]:
+[2025-10-31T06:26:04.490Z] [36mDEBUG[0m:         id: 3
+[2025-10-31T06:26:04.491Z] [36mDEBUG[0m:         nombre: Suministros Técnicos
+[2025-10-31T06:26:04.491Z] [36mDEBUG[0m:         contacto: Carlos López
+[2025-10-31T06:26:04.492Z] [36mDEBUG[0m:         telefono: 555-0103
+[2025-10-31T06:26:04.493Z] [36mDEBUG[0m:         email: info@sumtecnicos.com
+[2025-10-31T06:26:04.493Z] [36mDEBUG[0m:         direccion: Zona Industrial Norte
+[2025-10-31T06:26:04.494Z] [36mDEBUG[0m: === FIN RESPUESTA EXITOSA ===
+
+[2025-10-31T06:26:04.495Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T06:26:05.979Z] [36mINFO[0m: 
+Iniciando operación: actualizarStock
+[2025-10-31T06:26:05.980Z] [36mINFO[0m: Actualizando stock de artículo...
+[2025-10-31T06:26:12.395Z] [36mINFO[0m: Actualizando stock del artículo MART001 a 78 unidades
+[2025-10-31T06:26:12.396Z] [36mDEBUG[0m: Enviando petición SOAP: actualizarStock
+[2025-10-31T06:26:12.397Z] [36mDEBUG[0m: Argumentos: {
+  "codigo": "MART001",
+  "nuevoStock": 78
+}
+[2025-10-31T06:26:12.433Z] [36mDEBUG[0m: Respuesta de actualizarStock:
+[2025-10-31T06:26:12.434Z] [36mDEBUG[0m: Respuesta recibida (actualizarStock):
+[2025-10-31T06:26:12.435Z] [36mDEBUG[0m: {
+  "stockUpdateResponse": {
+    "exitoso": true,
+    "mensaje": "Stock actualizado exitosamente para el artículo MART001",
+    "articulo": {
+      "activo": true,
+      "categoriaId": 1,
+      "categoriaNombre": "Herramientas Manuales",
+      "codigo": "MART001",
+      "descripcion": "Martillo con mango de madera, cabeza de acero",
+      "fechaActualizacion": null,
+      "fechaCreacion": null,
+      "id": 1,
+      "nombre": "Martillo de Carpintero 16oz",
+      "precioCompra": 15.5,
+      "precioVenta": 25,
+      "proveedorId": 1,
+      "proveedorNombre": "Distribuidora Central",
+      "stockActual": 78,
+      "stockMinimo": 10
+    },
+    "stockAnterior": 67,
+    "stockNuevo": 78
+  }
+}
+[2025-10-31T06:26:12.437Z] [DEBUG] Respuesta de actualizarStock: {
+  "stockUpdateResponse": {
+    "exitoso": true,
+    "mensaje": "Stock actualizado exitosamente para el artículo MART001",
+    "articulo": {
+      "activo": true,
+      "categoriaId": 1,
+      "categoriaNombre": "Herramientas Manuales",
+      "codigo": "MART001",
+      "descripcion": "Martillo con mango de madera, cabeza de acero",
+      "fechaActualizacion": null,
+      "fechaCreacion": null,
+      "id": 1,
+      "nombre": "Martillo de Carpintero 16oz",
+      "precioCompra": 15.5,
+      "precioVenta": 25,
+      "proveedorId": 1,
+      "proveedorNombre": "Distribuidora Central",
+      "stockActual": 78,
+      "stockMinimo": 10
+    },
+    "stockAnterior": 67,
+    "stockNuevo": 78
+  }
+}
+[2025-10-31T06:26:31.919Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T06:26:35.834Z] [36mINFO[0m: 
+Iniciando operación: consultarArticulo
+[2025-10-31T06:26:35.835Z] [36mINFO[0m: Consultando artículo...
+[2025-10-31T06:26:37.749Z] [36mINFO[0m: Consultando artículo con código: MART001
+[2025-10-31T06:26:37.751Z] [36mDEBUG[0m: Enviando petición SOAP: consultarArticulo
+[2025-10-31T06:26:37.751Z] [36mDEBUG[0m: Argumentos: {
+  "codigo": "MART001"
+}
+[2025-10-31T06:26:37.756Z] [DEBUG] Respuesta de consultarArticulo: undefined
+[2025-10-31T06:26:37.757Z] [INFO] Consulta sin resultado: No se encontró el artículo o la respuesta está vacía
+[2025-10-31T06:26:37.771Z] [31mERROR[0m: Respuesta de consultarArticulo:
+[2025-10-31T06:26:37.773Z] [31mERROR[0m: Error HTTP undefined: undefined
+[2025-10-31T06:26:37.774Z] [36mDEBUG[0m: Headers: {
+  "date": "Fri, 31 Oct 2025 06:26:37 GMT",
+  "transfer-encoding": "chunked",
+  "content-type": "text/xml; charset=utf-8"
+}
+[2025-10-31T06:26:37.775Z] [31mERROR[0m: Error en consultarArticulo: Error desconocido
+[2025-10-31T06:26:37.776Z] [36mDEBUG[0m: Detalles del error: {"response":{"headers":{"date":"Fri, 31 Oct 2025 06:26:37 GMT","transfer-encoding":"chunked","content-type":"text/xml; charset=utf-8"},"data":"<?xml version='1.0' encoding='UTF-8'?><S:Envelope xmlns:S=\"http://schemas.xmlsoap.org/soap/envelope/\"><S:Body>"}}
+[2025-10-31T06:26:37.777Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T06:28:26.133Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T06:28:31.346Z] [INFO] Iniciando cliente SOAP
+[2025-10-31T06:28:31.352Z] [36mINFO[0m: Iniciando cliente SOAP...
+[2025-10-31T06:28:31.353Z] [36mINFO[0m: Conectando a: http://192.168.0.109:8080/InventarioService?wsdl
+[2025-10-31T06:28:31.588Z] [36mSUCCESS[0m: Conexión exitosa al servicio SOAP
+[2025-10-31T06:28:31.589Z] [36mINFO[0m: Operaciones disponibles:
+[2025-10-31T06:28:31.591Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T06:28:31.593Z] [36mINFO[0m: - listarProveedores
+[2025-10-31T06:28:31.594Z] [36mINFO[0m: - actualizarStock
+[2025-10-31T06:28:31.595Z] [36mINFO[0m: - listarCategorias
+[2025-10-31T06:28:31.596Z] [36mINFO[0m: - consultarArticulo
+[2025-10-31T06:28:31.598Z] [36mINFO[0m: - insertarArticulo
+[2025-10-31T06:28:31.599Z] [36mINFO[0m: - verificarEstado
+[2025-10-31T06:28:31.601Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T06:28:33.693Z] [36mINFO[0m: 
+Iniciando operación: consultarArticulo
+[2025-10-31T06:28:33.694Z] [36mINFO[0m: Consultando artículo...
+[2025-10-31T06:28:37.510Z] [36mINFO[0m: Consultando artículo con código: MART001
+[2025-10-31T06:28:37.512Z] [36mDEBUG[0m: 
+=== Intento 1 de 3 - consultarArticulo ===
+[2025-10-31T06:28:37.513Z] [36mDEBUG[0m: Enviando petición SOAP: consultarArticulo
+[2025-10-31T06:28:37.514Z] [36mDEBUG[0m: Argumentos: {
+  "codigo": "MART001"
+}
+[2025-10-31T06:28:37.537Z] [31mERROR[0m: 
+❌ Error en consultarArticulo (Intento 1/3):
+[2025-10-31T06:28:37.538Z] [31mERROR[0m: Mensaje: La respuesta del servidor está incompleta (truncada)
+[2025-10-31T06:28:37.539Z] [36mWARN[0m: La respuesta del servidor está incompleta (truncada)
+[2025-10-31T06:28:37.539Z] [31mERROR[0m: Estado: Desconocido
+[2025-10-31T06:28:37.540Z] [31mERROR[0m: Mensaje: OK
+[2025-10-31T06:28:37.540Z] [36mDEBUG[0m: Encabezados de respuesta:
+[2025-10-31T06:28:37.541Z] [36mDEBUG[0m: {
+  "date": "Fri, 31 Oct 2025 06:28:37 GMT",
+  "transfer-encoding": "chunked",
+  "content-type": "text/xml; charset=utf-8"
+}
+[2025-10-31T06:28:37.541Z] [36mDEBUG[0m: Datos de respuesta (primeros 500 caracteres):
+[2025-10-31T06:28:37.542Z] [36mDEBUG[0m: <?xml version='1.0' encoding='UTF-8'?><S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/"><S:Body>
+[2025-10-31T06:28:37.542Z] [36mWARN[0m: 
+🔄 Reintentando en 1 segundos... (2/3)
+
+[2025-10-31T06:28:38.554Z] [36mDEBUG[0m: 
+=== Intento 2 de 3 - consultarArticulo ===
+[2025-10-31T06:28:38.555Z] [36mDEBUG[0m: Enviando petición SOAP: consultarArticulo
+[2025-10-31T06:28:38.556Z] [36mDEBUG[0m: Argumentos: {
+  "codigo": "MART001"
+}
+[2025-10-31T06:28:38.567Z] [31mERROR[0m: 
+❌ Error en consultarArticulo (Intento 2/3):
+[2025-10-31T06:28:38.568Z] [31mERROR[0m: Mensaje: La respuesta del servidor está incompleta (truncada)
+[2025-10-31T06:28:38.569Z] [36mWARN[0m: La respuesta del servidor está incompleta (truncada)
+[2025-10-31T06:28:38.569Z] [31mERROR[0m: Estado: Desconocido
+[2025-10-31T06:28:38.570Z] [31mERROR[0m: Mensaje: OK
+[2025-10-31T06:28:38.570Z] [36mDEBUG[0m: Encabezados de respuesta:
+[2025-10-31T06:28:38.571Z] [36mDEBUG[0m: {
+  "date": "Fri, 31 Oct 2025 06:28:38 GMT",
+  "transfer-encoding": "chunked",
+  "content-type": "text/xml; charset=utf-8"
+}
+[2025-10-31T06:28:38.572Z] [36mDEBUG[0m: Datos de respuesta (primeros 500 caracteres):
+[2025-10-31T06:28:38.572Z] [36mDEBUG[0m: <?xml version='1.0' encoding='UTF-8'?><S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/"><S:Body>
+[2025-10-31T06:28:38.573Z] [36mWARN[0m: 
+🔄 Reintentando en 2 segundos... (3/3)
+
+[2025-10-31T06:28:40.579Z] [36mDEBUG[0m: 
+=== Intento 3 de 3 - consultarArticulo ===
+[2025-10-31T06:28:40.581Z] [36mDEBUG[0m: Enviando petición SOAP: consultarArticulo
+[2025-10-31T06:28:40.582Z] [36mDEBUG[0m: Argumentos: {
+  "codigo": "MART001"
+}
+[2025-10-31T06:28:40.597Z] [31mERROR[0m: 
+❌ Error en consultarArticulo (Intento 3/3):
+[2025-10-31T06:28:40.598Z] [31mERROR[0m: Mensaje: La respuesta del servidor está incompleta (truncada)
+[2025-10-31T06:28:40.600Z] [36mWARN[0m: La respuesta del servidor está incompleta (truncada)
+[2025-10-31T06:28:40.601Z] [31mERROR[0m: Estado: Desconocido
+[2025-10-31T06:28:40.602Z] [31mERROR[0m: Mensaje: OK
+[2025-10-31T06:28:40.603Z] [36mDEBUG[0m: Encabezados de respuesta:
+[2025-10-31T06:28:40.604Z] [36mDEBUG[0m: {
+  "date": "Fri, 31 Oct 2025 06:28:40 GMT",
+  "transfer-encoding": "chunked",
+  "content-type": "text/xml; charset=utf-8"
+}
+[2025-10-31T06:28:40.605Z] [36mDEBUG[0m: Datos de respuesta (primeros 500 caracteres):
+[2025-10-31T06:28:40.606Z] [36mDEBUG[0m: <?xml version='1.0' encoding='UTF-8'?><S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/"><S:Body>
+[2025-10-31T06:28:40.608Z] [31mERROR[0m: 
+❌ Se agotaron los 3 intentos para consultarArticulo
+
+[2025-10-31T06:28:40.612Z] [ERROR] Error en consultarArticulo: La respuesta del servidor está incompleta (truncada)
+[2025-10-31T06:30:20.533Z] [36mINFO[0m: Consultando artículo con código: MART001
+[2025-10-31T06:30:20.534Z] [36mDEBUG[0m: 
+=== Intento 1 de 3 - consultarArticulo ===
+[2025-10-31T06:30:20.535Z] [36mDEBUG[0m: Enviando petición SOAP: consultarArticulo
+[2025-10-31T06:30:20.536Z] [36mDEBUG[0m: Argumentos: {
+  "codigo": "MART001"
+}
+[2025-10-31T06:30:20.555Z] [31mERROR[0m: 
+❌ Error en consultarArticulo (Intento 1/3):
+[2025-10-31T06:30:20.556Z] [31mERROR[0m: Mensaje: La respuesta del servidor está incompleta (truncada)
+[2025-10-31T06:30:20.557Z] [36mWARN[0m: La respuesta del servidor está incompleta (truncada)
+[2025-10-31T06:30:20.558Z] [31mERROR[0m: Estado: Desconocido
+[2025-10-31T06:30:20.559Z] [31mERROR[0m: Mensaje: OK
+[2025-10-31T06:30:20.560Z] [36mDEBUG[0m: Encabezados de respuesta:
+[2025-10-31T06:30:20.561Z] [36mDEBUG[0m: {
+  "date": "Fri, 31 Oct 2025 06:30:20 GMT",
+  "transfer-encoding": "chunked",
+  "content-type": "text/xml; charset=utf-8"
+}
+[2025-10-31T06:30:20.561Z] [36mDEBUG[0m: Datos de respuesta (primeros 500 caracteres):
+[2025-10-31T06:30:20.562Z] [36mDEBUG[0m: <?xml version='1.0' encoding='UTF-8'?><S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/"><S:Body>
+[2025-10-31T06:30:20.563Z] [36mWARN[0m: 
+🔄 Reintentando en 1 segundos... (2/3)
+
+[2025-10-31T06:30:21.576Z] [36mDEBUG[0m: 
+=== Intento 2 de 3 - consultarArticulo ===
+[2025-10-31T06:30:21.577Z] [36mDEBUG[0m: Enviando petición SOAP: consultarArticulo
+[2025-10-31T06:30:21.578Z] [36mDEBUG[0m: Argumentos: {
+  "codigo": "MART001"
+}
+[2025-10-31T06:30:21.593Z] [31mERROR[0m: 
+❌ Error en consultarArticulo (Intento 2/3):
+[2025-10-31T06:30:21.594Z] [31mERROR[0m: Mensaje: La respuesta del servidor está incompleta (truncada)
+[2025-10-31T06:30:21.594Z] [36mWARN[0m: La respuesta del servidor está incompleta (truncada)
+[2025-10-31T06:30:21.595Z] [31mERROR[0m: Estado: Desconocido
+[2025-10-31T06:30:21.596Z] [31mERROR[0m: Mensaje: OK
+[2025-10-31T06:30:21.596Z] [36mDEBUG[0m: Encabezados de respuesta:
+[2025-10-31T06:30:21.597Z] [36mDEBUG[0m: {
+  "date": "Fri, 31 Oct 2025 06:30:21 GMT",
+  "transfer-encoding": "chunked",
+  "content-type": "text/xml; charset=utf-8"
+}
+[2025-10-31T06:30:21.598Z] [36mDEBUG[0m: Datos de respuesta (primeros 500 caracteres):
+[2025-10-31T06:30:21.598Z] [36mDEBUG[0m: <?xml version='1.0' encoding='UTF-8'?><S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/"><S:Body>
+[2025-10-31T06:30:21.599Z] [36mWARN[0m: 
+🔄 Reintentando en 2 segundos... (3/3)
+
+[2025-10-31T06:30:23.617Z] [36mDEBUG[0m: 
+=== Intento 3 de 3 - consultarArticulo ===
+[2025-10-31T06:30:23.619Z] [36mDEBUG[0m: Enviando petición SOAP: consultarArticulo
+[2025-10-31T06:30:23.620Z] [36mDEBUG[0m: Argumentos: {
+  "codigo": "MART001"
+}
+[2025-10-31T06:30:23.638Z] [31mERROR[0m: 
+❌ Error en consultarArticulo (Intento 3/3):
+[2025-10-31T06:30:23.640Z] [31mERROR[0m: Mensaje: La respuesta del servidor está incompleta (truncada)
+[2025-10-31T06:30:23.641Z] [36mWARN[0m: La respuesta del servidor está incompleta (truncada)
+[2025-10-31T06:30:23.642Z] [31mERROR[0m: Estado: Desconocido
+[2025-10-31T06:30:23.643Z] [31mERROR[0m: Mensaje: OK
+[2025-10-31T06:30:23.644Z] [36mDEBUG[0m: Encabezados de respuesta:
+[2025-10-31T06:30:23.646Z] [36mDEBUG[0m: {
+  "date": "Fri, 31 Oct 2025 06:30:23 GMT",
+  "transfer-encoding": "chunked",
+  "content-type": "text/xml; charset=utf-8"
+}
+[2025-10-31T06:30:23.646Z] [36mDEBUG[0m: Datos de respuesta (primeros 500 caracteres):
+[2025-10-31T06:30:23.647Z] [36mDEBUG[0m: <?xml version='1.0' encoding='UTF-8'?><S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/"><S:Body>
+[2025-10-31T06:30:23.648Z] [31mERROR[0m: 
+❌ Se agotaron los 3 intentos para consultarArticulo
+
+[2025-10-31T06:30:23.652Z] [ERROR] Error en consultarArticulo: La respuesta del servidor está incompleta (truncada)
+[2025-10-31T06:30:25.487Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T06:30:31.915Z] [INFO] Iniciando cliente SOAP
+[2025-10-31T06:30:31.920Z] [36mINFO[0m: Iniciando cliente SOAP...
+[2025-10-31T06:30:31.921Z] [36mINFO[0m: Conectando a: http://192.168.0.109:8080/InventarioService?wsdl
+[2025-10-31T06:30:31.945Z] [31mERROR[0m: Error conectando al servicio: Invalid WSDL URL: http://192.168.0.109:8080/InventarioService?wsdl
+
+ Code: 501
+
+ Response Body: <h1>501 Not Implemented</h1>Unsupported Transfer-Encoding value
+[2025-10-31T06:30:31.946Z] [31mERROR[0m: - Verifica que el servidor esté corriendo en: http://192.168.0.109:8080/InventarioService?wsdl
+[2025-10-31T06:30:31.946Z] [31mERROR[0m: - Detalles del error: {}
+[2025-10-31T06:33:12.910Z] [INFO] Iniciando cliente SOAP
+[2025-10-31T06:33:12.920Z] [36mINFO[0m: Iniciando cliente SOAP...
+[2025-10-31T06:33:12.921Z] [36mINFO[0m: Conectando a: http://192.168.0.109:8080/InventarioService?wsdl
+[2025-10-31T06:33:12.958Z] [31mERROR[0m: Error conectando al servicio: read ECONNRESET
+[2025-10-31T06:33:12.959Z] [31mERROR[0m: - Verifica que el servidor esté corriendo en: http://192.168.0.109:8080/InventarioService?wsdl
+[2025-10-31T06:33:12.960Z] [31mERROR[0m: - Detalles del error: {
+  "message": "read ECONNRESET",
+  "name": "Error",
+  "stack": "Error: read ECONNRESET\n    at TCP.onStreamRead (node:internal/stream_base_commons:216:20)",
+  "config": {
+    "url": "http://192.168.0.109:8080/InventarioService?xsd=1",
+    "method": "get",
+    "data": null,
+    "headers": {
+      "Accept": "text/html,application/xhtml+xml,application/xml,text/xml;q=0.9,*/*;q=0.8",
+      "User-Agent": "Node-SOAP-Client",
+      "Accept-Encoding": "none",
+      "Accept-Charset": "utf-8",
+      "Connection": "close",
+      "Host": "192.168.0.109:8080"
+    },
+    "transformRequest": [
+      null
+    ],
+    "timeout": 45000,
+    "xsrfCookieName": "XSRF-TOKEN",
+    "xsrfHeaderName": "X-XSRF-TOKEN",
+    "maxContentLength": null,
+    "maxBodyLength": null,
+    "validateStatus": null,
+    "transitional": {
+      "silentJSONParsing": true,
+      "forcedJSONParsing": true,
+      "clarifyTimeoutError": false
+    },
+    "rejectUnauthorized": false,
+    "strictSSL": false,
+    "forever": false,
+    "pool": false
+  },
+  "code": "ECONNRESET"
+}
+[2025-10-31T06:34:03.554Z] [INFO] Iniciando cliente SOAP
+[2025-10-31T06:34:03.559Z] [36mINFO[0m: Iniciando cliente SOAP...
+[2025-10-31T06:34:03.560Z] [36mINFO[0m: Conectando a: http://192.168.0.109:8080/InventarioService?wsdl
+[2025-10-31T06:34:03.596Z] [31mERROR[0m: Error conectando al servicio: read ECONNRESET
+[2025-10-31T06:34:03.597Z] [31mERROR[0m: - Verifica que el servidor esté corriendo en: http://192.168.0.109:8080/InventarioService?wsdl
+[2025-10-31T06:34:03.598Z] [31mERROR[0m: - Detalles del error: {
+  "message": "read ECONNRESET",
+  "name": "Error",
+  "stack": "Error: read ECONNRESET\n    at TCP.onStreamRead (node:internal/stream_base_commons:216:20)",
+  "config": {
+    "url": "http://192.168.0.109:8080/InventarioService?xsd=1",
+    "method": "get",
+    "data": null,
+    "headers": {
+      "Accept": "text/html,application/xhtml+xml,application/xml,text/xml;q=0.9,*/*;q=0.8",
+      "User-Agent": "Node-SOAP-Client",
+      "Accept-Encoding": "none",
+      "Accept-Charset": "utf-8",
+      "Connection": "close",
+      "Host": "192.168.0.109:8080"
+    },
+    "transformRequest": [
+      null
+    ],
+    "timeout": 45000,
+    "xsrfCookieName": "XSRF-TOKEN",
+    "xsrfHeaderName": "X-XSRF-TOKEN",
+    "maxContentLength": null,
+    "maxBodyLength": null,
+    "validateStatus": null,
+    "transitional": {
+      "silentJSONParsing": true,
+      "forcedJSONParsing": true,
+      "clarifyTimeoutError": false
+    },
+    "rejectUnauthorized": false,
+    "strictSSL": false,
+    "forever": false,
+    "pool": false
+  },
+  "code": "ECONNRESET"
+}
+[2025-10-31T06:34:09.322Z] [INFO] Iniciando cliente SOAP
+[2025-10-31T06:34:09.327Z] [36mINFO[0m: Iniciando cliente SOAP...
+[2025-10-31T06:34:09.328Z] [36mINFO[0m: Conectando a: http://192.168.0.109:8080/InventarioService?wsdl
+[2025-10-31T06:34:09.358Z] [31mERROR[0m: Error conectando al servicio: read ECONNRESET
+[2025-10-31T06:34:09.359Z] [31mERROR[0m: - Verifica que el servidor esté corriendo en: http://192.168.0.109:8080/InventarioService?wsdl
+[2025-10-31T06:34:09.360Z] [31mERROR[0m: - Detalles del error: {
+  "message": "read ECONNRESET",
+  "name": "Error",
+  "stack": "Error: read ECONNRESET\n    at TCP.onStreamRead (node:internal/stream_base_commons:216:20)",
+  "config": {
+    "url": "http://192.168.0.109:8080/InventarioService?xsd=1",
+    "method": "get",
+    "data": null,
+    "headers": {
+      "Accept": "text/html,application/xhtml+xml,application/xml,text/xml;q=0.9,*/*;q=0.8",
+      "User-Agent": "Node-SOAP-Client",
+      "Accept-Encoding": "none",
+      "Accept-Charset": "utf-8",
+      "Connection": "close",
+      "Host": "192.168.0.109:8080"
+    },
+    "transformRequest": [
+      null
+    ],
+    "timeout": 45000,
+    "xsrfCookieName": "XSRF-TOKEN",
+    "xsrfHeaderName": "X-XSRF-TOKEN",
+    "maxContentLength": null,
+    "maxBodyLength": null,
+    "validateStatus": null,
+    "transitional": {
+      "silentJSONParsing": true,
+      "forcedJSONParsing": true,
+      "clarifyTimeoutError": false
+    },
+    "rejectUnauthorized": false,
+    "strictSSL": false,
+    "forever": false,
+    "pool": false
+  },
+  "code": "ECONNRESET"
+}
+[2025-10-31T06:34:16.326Z] [INFO] Iniciando cliente SOAP
+[2025-10-31T06:34:16.331Z] [36mINFO[0m: Iniciando cliente SOAP...
+[2025-10-31T06:34:16.332Z] [36mINFO[0m: Conectando a: http://192.168.0.109:8080/InventarioService?wsdl
+[2025-10-31T06:34:16.363Z] [31mERROR[0m: Error conectando al servicio: read ECONNRESET
+[2025-10-31T06:34:16.364Z] [31mERROR[0m: - Verifica que el servidor esté corriendo en: http://192.168.0.109:8080/InventarioService?wsdl
+[2025-10-31T06:34:16.365Z] [31mERROR[0m: - Detalles del error: {
+  "message": "read ECONNRESET",
+  "name": "Error",
+  "stack": "Error: read ECONNRESET\n    at TCP.onStreamRead (node:internal/stream_base_commons:216:20)",
+  "config": {
+    "url": "http://192.168.0.109:8080/InventarioService?xsd=1",
+    "method": "get",
+    "data": null,
+    "headers": {
+      "Accept": "text/html,application/xhtml+xml,application/xml,text/xml;q=0.9,*/*;q=0.8",
+      "User-Agent": "Node-SOAP-Client",
+      "Accept-Encoding": "none",
+      "Accept-Charset": "utf-8",
+      "Connection": "close",
+      "Host": "192.168.0.109:8080"
+    },
+    "transformRequest": [
+      null
+    ],
+    "timeout": 45000,
+    "xsrfCookieName": "XSRF-TOKEN",
+    "xsrfHeaderName": "X-XSRF-TOKEN",
+    "maxContentLength": null,
+    "maxBodyLength": null,
+    "validateStatus": null,
+    "transitional": {
+      "silentJSONParsing": true,
+      "forcedJSONParsing": true,
+      "clarifyTimeoutError": false
+    },
+    "rejectUnauthorized": false,
+    "strictSSL": false,
+    "forever": false,
+    "pool": false
+  },
+  "code": "ECONNRESET"
+}
+[2025-10-31T06:34:25.550Z] [INFO] Iniciando cliente SOAP
+[2025-10-31T06:34:25.556Z] [36mINFO[0m: Iniciando cliente SOAP...
+[2025-10-31T06:34:25.556Z] [36mINFO[0m: Conectando a: http://192.168.0.109:8080/InventarioService?wsdl
+[2025-10-31T06:34:25.803Z] [36mSUCCESS[0m: Conexión exitosa al servicio SOAP
+[2025-10-31T06:34:25.804Z] [36mINFO[0m: Operaciones disponibles:
+[2025-10-31T06:34:25.806Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T06:34:25.808Z] [36mINFO[0m: - listarProveedores
+[2025-10-31T06:34:25.809Z] [36mINFO[0m: - actualizarStock
+[2025-10-31T06:34:25.810Z] [36mINFO[0m: - listarCategorias
+[2025-10-31T06:34:25.811Z] [36mINFO[0m: - consultarArticulo
+[2025-10-31T06:34:25.812Z] [36mINFO[0m: - insertarArticulo
+[2025-10-31T06:34:25.813Z] [36mINFO[0m: - verificarEstado
+[2025-10-31T06:34:25.815Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T06:34:44.827Z] [36mINFO[0m: 
+Iniciando operación: listarProveedores
+[2025-10-31T06:34:44.828Z] [36mINFO[0m: Obteniendo lista de proveedores...
+[2025-10-31T06:34:44.830Z] [36mDEBUG[0m: Enviando petición SOAP: listarProveedores
+[2025-10-31T06:34:44.830Z] [36mDEBUG[0m: Argumentos: {}
+[2025-10-31T06:34:44.849Z] [36mDEBUG[0m: Respuesta de listarProveedores:
+[2025-10-31T06:34:44.850Z] [36mDEBUG[0m: Respuesta recibida (listarProveedores):
+[2025-10-31T06:34:44.851Z] [36mDEBUG[0m: {
+  "proveedorListResponse": {
+    "proveedores": {
+      "proveedor": [
+        {
+          "id": 1,
+          "nombre": "Distribuidora Central",
+          "contacto": "Juan Pérez",
+          "telefono": "555-0101",
+          "email": "ventas@distcentral.com",
+          "direccion": "Av. Industrial 123"
+        },
+        {
+          "id": 2,
+          "nombre": "Ferretería Mayorista",
+          "contacto": "María García",
+          "telefono": "555-0102",
+          "email": "pedidos@ferremayorista.com",
+          "direccion": "Calle Comercio 456"
+        },
+        {
+          "id": 3,
+          "nombre": "Suministros Técnicos",
+          "contacto": "Carlos López",
+          "telefono": "555-0103",
+          "email": "info@sumtecnicos.com",
+          "direccion": "Zona Industrial Norte"
+        }
+      ]
+    }
+  }
+}
+[2025-10-31T06:34:44.853Z] [36mDEBUG[0m: 
+=== INICIO RESPUESTA [2025-10-31T06:34:44.853Z] ===
+[2025-10-31T06:34:44.854Z] [36mDEBUG[0m: Operación: No especificada
+[2025-10-31T06:34:44.860Z] [36mSUCCESS[0m: ✅ Operación completada exitosamente
+[2025-10-31T06:34:44.861Z] [36mDEBUG[0m: 
+📊 Metadatos adicionales:
+[2025-10-31T06:34:44.863Z] [36mDEBUG[0m: proveedorListResponse:
+[2025-10-31T06:34:44.864Z] [36mDEBUG[0m:   proveedores:
+[2025-10-31T06:34:44.864Z] [36mDEBUG[0m:     proveedor:
+[2025-10-31T06:34:44.865Z] [36mDEBUG[0m:       [0]:
+[2025-10-31T06:34:44.865Z] [36mDEBUG[0m:         id: 1
+[2025-10-31T06:34:44.866Z] [36mDEBUG[0m:         nombre: Distribuidora Central
+[2025-10-31T06:34:44.867Z] [36mDEBUG[0m:         contacto: Juan Pérez
+[2025-10-31T06:34:44.867Z] [36mDEBUG[0m:         telefono: 555-0101
+[2025-10-31T06:34:44.868Z] [36mDEBUG[0m:         email: ventas@distcentral.com
+[2025-10-31T06:34:44.868Z] [36mDEBUG[0m:         direccion: Av. Industrial 123
+[2025-10-31T06:34:44.869Z] [36mDEBUG[0m:       [1]:
+[2025-10-31T06:34:44.870Z] [36mDEBUG[0m:         id: 2
+[2025-10-31T06:34:44.871Z] [36mDEBUG[0m:         nombre: Ferretería Mayorista
+[2025-10-31T06:34:44.872Z] [36mDEBUG[0m:         contacto: María García
+[2025-10-31T06:34:44.872Z] [36mDEBUG[0m:         telefono: 555-0102
+[2025-10-31T06:34:44.873Z] [36mDEBUG[0m:         email: pedidos@ferremayorista.com
+[2025-10-31T06:34:44.873Z] [36mDEBUG[0m:         direccion: Calle Comercio 456
+[2025-10-31T06:34:44.874Z] [36mDEBUG[0m:       [2]:
+[2025-10-31T06:34:44.874Z] [36mDEBUG[0m:         id: 3
+[2025-10-31T06:34:44.875Z] [36mDEBUG[0m:         nombre: Suministros Técnicos
+[2025-10-31T06:34:44.875Z] [36mDEBUG[0m:         contacto: Carlos López
+[2025-10-31T06:34:44.876Z] [36mDEBUG[0m:         telefono: 555-0103
+[2025-10-31T06:34:44.877Z] [36mDEBUG[0m:         email: info@sumtecnicos.com
+[2025-10-31T06:34:44.878Z] [36mDEBUG[0m:         direccion: Zona Industrial Norte
+[2025-10-31T06:34:44.879Z] [36mDEBUG[0m: === FIN RESPUESTA EXITOSA ===
+
+[2025-10-31T06:34:44.880Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T06:34:47.430Z] [36mINFO[0m: 
+Iniciando operación: listarCategorias
+[2025-10-31T06:34:47.431Z] [36mINFO[0m: Obteniendo lista de categorías...
+[2025-10-31T06:34:47.432Z] [36mDEBUG[0m: Enviando petición SOAP: listarCategorias
+[2025-10-31T06:34:47.433Z] [36mDEBUG[0m: Argumentos: {}
+[2025-10-31T06:34:47.447Z] [36mDEBUG[0m: Respuesta de listarCategorias:
+[2025-10-31T06:34:47.448Z] [36mDEBUG[0m: Respuesta recibida (listarCategorias):
+[2025-10-31T06:34:47.449Z] [36mDEBUG[0m: {
+  "categoriaListResponse": {
+    "categorias": {
+      "categoria": [
+        {
+          "id": 3,
+          "nombre": "Electricidad",
+          "descripcion": "Cables, interruptores, enchufes, etc."
+        },
+        {
+          "id": 2,
+          "nombre": "Ferretería General",
+          "descripcion": "Tornillos, tuercas, clavos, etc."
+        },
+        {
+          "id": 1,
+          "nombre": "Herramientas Manuales",
+          "descripcion": "Martillos, destornilladores, llaves, etc."
+        },
+        {
+          "id": 5,
+          "nombre": "Pintura",
+          "descripcion": "Pinturas, brochas, rodillos, etc."
+        },
+        {
+          "id": 4,
+          "nombre": "Plomería",
+          "descripcion": "Tuberías, llaves, accesorios de baño, etc."
+        }
+      ]
+    }
+  }
+}
+[2025-10-31T06:34:47.450Z] [36mDEBUG[0m: 
+=== INICIO RESPUESTA [2025-10-31T06:34:47.450Z] ===
+[2025-10-31T06:34:47.451Z] [36mDEBUG[0m: Operación: No especificada
+[2025-10-31T06:34:47.459Z] [36mSUCCESS[0m: ✅ Operación completada exitosamente
+[2025-10-31T06:34:47.461Z] [36mDEBUG[0m: 
+📊 Metadatos adicionales:
+[2025-10-31T06:34:47.462Z] [36mDEBUG[0m: categoriaListResponse:
+[2025-10-31T06:34:47.463Z] [36mDEBUG[0m:   categorias:
+[2025-10-31T06:34:47.464Z] [36mDEBUG[0m:     categoria:
+[2025-10-31T06:34:47.465Z] [36mDEBUG[0m:       [0]:
+[2025-10-31T06:34:47.465Z] [36mDEBUG[0m:         id: 3
+[2025-10-31T06:34:47.466Z] [36mDEBUG[0m:         nombre: Electricidad
+[2025-10-31T06:34:47.467Z] [36mDEBUG[0m:         descripcion: Cables, interruptores, enchufes, etc.
+[2025-10-31T06:34:47.468Z] [36mDEBUG[0m:       [1]:
+[2025-10-31T06:34:47.468Z] [36mDEBUG[0m:         id: 2
+[2025-10-31T06:34:47.469Z] [36mDEBUG[0m:         nombre: Ferretería General
+[2025-10-31T06:34:47.470Z] [36mDEBUG[0m:         descripcion: Tornillos, tuercas, clavos, etc.
+[2025-10-31T06:34:47.470Z] [36mDEBUG[0m:       [2]:
+[2025-10-31T06:34:47.471Z] [36mDEBUG[0m:         id: 1
+[2025-10-31T06:34:47.471Z] [36mDEBUG[0m:         nombre: Herramientas Manuales
+[2025-10-31T06:34:47.472Z] [36mDEBUG[0m:         descripcion: Martillos, destornilladores, llaves, etc.
+[2025-10-31T06:34:47.472Z] [36mDEBUG[0m:       [3]:
+[2025-10-31T06:34:47.473Z] [36mDEBUG[0m:         id: 5
+[2025-10-31T06:34:47.474Z] [36mDEBUG[0m:         nombre: Pintura
+[2025-10-31T06:34:47.474Z] [36mDEBUG[0m:         descripcion: Pinturas, brochas, rodillos, etc.
+[2025-10-31T06:34:47.475Z] [36mDEBUG[0m:       [4]:
+[2025-10-31T06:34:47.475Z] [36mDEBUG[0m:         id: 4
+[2025-10-31T06:34:47.476Z] [36mDEBUG[0m:         nombre: Plomería
+[2025-10-31T06:34:47.477Z] [36mDEBUG[0m:         descripcion: Tuberías, llaves, accesorios de baño, etc.
+[2025-10-31T06:34:47.477Z] [36mDEBUG[0m: === FIN RESPUESTA EXITOSA ===
+
+[2025-10-31T06:34:47.478Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T06:34:48.683Z] [36mINFO[0m: 
+Iniciando operación: actualizarStock
+[2025-10-31T06:34:48.684Z] [36mINFO[0m: Actualizando stock de artículo...
+[2025-10-31T06:34:53.796Z] [36mINFO[0m: Actualizando stock del artículo MART001 a 54 unidades
+[2025-10-31T06:34:53.798Z] [36mDEBUG[0m: Enviando petición SOAP: actualizarStock
+[2025-10-31T06:34:53.799Z] [36mDEBUG[0m: Argumentos: {
+  "codigo": "MART001",
+  "nuevoStock": 54
+}
+[2025-10-31T06:34:53.832Z] [36mDEBUG[0m: Respuesta de actualizarStock:
+[2025-10-31T06:34:53.833Z] [36mDEBUG[0m: Respuesta recibida (actualizarStock):
+[2025-10-31T06:34:53.834Z] [36mDEBUG[0m: {
+  "stockUpdateResponse": {
+    "exitoso": true,
+    "mensaje": "Stock actualizado exitosamente para el artículo MART001",
+    "articulo": {
+      "activo": true,
+      "categoriaId": 1,
+      "categoriaNombre": "Herramientas Manuales",
+      "codigo": "MART001",
+      "descripcion": "Martillo con mango de madera, cabeza de acero",
+      "fechaActualizacion": null,
+      "fechaCreacion": null,
+      "id": 1,
+      "nombre": "Martillo de Carpintero 16oz",
+      "precioCompra": 15.5,
+      "precioVenta": 25,
+      "proveedorId": 1,
+      "proveedorNombre": "Distribuidora Central",
+      "stockActual": 54,
+      "stockMinimo": 10
+    },
+    "stockAnterior": 78,
+    "stockNuevo": 54
+  }
+}
+[2025-10-31T06:34:53.836Z] [DEBUG] Respuesta de actualizarStock: {
+  "stockUpdateResponse": {
+    "exitoso": true,
+    "mensaje": "Stock actualizado exitosamente para el artículo MART001",
+    "articulo": {
+      "activo": true,
+      "categoriaId": 1,
+      "categoriaNombre": "Herramientas Manuales",
+      "codigo": "MART001",
+      "descripcion": "Martillo con mango de madera, cabeza de acero",
+      "fechaActualizacion": null,
+      "fechaCreacion": null,
+      "id": 1,
+      "nombre": "Martillo de Carpintero 16oz",
+      "precioCompra": 15.5,
+      "precioVenta": 25,
+      "proveedorId": 1,
+      "proveedorNombre": "Distribuidora Central",
+      "stockActual": 54,
+      "stockMinimo": 10
+    },
+    "stockAnterior": 78,
+    "stockNuevo": 54
+  }
+}
+[2025-10-31T06:34:55.770Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T06:34:58.326Z] [36mINFO[0m: 
+Iniciando operación: consultarArticulo
+[2025-10-31T06:34:58.327Z] [36mINFO[0m: Consultando artículo...
+[2025-10-31T06:34:59.360Z] [36mINFO[0m: Consultando artículo con código: MART001
+[2025-10-31T06:34:59.361Z] [36mDEBUG[0m: Enviando petición SOAP: consultarArticulo
+[2025-10-31T06:34:59.362Z] [36mDEBUG[0m: Argumentos: {
+  "codigo": "MART001"
+}
+[2025-10-31T06:34:59.365Z] [DEBUG] Respuesta de consultarArticulo: undefined
+[2025-10-31T06:34:59.367Z] [INFO] Consulta sin resultado: No se encontró el artículo o la respuesta está vacía
+[2025-10-31T06:34:59.378Z] [31mERROR[0m: Respuesta de consultarArticulo:
+[2025-10-31T06:34:59.379Z] [31mERROR[0m: Error HTTP undefined: undefined
+[2025-10-31T06:34:59.380Z] [36mDEBUG[0m: Headers: {
+  "date": "Fri, 31 Oct 2025 06:34:59 GMT",
+  "transfer-encoding": "chunked",
+  "content-type": "text/xml; charset=utf-8"
+}
+[2025-10-31T06:34:59.381Z] [31mERROR[0m: Error en consultarArticulo: Error desconocido
+[2025-10-31T06:34:59.382Z] [36mDEBUG[0m: Detalles del error: {"response":{"headers":{"date":"Fri, 31 Oct 2025 06:34:59 GMT","transfer-encoding":"chunked","content-type":"text/xml; charset=utf-8"},"data":"<?xml version='1.0' encoding='UTF-8'?><S:Envelope xmlns:S=\"http://schemas.xmlsoap.org/soap/envelope/\"><S:Body>"}}
+[2025-10-31T06:34:59.383Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T06:35:54.151Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T06:36:10.908Z] [INFO] Iniciando cliente SOAP
+[2025-10-31T06:36:10.915Z] [36mINFO[0m: Iniciando cliente SOAP...
+[2025-10-31T06:36:10.916Z] [36mINFO[0m: Conectando a: http://192.168.0.109:8080/InventarioService?wsdl
+[2025-10-31T06:36:10.944Z] [31mERROR[0m: Error conectando al servicio: read ECONNRESET
+[2025-10-31T06:36:10.945Z] [31mERROR[0m: - Verifica que el servidor esté corriendo en: http://192.168.0.109:8080/InventarioService?wsdl
+[2025-10-31T06:36:10.947Z] [31mERROR[0m: - Detalles del error: {
+  "message": "read ECONNRESET",
+  "name": "Error",
+  "stack": "Error: read ECONNRESET\n    at TCP.onStreamRead (node:internal/stream_base_commons:216:20)",
+  "config": {
+    "url": "http://192.168.0.109:8080/InventarioService?xsd=1",
+    "method": "get",
+    "data": null,
+    "headers": {
+      "Accept": "text/xml, application/xml",
+      "User-Agent": "Node-SOAP-Client/1.0",
+      "Accept-Encoding": "none",
+      "Accept-Charset": "utf-8",
+      "Connection": "close",
+      "Host": "192.168.0.109:8080",
+      "Cache-Control": "no-cache"
+    },
+    "transformRequest": [
+      null
+    ],
+    "timeout": 45000,
+    "xsrfCookieName": "XSRF-TOKEN",
+    "xsrfHeaderName": "X-XSRF-TOKEN",
+    "maxContentLength": null,
+    "maxBodyLength": null,
+    "validateStatus": null,
+    "transitional": {
+      "silentJSONParsing": true,
+      "forcedJSONParsing": true,
+      "clarifyTimeoutError": false
+    },
+    "rejectUnauthorized": false,
+    "strictSSL": false,
+    "forever": false,
+    "pool": false,
+    "keepAlive": false
+  },
+  "code": "ECONNRESET"
+}
+[2025-10-31T06:36:47.556Z] [INFO] Iniciando cliente SOAP
+[2025-10-31T06:36:47.565Z] [36mINFO[0m: Iniciando cliente SOAP...
+[2025-10-31T06:36:47.566Z] [36mINFO[0m: Conectando a: http://192.168.0.109:8080/InventarioService?wsdl
+[2025-10-31T06:36:47.606Z] [31mERROR[0m: Error conectando al servicio: read ECONNRESET
+[2025-10-31T06:36:47.606Z] [31mERROR[0m: - Verifica que el servidor esté corriendo en: http://192.168.0.109:8080/InventarioService?wsdl
+[2025-10-31T06:36:47.607Z] [31mERROR[0m: - Detalles del error: {
+  "message": "read ECONNRESET",
+  "name": "Error",
+  "stack": "Error: read ECONNRESET\n    at TCP.onStreamRead (node:internal/stream_base_commons:216:20)",
+  "config": {
+    "url": "http://192.168.0.109:8080/InventarioService?xsd=1",
+    "method": "get",
+    "data": null,
+    "headers": {
+      "Accept": "text/xml, application/xml",
+      "User-Agent": "Node-SOAP-Client/1.0",
+      "Accept-Encoding": "none",
+      "Accept-Charset": "utf-8",
+      "Connection": "close",
+      "Host": "192.168.0.109:8080",
+      "Cache-Control": "no-cache"
+    },
+    "transformRequest": [
+      null
+    ],
+    "timeout": 45000,
+    "xsrfCookieName": "XSRF-TOKEN",
+    "xsrfHeaderName": "X-XSRF-TOKEN",
+    "maxContentLength": null,
+    "maxBodyLength": null,
+    "validateStatus": null,
+    "transitional": {
+      "silentJSONParsing": true,
+      "forcedJSONParsing": true,
+      "clarifyTimeoutError": false
+    },
+    "rejectUnauthorized": false,
+    "strictSSL": false,
+    "forever": false,
+    "pool": false,
+    "keepAlive": false
+  },
+  "code": "ECONNRESET"
+}
+[2025-10-31T06:37:01.632Z] [INFO] Iniciando cliente SOAP
+[2025-10-31T06:37:01.637Z] [36mINFO[0m: Iniciando cliente SOAP...
+[2025-10-31T06:37:01.638Z] [36mINFO[0m: Conectando a: http://192.168.0.109:8080/InventarioService?wsdl
+[2025-10-31T06:37:01.668Z] [31mERROR[0m: Error conectando al servicio: read ECONNRESET
+[2025-10-31T06:37:01.669Z] [31mERROR[0m: - Verifica que el servidor esté corriendo en: http://192.168.0.109:8080/InventarioService?wsdl
+[2025-10-31T06:37:01.670Z] [31mERROR[0m: - Detalles del error: {
+  "message": "read ECONNRESET",
+  "name": "Error",
+  "stack": "Error: read ECONNRESET\n    at TCP.onStreamRead (node:internal/stream_base_commons:216:20)",
+  "config": {
+    "url": "http://192.168.0.109:8080/InventarioService?xsd=1",
+    "method": "get",
+    "data": null,
+    "headers": {
+      "Accept": "text/xml, application/xml",
+      "User-Agent": "Node-SOAP-Client/1.0",
+      "Accept-Encoding": "none",
+      "Accept-Charset": "utf-8",
+      "Connection": "close",
+      "Host": "192.168.0.109:8080",
+      "Cache-Control": "no-cache"
+    },
+    "transformRequest": [
+      null
+    ],
+    "timeout": 45000,
+    "xsrfCookieName": "XSRF-TOKEN",
+    "xsrfHeaderName": "X-XSRF-TOKEN",
+    "maxContentLength": null,
+    "maxBodyLength": null,
+    "validateStatus": null,
+    "transitional": {
+      "silentJSONParsing": true,
+      "forcedJSONParsing": true,
+      "clarifyTimeoutError": false
+    },
+    "rejectUnauthorized": false,
+    "strictSSL": false,
+    "forever": false,
+    "pool": false,
+    "keepAlive": false
+  },
+  "code": "ECONNRESET"
+}
+[2025-10-31T06:37:26.124Z] [INFO] Iniciando cliente SOAP
+[2025-10-31T06:37:26.128Z] [36mINFO[0m: Iniciando cliente SOAP...
+[2025-10-31T06:37:26.129Z] [36mINFO[0m: Conectando a: http://192.168.0.109:8080/InventarioService?wsdl
+[2025-10-31T06:37:26.161Z] [31mERROR[0m: Error conectando al servicio: read ECONNRESET
+[2025-10-31T06:37:26.162Z] [31mERROR[0m: - Verifica que el servidor esté corriendo en: http://192.168.0.109:8080/InventarioService?wsdl
+[2025-10-31T06:37:26.163Z] [31mERROR[0m: - Detalles del error: {
+  "message": "read ECONNRESET",
+  "name": "Error",
+  "stack": "Error: read ECONNRESET\n    at TCP.onStreamRead (node:internal/stream_base_commons:216:20)",
+  "config": {
+    "url": "http://192.168.0.109:8080/InventarioService?xsd=1",
+    "method": "get",
+    "data": null,
+    "headers": {
+      "Accept": "text/xml, application/xml",
+      "User-Agent": "Node-SOAP-Client/1.0",
+      "Accept-Encoding": "none",
+      "Accept-Charset": "utf-8",
+      "Connection": "close",
+      "Host": "192.168.0.109:8080",
+      "Cache-Control": "no-cache"
+    },
+    "transformRequest": [
+      null
+    ],
+    "timeout": 45000,
+    "xsrfCookieName": "XSRF-TOKEN",
+    "xsrfHeaderName": "X-XSRF-TOKEN",
+    "maxContentLength": null,
+    "maxBodyLength": null,
+    "validateStatus": null,
+    "transitional": {
+      "silentJSONParsing": true,
+      "forcedJSONParsing": true,
+      "clarifyTimeoutError": false
+    },
+    "rejectUnauthorized": false,
+    "strictSSL": false,
+    "forever": false,
+    "pool": false,
+    "keepAlive": false
+  },
+  "code": "ECONNRESET"
+}
+[2025-10-31T06:37:31.197Z] [INFO] Iniciando cliente SOAP
+[2025-10-31T06:37:31.202Z] [36mINFO[0m: Iniciando cliente SOAP...
+[2025-10-31T06:37:31.203Z] [36mINFO[0m: Conectando a: http://192.168.0.109:8080/InventarioService?wsdl
+[2025-10-31T06:37:31.236Z] [31mERROR[0m: Error conectando al servicio: read ECONNRESET
+[2025-10-31T06:37:31.237Z] [31mERROR[0m: - Verifica que el servidor esté corriendo en: http://192.168.0.109:8080/InventarioService?wsdl
+[2025-10-31T06:37:31.238Z] [31mERROR[0m: - Detalles del error: {
+  "message": "read ECONNRESET",
+  "name": "Error",
+  "stack": "Error: read ECONNRESET\n    at TCP.onStreamRead (node:internal/stream_base_commons:216:20)",
+  "config": {
+    "url": "http://192.168.0.109:8080/InventarioService?xsd=1",
+    "method": "get",
+    "data": null,
+    "headers": {
+      "Accept": "text/xml, application/xml",
+      "User-Agent": "Node-SOAP-Client/1.0",
+      "Accept-Encoding": "none",
+      "Accept-Charset": "utf-8",
+      "Connection": "close",
+      "Host": "192.168.0.109:8080",
+      "Cache-Control": "no-cache"
+    },
+    "transformRequest": [
+      null
+    ],
+    "timeout": 45000,
+    "xsrfCookieName": "XSRF-TOKEN",
+    "xsrfHeaderName": "X-XSRF-TOKEN",
+    "maxContentLength": null,
+    "maxBodyLength": null,
+    "validateStatus": null,
+    "transitional": {
+      "silentJSONParsing": true,
+      "forcedJSONParsing": true,
+      "clarifyTimeoutError": false
+    },
+    "rejectUnauthorized": false,
+    "strictSSL": false,
+    "forever": false,
+    "pool": false,
+    "keepAlive": false
+  },
+  "code": "ECONNRESET"
+}
+[2025-10-31T06:37:35.822Z] [INFO] Iniciando cliente SOAP
+[2025-10-31T06:37:35.827Z] [36mINFO[0m: Iniciando cliente SOAP...
+[2025-10-31T06:37:35.828Z] [36mINFO[0m: Conectando a: http://192.168.0.109:8080/InventarioService?wsdl
+[2025-10-31T06:37:35.859Z] [31mERROR[0m: Error conectando al servicio: read ECONNRESET
+[2025-10-31T06:37:35.860Z] [31mERROR[0m: - Verifica que el servidor esté corriendo en: http://192.168.0.109:8080/InventarioService?wsdl
+[2025-10-31T06:37:35.862Z] [31mERROR[0m: - Detalles del error: {
+  "message": "read ECONNRESET",
+  "name": "Error",
+  "stack": "Error: read ECONNRESET\n    at TCP.onStreamRead (node:internal/stream_base_commons:216:20)",
+  "config": {
+    "url": "http://192.168.0.109:8080/InventarioService?xsd=1",
+    "method": "get",
+    "data": null,
+    "headers": {
+      "Accept": "text/xml, application/xml",
+      "User-Agent": "Node-SOAP-Client/1.0",
+      "Accept-Encoding": "none",
+      "Accept-Charset": "utf-8",
+      "Connection": "close",
+      "Host": "192.168.0.109:8080",
+      "Cache-Control": "no-cache"
+    },
+    "transformRequest": [
+      null
+    ],
+    "timeout": 45000,
+    "xsrfCookieName": "XSRF-TOKEN",
+    "xsrfHeaderName": "X-XSRF-TOKEN",
+    "maxContentLength": null,
+    "maxBodyLength": null,
+    "validateStatus": null,
+    "transitional": {
+      "silentJSONParsing": true,
+      "forcedJSONParsing": true,
+      "clarifyTimeoutError": false
+    },
+    "rejectUnauthorized": false,
+    "strictSSL": false,
+    "forever": false,
+    "pool": false,
+    "keepAlive": false
+  },
+  "code": "ECONNRESET"
+}
+[2025-10-31T06:37:44.687Z] [INFO] Iniciando cliente SOAP
+[2025-10-31T06:37:44.693Z] [36mINFO[0m: Iniciando cliente SOAP...
+[2025-10-31T06:37:44.693Z] [36mINFO[0m: Conectando a: http://192.168.0.109:8080/InventarioService?wsdl
+[2025-10-31T06:37:44.723Z] [31mERROR[0m: Error conectando al servicio: read ECONNRESET
+[2025-10-31T06:37:44.724Z] [31mERROR[0m: - Verifica que el servidor esté corriendo en: http://192.168.0.109:8080/InventarioService?wsdl
+[2025-10-31T06:37:44.724Z] [31mERROR[0m: - Detalles del error: {
+  "message": "read ECONNRESET",
+  "name": "Error",
+  "stack": "Error: read ECONNRESET\n    at TCP.onStreamRead (node:internal/stream_base_commons:216:20)",
+  "config": {
+    "url": "http://192.168.0.109:8080/InventarioService?xsd=1",
+    "method": "get",
+    "data": null,
+    "headers": {
+      "Accept": "text/xml, application/xml",
+      "User-Agent": "Node-SOAP-Client/1.0",
+      "Accept-Encoding": "none",
+      "Accept-Charset": "utf-8",
+      "Connection": "close",
+      "Host": "192.168.0.109:8080",
+      "Cache-Control": "no-cache"
+    },
+    "transformRequest": [
+      null
+    ],
+    "timeout": 45000,
+    "xsrfCookieName": "XSRF-TOKEN",
+    "xsrfHeaderName": "X-XSRF-TOKEN",
+    "maxContentLength": null,
+    "maxBodyLength": null,
+    "validateStatus": null,
+    "transitional": {
+      "silentJSONParsing": true,
+      "forcedJSONParsing": true,
+      "clarifyTimeoutError": false
+    },
+    "rejectUnauthorized": false,
+    "strictSSL": false,
+    "forever": false,
+    "pool": false,
+    "keepAlive": false
+  },
+  "code": "ECONNRESET"
+}
+[2025-10-31T06:37:59.727Z] [INFO] Iniciando cliente SOAP
+[2025-10-31T06:37:59.732Z] [36mINFO[0m: Iniciando cliente SOAP...
+[2025-10-31T06:37:59.732Z] [36mINFO[0m: Conectando a: http://192.168.0.109:8080/InventarioService?wsdl
+[2025-10-31T06:37:59.765Z] [31mERROR[0m: Error conectando al servicio: read ECONNRESET
+[2025-10-31T06:37:59.766Z] [31mERROR[0m: - Verifica que el servidor esté corriendo en: http://192.168.0.109:8080/InventarioService?wsdl
+[2025-10-31T06:37:59.767Z] [31mERROR[0m: - Detalles del error: {
+  "message": "read ECONNRESET",
+  "name": "Error",
+  "stack": "Error: read ECONNRESET\n    at TCP.onStreamRead (node:internal/stream_base_commons:216:20)",
+  "config": {
+    "url": "http://192.168.0.109:8080/InventarioService?xsd=1",
+    "method": "get",
+    "data": null,
+    "headers": {
+      "Accept": "text/xml, application/xml",
+      "User-Agent": "Node-SOAP-Client/1.0",
+      "Accept-Encoding": "none",
+      "Accept-Charset": "utf-8",
+      "Connection": "close",
+      "Host": "192.168.0.109:8080",
+      "Cache-Control": "no-cache"
+    },
+    "transformRequest": [
+      null
+    ],
+    "timeout": 45000,
+    "xsrfCookieName": "XSRF-TOKEN",
+    "xsrfHeaderName": "X-XSRF-TOKEN",
+    "maxContentLength": null,
+    "maxBodyLength": null,
+    "validateStatus": null,
+    "transitional": {
+      "silentJSONParsing": true,
+      "forcedJSONParsing": true,
+      "clarifyTimeoutError": false
+    },
+    "rejectUnauthorized": false,
+    "strictSSL": false,
+    "forever": false,
+    "pool": false,
+    "keepAlive": false
+  },
+  "code": "ECONNRESET"
+}
+[2025-10-31T06:38:24.987Z] [INFO] Iniciando cliente SOAP
+[2025-10-31T06:38:24.992Z] [36mINFO[0m: Iniciando cliente SOAP...
+[2025-10-31T06:38:24.993Z] [36mINFO[0m: Conectando a: http://192.168.0.109:8080/InventarioService?wsdl
+[2025-10-31T06:38:25.028Z] [31mERROR[0m: Error conectando al servicio: read ECONNRESET
+[2025-10-31T06:38:25.029Z] [31mERROR[0m: - Verifica que el servidor esté corriendo en: http://192.168.0.109:8080/InventarioService?wsdl
+[2025-10-31T06:38:25.029Z] [31mERROR[0m: - Detalles del error: {
+  "message": "read ECONNRESET",
+  "name": "Error",
+  "stack": "Error: read ECONNRESET\n    at TCP.onStreamRead (node:internal/stream_base_commons:216:20)",
+  "config": {
+    "url": "http://192.168.0.109:8080/InventarioService?xsd=1",
+    "method": "get",
+    "data": null,
+    "headers": {
+      "Accept": "text/xml, application/xml",
+      "User-Agent": "Node-SOAP-Client/1.0",
+      "Accept-Encoding": "none",
+      "Accept-Charset": "utf-8",
+      "Connection": "close",
+      "Host": "192.168.0.109:8080",
+      "Cache-Control": "no-cache"
+    },
+    "transformRequest": [
+      null
+    ],
+    "timeout": 45000,
+    "xsrfCookieName": "XSRF-TOKEN",
+    "xsrfHeaderName": "X-XSRF-TOKEN",
+    "maxContentLength": null,
+    "maxBodyLength": null,
+    "validateStatus": null,
+    "transitional": {
+      "silentJSONParsing": true,
+      "forcedJSONParsing": true,
+      "clarifyTimeoutError": false
+    },
+    "rejectUnauthorized": false,
+    "strictSSL": false,
+    "forever": false,
+    "pool": false,
+    "keepAlive": false
+  },
+  "code": "ECONNRESET"
+}
+[2025-10-31T06:38:44.932Z] [INFO] Iniciando cliente SOAP
+[2025-10-31T06:38:44.936Z] [36mINFO[0m: Iniciando cliente SOAP...
+[2025-10-31T06:38:44.936Z] [36mINFO[0m: Conectando a: http://192.168.0.109:8080/InventarioService?wsdl
+[2025-10-31T06:38:44.968Z] [31mERROR[0m: Error conectando al servicio: read ECONNRESET
+[2025-10-31T06:38:44.969Z] [31mERROR[0m: - Verifica que el servidor esté corriendo en: http://192.168.0.109:8080/InventarioService?wsdl
+[2025-10-31T06:38:44.969Z] [31mERROR[0m: - Detalles del error: {
+  "message": "read ECONNRESET",
+  "name": "Error",
+  "stack": "Error: read ECONNRESET\n    at TCP.onStreamRead (node:internal/stream_base_commons:216:20)",
+  "config": {
+    "url": "http://192.168.0.109:8080/InventarioService?xsd=1",
+    "method": "get",
+    "data": null,
+    "headers": {
+      "Accept": "text/xml, application/xml",
+      "User-Agent": "Node-SOAP-Client/1.0",
+      "Accept-Encoding": "none",
+      "Accept-Charset": "utf-8",
+      "Connection": "close",
+      "Host": "192.168.0.109:8080",
+      "Cache-Control": "no-cache"
+    },
+    "transformRequest": [
+      null
+    ],
+    "timeout": 45000,
+    "xsrfCookieName": "XSRF-TOKEN",
+    "xsrfHeaderName": "X-XSRF-TOKEN",
+    "maxContentLength": null,
+    "maxBodyLength": null,
+    "validateStatus": null,
+    "transitional": {
+      "silentJSONParsing": true,
+      "forcedJSONParsing": true,
+      "clarifyTimeoutError": false
+    },
+    "rejectUnauthorized": false,
+    "strictSSL": false,
+    "forever": false,
+    "pool": false,
+    "keepAlive": false
+  },
+  "code": "ECONNRESET"
+}
+[2025-10-31T06:39:01.435Z] [INFO] Iniciando cliente SOAP
+[2025-10-31T06:39:01.440Z] [36mINFO[0m: Iniciando cliente SOAP...
+[2025-10-31T06:39:01.441Z] [36mINFO[0m: Conectando a: http://192.168.0.109:8080/InventarioService?wsdl
+[2025-10-31T06:39:01.475Z] [31mERROR[0m: Error conectando al servicio: read ECONNRESET
+[2025-10-31T06:39:01.476Z] [31mERROR[0m: - Verifica que el servidor esté corriendo en: http://192.168.0.109:8080/InventarioService?wsdl
+[2025-10-31T06:39:01.477Z] [31mERROR[0m: - Detalles del error: {
+  "message": "read ECONNRESET",
+  "name": "Error",
+  "stack": "Error: read ECONNRESET\n    at TCP.onStreamRead (node:internal/stream_base_commons:216:20)",
+  "config": {
+    "url": "http://192.168.0.109:8080/InventarioService?xsd=1",
+    "method": "get",
+    "data": null,
+    "headers": {
+      "Accept": "text/xml, application/xml",
+      "User-Agent": "Node-SOAP-Client/1.0",
+      "Accept-Encoding": "none",
+      "Accept-Charset": "utf-8",
+      "Connection": "close",
+      "Host": "192.168.0.109:8080",
+      "Cache-Control": "no-cache"
+    },
+    "transformRequest": [
+      null
+    ],
+    "timeout": 45000,
+    "xsrfCookieName": "XSRF-TOKEN",
+    "xsrfHeaderName": "X-XSRF-TOKEN",
+    "maxContentLength": null,
+    "maxBodyLength": null,
+    "validateStatus": null,
+    "transitional": {
+      "silentJSONParsing": true,
+      "forcedJSONParsing": true,
+      "clarifyTimeoutError": false
+    },
+    "rejectUnauthorized": false,
+    "strictSSL": false,
+    "forever": false,
+    "pool": false,
+    "keepAlive": false
+  },
+  "code": "ECONNRESET"
+}
+[2025-10-31T06:39:18.391Z] [INFO] Iniciando cliente SOAP
+[2025-10-31T06:39:18.396Z] [36mINFO[0m: Iniciando cliente SOAP...
+[2025-10-31T06:39:18.397Z] [36mINFO[0m: Conectando a: http://192.168.0.109:8080/InventarioService?wsdl
+[2025-10-31T06:39:18.428Z] [31mERROR[0m: Error conectando al servicio: read ECONNRESET
+[2025-10-31T06:39:18.429Z] [31mERROR[0m: - Verifica que el servidor esté corriendo en: http://192.168.0.109:8080/InventarioService?wsdl
+[2025-10-31T06:39:18.430Z] [31mERROR[0m: - Detalles del error: {
+  "message": "read ECONNRESET",
+  "name": "Error",
+  "stack": "Error: read ECONNRESET\n    at TCP.onStreamRead (node:internal/stream_base_commons:216:20)",
+  "config": {
+    "url": "http://192.168.0.109:8080/InventarioService?xsd=1",
+    "method": "get",
+    "data": null,
+    "headers": {
+      "Accept": "text/xml, application/xml",
+      "User-Agent": "Node-SOAP-Client/1.0",
+      "Accept-Encoding": "none",
+      "Accept-Charset": "utf-8",
+      "Connection": "close",
+      "Host": "192.168.0.109:8080",
+      "Cache-Control": "no-cache"
+    },
+    "transformRequest": [
+      null
+    ],
+    "timeout": 45000,
+    "xsrfCookieName": "XSRF-TOKEN",
+    "xsrfHeaderName": "X-XSRF-TOKEN",
+    "maxContentLength": null,
+    "maxBodyLength": null,
+    "validateStatus": null,
+    "transitional": {
+      "silentJSONParsing": true,
+      "forcedJSONParsing": true,
+      "clarifyTimeoutError": false
+    },
+    "rejectUnauthorized": false,
+    "strictSSL": false,
+    "forever": false,
+    "pool": false,
+    "keepAlive": false
+  },
+  "code": "ECONNRESET"
+}
+[2025-10-31T06:39:42.253Z] [INFO] Iniciando cliente SOAP
+[2025-10-31T06:39:42.258Z] [36mINFO[0m: Iniciando cliente SOAP...
+[2025-10-31T06:39:42.259Z] [36mINFO[0m: Conectando a: http://192.168.0.109:8080/InventarioService?wsdl
+[2025-10-31T06:39:42.288Z] [31mERROR[0m: Error conectando al servicio: read ECONNRESET
+[2025-10-31T06:39:42.288Z] [31mERROR[0m: - Verifica que el servidor esté corriendo en: http://192.168.0.109:8080/InventarioService?wsdl
+[2025-10-31T06:39:42.289Z] [31mERROR[0m: - Detalles del error: {
+  "message": "read ECONNRESET",
+  "name": "Error",
+  "stack": "Error: read ECONNRESET\n    at TCP.onStreamRead (node:internal/stream_base_commons:216:20)",
+  "config": {
+    "url": "http://192.168.0.109:8080/InventarioService?xsd=1",
+    "method": "get",
+    "data": null,
+    "headers": {
+      "Accept": "text/xml, application/xml",
+      "User-Agent": "Node-SOAP-Client/1.0",
+      "Accept-Encoding": "none",
+      "Accept-Charset": "utf-8",
+      "Connection": "close",
+      "Host": "192.168.0.109:8080",
+      "Cache-Control": "no-cache"
+    },
+    "transformRequest": [
+      null
+    ],
+    "timeout": 45000,
+    "xsrfCookieName": "XSRF-TOKEN",
+    "xsrfHeaderName": "X-XSRF-TOKEN",
+    "maxContentLength": null,
+    "maxBodyLength": null,
+    "validateStatus": null,
+    "transitional": {
+      "silentJSONParsing": true,
+      "forcedJSONParsing": true,
+      "clarifyTimeoutError": false
+    },
+    "rejectUnauthorized": false,
+    "strictSSL": false,
+    "forever": false,
+    "pool": false,
+    "keepAlive": false
+  },
+  "code": "ECONNRESET"
+}
+[2025-10-31T06:40:12.981Z] [INFO] Iniciando cliente SOAP
+[2025-10-31T06:40:12.986Z] [36mINFO[0m: Iniciando cliente SOAP...
+[2025-10-31T06:40:12.987Z] [36mINFO[0m: Conectando a: http://192.168.0.109:8080/InventarioService?wsdl
+[2025-10-31T06:40:13.275Z] [36mSUCCESS[0m: Conexión exitosa al servicio SOAP
+[2025-10-31T06:40:13.277Z] [36mINFO[0m: Operaciones disponibles:
+[2025-10-31T06:40:13.279Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T06:40:13.282Z] [36mINFO[0m: - listarProveedores
+[2025-10-31T06:40:13.284Z] [36mINFO[0m: - actualizarStock
+[2025-10-31T06:40:13.286Z] [36mINFO[0m: - listarCategorias
+[2025-10-31T06:40:13.288Z] [36mINFO[0m: - consultarArticulo
+[2025-10-31T06:40:13.290Z] [36mINFO[0m: - insertarArticulo
+[2025-10-31T06:40:13.292Z] [36mINFO[0m: - verificarEstado
+[2025-10-31T06:40:13.296Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T06:41:06.820Z] [INFO] Iniciando cliente SOAP
+[2025-10-31T06:41:06.827Z] [36mINFO[0m: Iniciando cliente SOAP...
+[2025-10-31T06:41:06.828Z] [36mINFO[0m: Conectando a: http://192.168.0.109:8080/InventarioService?wsdl
+[2025-10-31T06:41:07.044Z] [36mSUCCESS[0m: Conexión exitosa al servicio SOAP
+[2025-10-31T06:41:07.045Z] [36mINFO[0m: Operaciones disponibles:
+[2025-10-31T06:41:07.047Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T06:41:07.049Z] [36mINFO[0m: - listarProveedores
+[2025-10-31T06:41:07.050Z] [36mINFO[0m: - actualizarStock
+[2025-10-31T06:41:07.051Z] [36mINFO[0m: - listarCategorias
+[2025-10-31T06:41:07.052Z] [36mINFO[0m: - consultarArticulo
+[2025-10-31T06:41:07.053Z] [36mINFO[0m: - insertarArticulo
+[2025-10-31T06:41:07.054Z] [36mINFO[0m: - verificarEstado
+[2025-10-31T06:41:07.055Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T06:41:18.272Z] [INFO] Iniciando cliente SOAP
+[2025-10-31T06:41:18.278Z] [36mINFO[0m: Iniciando cliente SOAP...
+[2025-10-31T06:41:18.278Z] [36mINFO[0m: Conectando a: http://192.168.0.109:8080/InventarioService?wsdl
+[2025-10-31T06:41:18.699Z] [36mSUCCESS[0m: Conexión exitosa al servicio SOAP
+[2025-10-31T06:41:18.701Z] [36mINFO[0m: Operaciones disponibles:
+[2025-10-31T06:41:18.702Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T06:41:18.704Z] [36mINFO[0m: - listarProveedores
+[2025-10-31T06:41:18.705Z] [36mINFO[0m: - actualizarStock
+[2025-10-31T06:41:18.706Z] [36mINFO[0m: - listarCategorias
+[2025-10-31T06:41:18.708Z] [36mINFO[0m: - consultarArticulo
+[2025-10-31T06:41:18.709Z] [36mINFO[0m: - insertarArticulo
+[2025-10-31T06:41:18.710Z] [36mINFO[0m: - verificarEstado
+[2025-10-31T06:41:18.716Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T06:41:23.072Z] [36mINFO[0m: 
+Iniciando operación: listarProveedores
+[2025-10-31T06:41:23.073Z] [36mINFO[0m: Obteniendo lista de proveedores...
+[2025-10-31T06:41:23.074Z] [36mDEBUG[0m: Enviando petición SOAP: listarProveedores
+[2025-10-31T06:41:23.075Z] [36mDEBUG[0m: Argumentos: {}
+[2025-10-31T06:41:23.094Z] [36mDEBUG[0m: Respuesta de listarProveedores:
+[2025-10-31T06:41:23.096Z] [36mDEBUG[0m: Respuesta recibida (listarProveedores):
+[2025-10-31T06:41:23.097Z] [36mDEBUG[0m: {
+  "proveedorListResponse": {
+    "proveedores": {
+      "proveedor": [
+        {
+          "id": 1,
+          "nombre": "Distribuidora Central",
+          "contacto": "Juan Pérez",
+          "telefono": "555-0101",
+          "email": "ventas@distcentral.com",
+          "direccion": "Av. Industrial 123"
+        },
+        {
+          "id": 2,
+          "nombre": "Ferretería Mayorista",
+          "contacto": "María García",
+          "telefono": "555-0102",
+          "email": "pedidos@ferremayorista.com",
+          "direccion": "Calle Comercio 456"
+        },
+        {
+          "id": 3,
+          "nombre": "Suministros Técnicos",
+          "contacto": "Carlos López",
+          "telefono": "555-0103",
+          "email": "info@sumtecnicos.com",
+          "direccion": "Zona Industrial Norte"
+        }
+      ]
+    }
+  }
+}
+[2025-10-31T06:41:23.099Z] [36mDEBUG[0m: 
+=== INICIO RESPUESTA [2025-10-31T06:41:23.099Z] ===
+[2025-10-31T06:41:23.100Z] [36mDEBUG[0m: Operación: No especificada
+[2025-10-31T06:41:23.109Z] [36mSUCCESS[0m: ✅ Operación completada exitosamente
+[2025-10-31T06:41:23.110Z] [36mDEBUG[0m: 
+📊 Metadatos adicionales:
+[2025-10-31T06:41:23.111Z] [36mDEBUG[0m: proveedorListResponse:
+[2025-10-31T06:41:23.112Z] [36mDEBUG[0m:   proveedores:
+[2025-10-31T06:41:23.113Z] [36mDEBUG[0m:     proveedor:
+[2025-10-31T06:41:23.114Z] [36mDEBUG[0m:       [0]:
+[2025-10-31T06:41:23.115Z] [36mDEBUG[0m:         id: 1
+[2025-10-31T06:41:23.116Z] [36mDEBUG[0m:         nombre: Distribuidora Central
+[2025-10-31T06:41:23.117Z] [36mDEBUG[0m:         contacto: Juan Pérez
+[2025-10-31T06:41:23.118Z] [36mDEBUG[0m:         telefono: 555-0101
+[2025-10-31T06:41:23.118Z] [36mDEBUG[0m:         email: ventas@distcentral.com
+[2025-10-31T06:41:23.119Z] [36mDEBUG[0m:         direccion: Av. Industrial 123
+[2025-10-31T06:41:23.120Z] [36mDEBUG[0m:       [1]:
+[2025-10-31T06:41:23.120Z] [36mDEBUG[0m:         id: 2
+[2025-10-31T06:41:23.121Z] [36mDEBUG[0m:         nombre: Ferretería Mayorista
+[2025-10-31T06:41:23.122Z] [36mDEBUG[0m:         contacto: María García
+[2025-10-31T06:41:23.122Z] [36mDEBUG[0m:         telefono: 555-0102
+[2025-10-31T06:41:23.124Z] [36mDEBUG[0m:         email: pedidos@ferremayorista.com
+[2025-10-31T06:41:23.125Z] [36mDEBUG[0m:         direccion: Calle Comercio 456
+[2025-10-31T06:41:23.126Z] [36mDEBUG[0m:       [2]:
+[2025-10-31T06:41:23.126Z] [36mDEBUG[0m:         id: 3
+[2025-10-31T06:41:23.127Z] [36mDEBUG[0m:         nombre: Suministros Técnicos
+[2025-10-31T06:41:23.127Z] [36mDEBUG[0m:         contacto: Carlos López
+[2025-10-31T06:41:23.128Z] [36mDEBUG[0m:         telefono: 555-0103
+[2025-10-31T06:41:23.128Z] [36mDEBUG[0m:         email: info@sumtecnicos.com
+[2025-10-31T06:41:23.129Z] [36mDEBUG[0m:         direccion: Zona Industrial Norte
+[2025-10-31T06:41:23.130Z] [36mDEBUG[0m: === FIN RESPUESTA EXITOSA ===
+
+[2025-10-31T06:41:23.130Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T06:41:25.136Z] [36mINFO[0m: 
+Iniciando operación: actualizarStock
+[2025-10-31T06:41:25.137Z] [36mINFO[0m: Actualizando stock de artículo...
+[2025-10-31T06:41:29.987Z] [36mINFO[0m: Actualizando stock del artículo MART001 a 45 unidades
+[2025-10-31T06:41:29.988Z] [36mDEBUG[0m: Enviando petición SOAP: actualizarStock
+[2025-10-31T06:41:29.989Z] [36mDEBUG[0m: Argumentos: {
+  "codigo": "MART001",
+  "nuevoStock": 45
+}
+[2025-10-31T06:41:30.021Z] [36mDEBUG[0m: Respuesta de actualizarStock:
+[2025-10-31T06:41:30.022Z] [36mDEBUG[0m: Respuesta recibida (actualizarStock):
+[2025-10-31T06:41:30.023Z] [36mDEBUG[0m: {
+  "stockUpdateResponse": {
+    "exitoso": true,
+    "mensaje": "Stock actualizado exitosamente para el artículo MART001",
+    "articulo": {
+      "activo": true,
+      "categoriaId": 1,
+      "categoriaNombre": "Herramientas Manuales",
+      "codigo": "MART001",
+      "descripcion": "Martillo con mango de madera, cabeza de acero",
+      "fechaActualizacion": null,
+      "fechaCreacion": null,
+      "id": 1,
+      "nombre": "Martillo de Carpintero 16oz",
+      "precioCompra": 15.5,
+      "precioVenta": 25,
+      "proveedorId": 1,
+      "proveedorNombre": "Distribuidora Central",
+      "stockActual": 45,
+      "stockMinimo": 10
+    },
+    "stockAnterior": 54,
+    "stockNuevo": 45
+  }
+}
+[2025-10-31T06:41:30.026Z] [DEBUG] Respuesta de actualizarStock: {
+  "stockUpdateResponse": {
+    "exitoso": true,
+    "mensaje": "Stock actualizado exitosamente para el artículo MART001",
+    "articulo": {
+      "activo": true,
+      "categoriaId": 1,
+      "categoriaNombre": "Herramientas Manuales",
+      "codigo": "MART001",
+      "descripcion": "Martillo con mango de madera, cabeza de acero",
+      "fechaActualizacion": null,
+      "fechaCreacion": null,
+      "id": 1,
+      "nombre": "Martillo de Carpintero 16oz",
+      "precioCompra": 15.5,
+      "precioVenta": 25,
+      "proveedorId": 1,
+      "proveedorNombre": "Distribuidora Central",
+      "stockActual": 45,
+      "stockMinimo": 10
+    },
+    "stockAnterior": 54,
+    "stockNuevo": 45
+  }
+}
+[2025-10-31T06:41:31.776Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T06:41:33.945Z] [36mINFO[0m: 
+Iniciando operación: listarCategorias
+[2025-10-31T06:41:33.946Z] [36mINFO[0m: Obteniendo lista de categorías...
+[2025-10-31T06:41:33.947Z] [36mDEBUG[0m: Enviando petición SOAP: listarCategorias
+[2025-10-31T06:41:33.948Z] [36mDEBUG[0m: Argumentos: {}
+[2025-10-31T06:41:33.960Z] [36mDEBUG[0m: Respuesta de listarCategorias:
+[2025-10-31T06:41:33.961Z] [36mDEBUG[0m: Respuesta recibida (listarCategorias):
+[2025-10-31T06:41:33.962Z] [36mDEBUG[0m: {
+  "categoriaListResponse": {
+    "categorias": {
+      "categoria": [
+        {
+          "id": 3,
+          "nombre": "Electricidad",
+          "descripcion": "Cables, interruptores, enchufes, etc."
+        },
+        {
+          "id": 2,
+          "nombre": "Ferretería General",
+          "descripcion": "Tornillos, tuercas, clavos, etc."
+        },
+        {
+          "id": 1,
+          "nombre": "Herramientas Manuales",
+          "descripcion": "Martillos, destornilladores, llaves, etc."
+        },
+        {
+          "id": 5,
+          "nombre": "Pintura",
+          "descripcion": "Pinturas, brochas, rodillos, etc."
+        },
+        {
+          "id": 4,
+          "nombre": "Plomería",
+          "descripcion": "Tuberías, llaves, accesorios de baño, etc."
+        }
+      ]
+    }
+  }
+}
+[2025-10-31T06:41:33.963Z] [36mDEBUG[0m: 
+=== INICIO RESPUESTA [2025-10-31T06:41:33.963Z] ===
+[2025-10-31T06:41:33.964Z] [36mDEBUG[0m: Operación: No especificada
+[2025-10-31T06:41:33.970Z] [36mSUCCESS[0m: ✅ Operación completada exitosamente
+[2025-10-31T06:41:33.971Z] [36mDEBUG[0m: 
+📊 Metadatos adicionales:
+[2025-10-31T06:41:33.972Z] [36mDEBUG[0m: categoriaListResponse:
+[2025-10-31T06:41:33.973Z] [36mDEBUG[0m:   categorias:
+[2025-10-31T06:41:33.974Z] [36mDEBUG[0m:     categoria:
+[2025-10-31T06:41:33.975Z] [36mDEBUG[0m:       [0]:
+[2025-10-31T06:41:33.976Z] [36mDEBUG[0m:         id: 3
+[2025-10-31T06:41:33.977Z] [36mDEBUG[0m:         nombre: Electricidad
+[2025-10-31T06:41:33.978Z] [36mDEBUG[0m:         descripcion: Cables, interruptores, enchufes, etc.
+[2025-10-31T06:41:33.979Z] [36mDEBUG[0m:       [1]:
+[2025-10-31T06:41:33.980Z] [36mDEBUG[0m:         id: 2
+[2025-10-31T06:41:33.980Z] [36mDEBUG[0m:         nombre: Ferretería General
+[2025-10-31T06:41:33.981Z] [36mDEBUG[0m:         descripcion: Tornillos, tuercas, clavos, etc.
+[2025-10-31T06:41:33.982Z] [36mDEBUG[0m:       [2]:
+[2025-10-31T06:41:33.983Z] [36mDEBUG[0m:         id: 1
+[2025-10-31T06:41:33.984Z] [36mDEBUG[0m:         nombre: Herramientas Manuales
+[2025-10-31T06:41:33.985Z] [36mDEBUG[0m:         descripcion: Martillos, destornilladores, llaves, etc.
+[2025-10-31T06:41:33.986Z] [36mDEBUG[0m:       [3]:
+[2025-10-31T06:41:33.987Z] [36mDEBUG[0m:         id: 5
+[2025-10-31T06:41:33.987Z] [36mDEBUG[0m:         nombre: Pintura
+[2025-10-31T06:41:33.988Z] [36mDEBUG[0m:         descripcion: Pinturas, brochas, rodillos, etc.
+[2025-10-31T06:41:33.989Z] [36mDEBUG[0m:       [4]:
+[2025-10-31T06:41:33.990Z] [36mDEBUG[0m:         id: 4
+[2025-10-31T06:41:33.991Z] [36mDEBUG[0m:         nombre: Plomería
+[2025-10-31T06:41:33.992Z] [36mDEBUG[0m:         descripcion: Tuberías, llaves, accesorios de baño, etc.
+[2025-10-31T06:41:33.992Z] [36mDEBUG[0m: === FIN RESPUESTA EXITOSA ===
+
+[2025-10-31T06:41:33.994Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...
+[2025-10-31T06:41:36.228Z] [36mINFO[0m: 
+Iniciando operación: consultarArticulo
+[2025-10-31T06:41:36.230Z] [36mINFO[0m: Consultando artículo...
+[2025-10-31T06:41:37.976Z] [36mINFO[0m: Consultando artículo con código: MART001
+[2025-10-31T06:41:37.995Z] [36mINFO[0m: Obteniendo descripción del servicio SOAP...

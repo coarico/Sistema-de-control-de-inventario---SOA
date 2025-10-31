@@ -13,6 +13,7 @@ import com.ferreteria.inventario.model.Categoria;
 import com.ferreteria.inventario.model.Proveedor;
 import com.ferreteria.inventario.dto.ProveedorListResponse;
 import com.ferreteria.inventario.dto.CategoriaListResponse;
+import com.ferreteria.inventario.dto.StockUpdateResponse;
 import com.ferreteria.inventario.util.ArticuloMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -91,6 +92,21 @@ public class InventarioWebService {
             @WebParam(name = "stockMinimo") Integer stockMinimo) {
 
         logger.info("SOAP: Solicitud de inserción de artículo - Código: {}", codigo);
+        
+        // Logging detallado de todos los parámetros
+        logger.info("=== PARÁMETROS RECIBIDOS EN insertarArticulo ===");
+        logger.info("codigo: '{}' (tipo: {})", codigo, codigo != null ? codigo.getClass().getSimpleName() : "null");
+        logger.info("nombre: '{}' (tipo: {})", nombre, nombre != null ? nombre.getClass().getSimpleName() : "null");
+        logger.info("descripcion: '{}' (tipo: {})", descripcion, descripcion != null ? descripcion.getClass().getSimpleName() : "null");
+        logger.info("categoriaId: {} (tipo: {})", categoriaId, categoriaId != null ? categoriaId.getClass().getSimpleName() : "null");
+        logger.info("proveedorId: {} (tipo: {})", proveedorId, proveedorId != null ? proveedorId.getClass().getSimpleName() : "null");
+        logger.info("precioCompra: {} (tipo: {})", precioCompra, precioCompra != null ? precioCompra.getClass().getSimpleName() : "null");
+        logger.info("precioVenta: {} (tipo: {})", precioVenta, precioVenta != null ? precioVenta.getClass().getSimpleName() : "null");
+        logger.info("stockActual: {} (tipo: {})", stockActual, stockActual != null ? stockActual.getClass().getSimpleName() : "null");
+        logger.info("stockMinimo: {} (tipo: {})", stockMinimo, stockMinimo != null ? stockMinimo.getClass().getSimpleName() : "null");
+        logger.info("=== FIN PARÁMETROS ===");
+        logger.debug("Parámetros recibidos: codigo={}, nombre={}, descripcion={}, categoriaId={}, proveedorId={}, precioCompra={}, precioVenta={}, stockActual={}, stockMinimo={}", 
+                    codigo, nombre, descripcion, categoriaId, proveedorId, precioCompra, precioVenta, stockActual, stockMinimo);
 
         try {
             // Crear el objeto Articulo desde los parámetros
@@ -279,56 +295,87 @@ public class InventarioWebService {
  * @return RespuestaOperacion con el resultado de la operación
  */
 @WebMethod(operationName = "actualizarStock")
-@WebResult(name = "respuesta")
-public RespuestaOperacion actualizarStock(
+@WebResult(name = "stockUpdateResponse", targetNamespace = "http://ws.inventario.ferreteria.com/")
+@XmlMimeType("application/xml")
+public StockUpdateResponse actualizarStock(
         @WebParam(name = "codigo") String codigo,
         @WebParam(name = "nuevoStock") Integer nuevoStock) {
     
-    logger.info("Solicitud de actualización de stock - Código: {}, Nuevo Stock: {}", codigo, nuevoStock);
-    RespuestaOperacion respuesta = new RespuestaOperacion();
+    final String METHOD_NAME = "actualizarStock";
+    logger.info("SOAP: Iniciando operación {} - Código: {}, Nuevo Stock: {}", METHOD_NAME, codigo, nuevoStock);
     
     try {
-        // Validaciones básicas
+        // 1. Validaciones básicas
         if (codigo == null || codigo.trim().isEmpty()) {
-            throw new ValidationException("El código del artículo es requerido");
+            logger.warn("Código de artículo vacío o nulo");
+            return new StockUpdateResponse(false, "El código del artículo es requerido");
         }
         
         if (nuevoStock == null || nuevoStock < 0) {
-            throw new ValidationException("El stock debe ser un número no negativo");
+            logger.warn("Stock inválido: {}", nuevoStock);
+            return new StockUpdateResponse(false, "El stock debe ser un número no negativo");
         }
         
-        // Normalizar código
+        // 2. Normalizar código
         codigo = codigo.trim().toUpperCase();
+        logger.debug("Código normalizado: {}", codigo);
         
-        // Buscar el artículo
+        // 3. Buscar el artículo y obtener stock anterior
         logger.debug("Buscando artículo con código: {}", codigo);
         Articulo articulo = articuloService.consultarPorCodigo(codigo);
+        Integer stockAnterior = articulo.getStockActual();
+        
+        logger.info("SOAP: Artículo encontrado - ID: {}, Stock actual: {}", articulo.getId(), stockAnterior);
 
-        // Actualizar el stock
-        logger.debug("Actualizando stock del artículo ID: {} a {}", articulo.getId(), nuevoStock);
+        // 4. Actualizar el stock
+        logger.debug("Actualizando stock del artículo ID: {} de {} a {}", articulo.getId(), stockAnterior, nuevoStock);
         articuloService.actualizarStock(articulo.getId(), nuevoStock);
 
-        // Consultar el artículo actualizado
+        // 5. Consultar el artículo actualizado
         Articulo articuloActualizado = articuloService.consultarPorCodigo(codigo);
         
-        // Configurar respuesta exitosa
-        respuesta = RespuestaOperacion.exito("Stock actualizado exitosamente", articuloActualizado);
+        // 6. Crear y validar la respuesta
+        StockUpdateResponse response = new StockUpdateResponse(
+            true, 
+            "Stock actualizado exitosamente para el artículo " + codigo,
+            articuloActualizado,
+            stockAnterior,
+            nuevoStock
+        );
         
-        logger.info("Stock actualizado exitosamente para el artículo: {}", codigo);
+        logger.info("SOAP: {} completado exitosamente - {} de {} a {} unidades", 
+                   METHOD_NAME, codigo, stockAnterior, nuevoStock);
+        
+        // 7. Log detallado (solo en modo debug)
+        if (logger.isDebugEnabled()) {
+            logger.debug("=== ACTUALIZACIÓN DE STOCK COMPLETADA ===");
+            logger.debug("Artículo: {} - {}", articuloActualizado.getCodigo(), articuloActualizado.getNombre());
+            logger.debug("Stock anterior: {}, Stock nuevo: {}", stockAnterior, nuevoStock);
+            logger.debug("Stock mínimo: {}", articuloActualizado.getStockMinimo());
+            
+            if (articuloActualizado.getStockMinimo() != null && nuevoStock < articuloActualizado.getStockMinimo()) {
+                logger.debug("⚠️ ALERTA: Stock por debajo del mínimo ({} < {})", 
+                           nuevoStock, articuloActualizado.getStockMinimo());
+            }
+        }
+        
+        return response;
         
     } catch (ArticuloNotFoundException e) {
-        String errorMsg = "Artículo no encontrado: " + codigo;
+        String errorMsg = "Artículo no encontrado con código: " + codigo;
         logger.error("SOAP: {}", errorMsg);
+        return new StockUpdateResponse(false, errorMsg);
         
-        respuesta = RespuestaOperacion.error(errorMsg, "ARTICULO_NO_ENCONTRADO", "NEGOCIO");
+    } catch (ValidationException e) {
+        String errorMsg = "Error de validación: " + e.getMessage();
+        logger.error("SOAP: {}", errorMsg);
+        return new StockUpdateResponse(false, errorMsg);
+        
     } catch (Exception e) {
-        String errorMsg = "Error inesperado: " + e.getMessage();
-        logger.error("SOAP: {}", errorMsg, e);
-        
-        respuesta = RespuestaOperacion.error(errorMsg, "ERROR_INTERNO", "SISTEMA");
+        String errorMsg = "Error inesperado al actualizar stock: " + e.getMessage();
+        logger.error("SOAP: Error en {}: {}", METHOD_NAME, errorMsg, e);
+        return new StockUpdateResponse(false, errorMsg);
     }
-    
-    return respuesta;
 }
 
 /**

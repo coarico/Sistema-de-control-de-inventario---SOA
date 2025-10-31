@@ -54,11 +54,99 @@ escribirLog('Iniciando cliente SOAP', 'INFO');
 const DEFAULT_RETRIES = 3;
 const RETRY_DELAY = 1000; // 1 segundo
 
-// Función para verificar si una respuesta está truncada
+// Función para parsear respuestas XML manualmente
+function parseXMLResponse(xmlData, methodName) {
+  if (!xmlData || typeof xmlData !== 'string') {
+    return null;
+  }
+  
+  console.log(`🔍 Parseando XML para ${methodName}...`);
+  
+  // Buscar la respuesta dentro del XML
+  const responsePattern = new RegExp(`<ns2:${methodName}Response[^>]*>([\\s\\S]*?)</ns2:${methodName}Response>`, 'i');
+  const match = xmlData.match(responsePattern);
+  
+  if (!match) {
+    console.log(`❌ No se encontró patrón de respuesta para ${methodName}`);
+    return null;
+  }
+  
+  const responseContent = match[1];
+  console.log(`✅ Contenido de respuesta extraído: ${responseContent.substring(0, 200)}...`);
+  
+  // Para consultarArticulo, buscar estructura específica
+  if (methodName === 'consultarArticulo') {
+    try {
+      // Buscar campos específicos en el XML
+      const extractValue = (field) => {
+        const regex = new RegExp(`<${field}[^>]*>([^<]*)</${field}>`, 'i');
+        const match = responseContent.match(regex);
+        return match ? match[1].trim() : null;
+      };
+      
+      const exitoso = extractValue('exitoso') === 'true';
+      const mensaje = extractValue('mensaje');
+      
+      if (!exitoso) {
+        return { exitoso: false, mensaje: mensaje || 'Artículo no encontrado' };
+      }
+      
+      // Buscar datos del artículo
+      const articuloMatch = responseContent.match(/<datos[^>]*>([\s\S]*?)<\/datos>/i);
+      if (!articuloMatch) {
+        return { exitoso: false, mensaje: 'No se encontraron datos del artículo' };
+      }
+      
+      const articuloXML = articuloMatch[1];
+      const articulo = {
+        codigo: extractValue('codigo') || (articuloXML.match(/<codigo[^>]*>([^<]*)<\/codigo>/i)?.[1]),
+        nombre: extractValue('nombre') || (articuloXML.match(/<nombre[^>]*>([^<]*)<\/nombre>/i)?.[1]),
+        descripcion: extractValue('descripcion') || (articuloXML.match(/<descripcion[^>]*>([^<]*)<\/descripcion>/i)?.[1]),
+        precio: parseFloat(extractValue('precioVenta') || articuloXML.match(/<precioVenta[^>]*>([^<]*)<\/precioVenta>/i)?.[1] || 0),
+        stock: parseInt(extractValue('stockActual') || articuloXML.match(/<stockActual[^>]*>([^<]*)<\/stockActual>/i)?.[1] || 0),
+      };
+      
+      return { exitoso: true, datos: articulo };
+      
+    } catch (error) {
+      console.log(`❌ Error parseando consultarArticulo: ${error.message}`);
+      return { exitoso: false, mensaje: 'Error procesando respuesta' };
+    }
+  }
+  
+  // Para otras operaciones, retornar respuesta genérica
+  return { exitoso: true, mensaje: 'Operación procesada' };
+}
+
+// Función simplificada para verificar si una respuesta está truncada
 function isTruncatedResponse(data) {
   if (!data) return true;
+  
   const str = typeof data === 'string' ? data : JSON.stringify(data);
-  return str.includes('<S:Envelope') && !str.includes('</S:Envelope>');
+  
+  // Verificar si parece ser una respuesta XML SOAP
+  const isXMLResponse = str.includes('<?xml') || str.includes('<S:') || str.includes('<soap:');
+  
+  if (!isXMLResponse) {
+    // Si no es XML, no puede estar truncada
+    return false;
+  }
+  
+  // Para respuestas XML, solo verificar si tiene una etiqueta de cierre de envelope
+  const hasValidEnding = str.includes('</S:Envelope>') || 
+                        str.includes('</soap:Envelope>') ||
+                        str.includes('</soapenv:Envelope>');
+  
+  // Verificar si la respuesta es muy corta (probablemente truncada)
+  const tooShort = str.length < 50;
+  
+  // Log simple para debug
+  if (!hasValidEnding || tooShort) {
+    console.log(`🚨 Posible respuesta truncada: length=${str.length}, hasEnding=${hasValidEnding}`);
+    console.log(`📄 Respuesta: ${str.substring(0, 300)}...`);
+  }
+  
+  return !hasValidEnding || tooShort;
 }
 
 // Función para esperar un tiempo determinado
@@ -80,14 +168,27 @@ async function executeWithLogging(methodName, args = {}, retries = DEFAULT_RETRI
     try {
       log(`\n=== Intento ${attempt} de ${retries} - ${methodName} ===`, 'debug');
       
-      // Configuración de la petición SOAP
+      // Configuración de la petición SOAP con timeouts más largos
       const options = {
         disableCache: true,
-        forceSoap12Headers: true,
+        forceSoap12Headers: false, // Cambiar a SOAP 1.1 para mejor compatibilidad
         envelopeKey: 'soap',
         escapeXML: false,
-        timeout: 10000 + (attempt * 2000), // Aumentar timeout en cada reintento
-        returnFault: true
+        timeout: 30000 + (attempt * 5000), // Timeouts más largos: 30s base + 5s por reintento
+        returnFault: true,
+        // Configuraciones adicionales para manejar respuestas grandes
+        maxBodyLength: Infinity,
+        maxContentLength: Infinity,
+        // Configuraciones HTTP adicionales
+        agent: false,
+        forever: false,
+        pool: false,
+        // Headers personalizados
+        headers: {
+          'Connection': 'keep-alive',
+          'Content-Type': 'text/xml; charset=utf-8',
+          'Accept': 'text/xml, application/xml, application/soap+xml'
+        }
       };
       
       // Registrar la petición
@@ -96,20 +197,48 @@ async function executeWithLogging(methodName, args = {}, retries = DEFAULT_RETRI
       // Ejecutar la operación con promesas
       const result = await new Promise((resolve, reject) => {
         client[methodName](args, options, (error, result, rawResponse) => {
+          // Log para debugging
+          console.log(`🔍 SOAP Response Debug:
+            - Error: ${!!error}
+            - Result: ${!!result}
+            - RawResponse: ${!!rawResponse}
+            - RawResponse length: ${rawResponse ? rawResponse.length : 0}`);
+          
           if (error) {
+            console.log(`❌ SOAP Error details:`, {
+              message: error.message,
+              code: error.code,
+              response: error.response?.data ? error.response.data.substring(0, 300) : 'No response data'
+            });
+            
             // Verificar si es un error de timeout
             if (error.code === 'ESOCKETTIMEDOUT' || error.code === 'ETIMEDOUT') {
               error.message = `Timeout al conectar con el servidor (${options.timeout}ms)`;
+              reject(error);
+              return;
             }
             
-            // Verificar si la respuesta está truncada
-            if (error.response?.data && isTruncatedResponse(error.response.data)) {
-              error.isTruncated = true;
-              error.message = 'La respuesta del servidor está incompleta (truncada)';
+            // Si hay datos en el error, intentar procesarlos
+            if (error.response?.data) {
+              const errorData = error.response.data;
+              
+              // Si la respuesta está claramente truncada, rechazar
+              if (isTruncatedResponse(errorData)) {
+                error.isTruncated = true;
+                error.message = 'La respuesta del servidor está incompleta (truncada)';
+                reject(error);
+                return;
+              }
+              
+              // Si no está truncada, intentar procesar como respuesta válida
+              console.log(`⚠️ Error con datos válidos, intentando procesar...`);
+              resolve({ result: null, rawResponse: errorData, hasError: true });
+              return;
             }
             
             reject(error);
           } else if (isTruncatedResponse(rawResponse)) {
+            console.log(`🚨 Respuesta truncada detectada`);
             const error = new Error('La respuesta del servidor está incompleta (truncada)');
             error.isTruncated = true;
             reject(error);
@@ -123,11 +252,26 @@ async function executeWithLogging(methodName, args = {}, retries = DEFAULT_RETRI
       clearInterval(spinnerInterval);
       process.stdout.write('\r' + ' '.repeat(50) + '\r');
       
-      // Registrar la respuesta exitosa
-      logSoapResponse(methodName, result.result, false);
-      log(`\n✅ Operación ${methodName} completada exitosamente\n`, 'success');
+      // Procesar la respuesta
+      let finalResult = result.result;
       
-      return result.result;
+      // Si la respuesta vino con error pero tiene datos válidos, procesarla
+      if (result.hasError && result.rawResponse) {
+        console.log(`⚠️ Procesando respuesta que vino como error...`);
+        try {
+          // Intentar parsear la respuesta XML manualmente
+          finalResult = parseXMLResponse(result.rawResponse, methodName);
+        } catch (parseError) {
+          console.log(`❌ Error parseando XML: ${parseError.message}`);
+          finalResult = null;
+        }
+      }
+      
+      // Registrar la respuesta exitosa
+      logSoapResponse(methodName, finalResult, result.hasError || false);
+      log(`\n✅ Operación ${methodName} completada ${result.hasError ? '(con advertencias)' : 'exitosamente'}\n`, 'success');
+      
+      return finalResult;
       
     } catch (error) {
       clearInterval(spinnerInterval);
@@ -349,11 +493,23 @@ async function main() {
         'Authorization': 'Basic ' + Buffer.from('admin:admin').toString('base64')
       },
       escapeXML: false,
+      disableCache: true,
+      timeout: 30000,
+      // Configuraciones HTTP más robustas
       wsdl_options: {
         rejectUnauthorized: false,
         strictSSL: false,
-        forever: true
-      }
+        forever: false,
+        timeout: 30000,
+        pool: false,
+        // Configuraciones adicionales para manejar respuestas grandes
+        maxContentLength: Infinity,
+        maxBodyLength: Infinity
+      },
+      // Configuraciones del cliente SOAP
+      forceSoap12Headers: false, // Usar SOAP 1.1 para mejor compatibilidad
+      maxBodyLength: Infinity,
+      maxContentLength: Infinity
     }, function(err, client) {
       if (err) {
         log(`Error conectando al servicio: ${err.message}`, 'error');
@@ -456,25 +612,31 @@ async function getCategorias(client) {
         // Manejar diferentes formatos de respuesta
         let categorias = [];
         
-        // Caso 1: Nueva estructura CategoriaListResponse (similar a ProveedorListResponse)
-        if (result?.return?.categorias) {
-          categorias = Array.isArray(result.return.categorias) 
-            ? result.return.categorias 
-            : [result.return.categorias];
-        } 
-        // Caso 2: Respuesta directa en result.return.datos (formato anterior)
+        // Caso 1: Nuevo formato CategoriaListResponse
+        if (result?.return?.categorias?.categoria) {
+          categorias = Array.isArray(result.return.categorias.categoria) 
+            ? result.return.categorias.categoria 
+            : [result.return.categorias.categoria];
+        }
+        // Caso 2: Formato alternativo con categoriaListResponse
+        else if (result?.categoriaListResponse?.categorias?.categoria) {
+          categorias = Array.isArray(result.categoriaListResponse.categorias.categoria) 
+            ? result.categoriaListResponse.categorias.categoria 
+            : [result.categoriaListResponse.categorias.categoria];
+        }
+        // Caso 3: Respuesta directa en result.return.datos (formato anterior)
         else if (result?.return?.datos) {
           categorias = Array.isArray(result.return.datos) 
             ? result.return.datos 
             : [result.return.datos];
         } 
-        // Caso 3: Respuesta en result.return
+        // Caso 4: Respuesta en result.return
         else if (result?.return) {
           categorias = Array.isArray(result.return) 
             ? result.return 
             : [result.return];
         }
-        // Caso 4: Respuesta directa
+        // Caso 5: Respuesta directa
         else if (Array.isArray(result)) {
           categorias = result;
         }
@@ -504,23 +666,6 @@ async function getProveedores(client) {
   console.log('\n\x1b[36m=== OBTENIENDO PROVEEDORES ===\x1b[0m');
   
   return new Promise((resolve) => {
-    const loadingInterval = setInterval(() => process.stdout.write('.'), 500);
-    
-    // Configuración mejorada para la solicitud SOAP
-    const options = {
-      method: 'listarProveedores',
-      params: {},
-      headers: {
-        'Content-Type': 'text/xml;charset=UTF-8',
-        'Accept': 'text/xml',
-        'SOAPAction': ''
-      },
-      timeout: 10000,
-      disableCache: true,
-      forceSoap12Headers: true
-    };
-    
-    return new Promise((resolve) => {
     // Registrar la petición
     escribirLog(`Enviando petición SOAP para listar proveedores`, 'DEBUG');
     
@@ -550,19 +695,31 @@ async function getProveedores(client) {
           // Manejar diferentes formatos de respuesta
           let proveedores = [];
           
-          // Caso 1: Respuesta directa en result.return.datos
-          if (result?.return?.datos) {
+          // Caso 1: Nuevo formato ProveedorListResponse
+          if (result?.return?.proveedores?.proveedor) {
+            proveedores = Array.isArray(result.return.proveedores.proveedor) 
+              ? result.return.proveedores.proveedor 
+              : [result.return.proveedores.proveedor];
+          }
+          // Caso 2: Formato alternativo con proveedorListResponse
+          else if (result?.proveedorListResponse?.proveedores?.proveedor) {
+            proveedores = Array.isArray(result.proveedorListResponse.proveedores.proveedor) 
+              ? result.proveedorListResponse.proveedores.proveedor 
+              : [result.proveedorListResponse.proveedores.proveedor];
+          }
+          // Caso 3: Respuesta directa en result.return.datos (formato anterior)
+          else if (result?.return?.datos) {
             proveedores = Array.isArray(result.return.datos) 
               ? result.return.datos 
               : [result.return.datos];
           } 
-          // Caso 2: Respuesta en result.return
+          // Caso 4: Respuesta en result.return
           else if (result?.return) {
             proveedores = Array.isArray(result.return) 
               ? result.return 
               : [result.return];
           }
-          // Caso 3: Respuesta directa
+          // Caso 5: Respuesta directa
           else if (Array.isArray(result)) {
             proveedores = result;
           }
@@ -618,7 +775,6 @@ async function getProveedores(client) {
       escribirLog(`Error inesperado: ${error.message}`, 'ERROR');
       resolve([]); // Resolver con array vacío en caso de error
     }
-  });
   });
 }
 
@@ -898,8 +1054,8 @@ async function executeOperation(client, operation) {
                 rl.question('Stock inicial: ', (stockInicial) => {
                   rl.question('Stock mínimo: ', (stockMinimo) => {
                     resolve({
-                      categoria: { id: categoriaId },
-                      proveedor: { id: proveedorId },
+                      categoriaId: categoriaId,
+                      proveedorId: proveedorId,
                       precioCompra: parseFloat(precioCompra),
                       precioVenta: parseFloat(precioVenta),
                       stockActual: parseInt(stockInicial, 10) || 0,
@@ -935,7 +1091,18 @@ async function executeOperation(client, operation) {
           
           log(JSON.stringify(articulo, null, 2), 'debug');
           
-          executeWithLogging('insertarArticulo', articulo, (result) => {
+          // Enviar parámetros individuales en lugar de un objeto
+          executeWithLogging('insertarArticulo', {
+            codigo: articulo.codigo,
+            nombre: articulo.nombre, 
+            descripcion: articulo.descripcion,
+            categoriaId: articulo.categoriaId,
+            proveedorId: articulo.proveedorId,
+            precioCompra: articulo.precioCompra,
+            precioVenta: articulo.precioVenta,
+            stockActual: articulo.stockActual,
+            stockMinimo: articulo.stockMinimo
+          }, (result) => {
             handleResponse(null, result);
             showMenu(client);
           });
@@ -963,6 +1130,176 @@ async function executeOperation(client, operation) {
         handleResponse(null, result);
         showMenu(client);
       });
+      break;
+      
+    case 'actualizarStock':
+      log('Actualizando stock de artículo...', 'info');
+      
+      // Función para mostrar el menú de ayuda
+      const mostrarAyudaStock = () => {
+        console.log('\n\x1b[36m=== AYUDA: ACTUALIZACIÓN DE STOCK ===\x1b[0m');
+        console.log('  Esta operación permite actualizar el stock de un artículo existente.');
+        console.log('  Necesitará:');
+        console.log('  • Código del artículo (ej: MART001, HERR025, etc.)');
+        console.log('  • Nuevo valor del stock (número entero no negativo)');
+        console.log('\n  Escriba \'salir\' para volver al menú principal.\n');
+      };
+      
+      const procesarActualizacionStock = (codigo, nuevoStock) => {
+        // Validar el código
+        if (!codigo || codigo.trim() === '') {
+          console.log('\n\x1b[33m⚠ Por favor ingrese un código de artículo.\x1b[0m\n');
+          return false;
+        }
+        
+        // Validar el stock
+        const stock = parseInt(nuevoStock, 10);
+        if (isNaN(stock) || stock < 0) {
+          console.log('\n\x1b[33m⚠ El stock debe ser un número entero no negativo.\x1b[0m\n');
+          return false;
+        }
+        
+        codigo = codigo.trim().toUpperCase();
+        log(`Actualizando stock del artículo ${codigo} a ${stock} unidades`, 'info');
+        
+        // Mostrar indicador de carga
+        const spinner = ['|', '/', '-', '\\'];
+        let spinnerIndex = 0;
+        const loadingInterval = setInterval(() => {
+          process.stdout.write(`\r${spinner[spinnerIndex++ % spinner.length]} Actualizando stock...`);
+        }, 100);
+        
+        // Usar executeWithLogging para manejo consistente
+        executeWithLogging('actualizarStock', { codigo, nuevoStock: stock }, (result) => {
+          // Limpiar el indicador de carga
+          clearInterval(loadingInterval);
+          process.stdout.write('\r' + ' '.repeat(30) + '\r');
+          
+          // Procesar la respuesta exitosa
+          try {
+            // Log para diagnóstico
+            escribirLog(`Respuesta de actualizarStock: ${JSON.stringify(result, null, 2)}`, 'DEBUG');
+            
+            // Manejar el nuevo formato de respuesta StockUpdateResponse
+            const response = result?.return || result?.stockUpdateResponse || result;
+            
+            if (response?.exitoso) {
+              console.log('\n\x1b[32m✓ Stock actualizado exitosamente\x1b[0m\n');
+              
+              // Mostrar los detalles del artículo actualizado
+              if (response.articulo) {
+                const articulo = response.articulo;
+                console.log('\x1b[36m=== ARTÍCULO ACTUALIZADO ===\x1b[0m');
+                console.log(`  • Código: ${articulo.codigo || 'No disponible'}`);
+                console.log(`  • Nombre: ${articulo.nombre || 'No disponible'}`);
+                console.log(`  • Stock anterior: ${response.stockAnterior || 'No disponible'}`);
+                console.log(`  • Stock actual: \x1b[32m${articulo.stockActual || response.stockNuevo || stock}\x1b[0m`);
+                console.log(`  • Stock mínimo: ${articulo.stockMinimo || 'No definido'}`);
+                
+                // Mostrar información adicional si está disponible
+                if (articulo.precioVenta) {
+                  console.log(`  • Precio de venta: $${articulo.precioVenta}`);
+                }
+                
+                if (articulo.categoriaNombre) {
+                  console.log(`  • Categoría: ${articulo.categoriaNombre}`);
+                }
+                
+                if (articulo.proveedorNombre) {
+                  console.log(`  • Proveedor: ${articulo.proveedorNombre}`);
+                }
+                
+                // Verificar si el stock está por debajo del mínimo
+                const stockActual = articulo.stockActual || response.stockNuevo;
+                if (articulo.stockMinimo && stockActual < articulo.stockMinimo) {
+                  console.log('\n\x1b[33m⚠ ADVERTENCIA: El stock actual está por debajo del stock mínimo.\x1b[0m');
+                } else if (articulo.stockMinimo && stockActual <= articulo.stockMinimo * 1.2) {
+                  console.log('\n\x1b[33m⚠ ALERTA: El stock está cerca del nivel mínimo.\x1b[0m');
+                }
+                
+                console.log(`\n  Mensaje: ${response.mensaje || 'Actualización completada'}`);
+              } else {
+                console.log(`\n  ${response.mensaje || 'Stock actualizado correctamente'}`);
+                if (response.stockAnterior !== undefined && response.stockNuevo !== undefined) {
+                  console.log(`  Stock cambió de ${response.stockAnterior} a ${response.stockNuevo} unidades`);
+                }
+              }
+              
+              console.log('\n\x1b[32mOperación completada con éxito.\x1b[0m\n');
+            } else {
+              // Error del servidor
+              console.log('\n\x1b[31m✖ Error del servidor:\x1b[0m');
+              console.log(`  ${response?.mensaje || 'Error desconocido'}`);
+              
+              if (response?.codigoError) {
+                console.log(`  Código de error: ${response.codigoError}`);
+              }
+            }
+            
+            // Preguntar si desea actualizar otro artículo
+            rl.question('¿Desea actualizar el stock de otro artículo? (s/n): ', (respuesta) => {
+              if (respuesta.toLowerCase() === 's') {
+                solicitarDatosStock();
+              } else {
+                console.log('\nVolviendo al menú principal...\n');
+                showMenu(client);
+              }
+            });
+            
+          } catch (error) {
+            console.log('\n\x1b[31m✖ Error al procesar la respuesta del servidor:\x1b[0m');
+            console.log(`  ${error.message || 'Error desconocido'}`);
+            console.log('\n\x1b[33mPor favor, intente nuevamente.\x1b[0m\n');
+            
+            // Registrar el error en el log
+            escribirLog(`Error al procesar respuesta de actualizarStock: ${error.message}\n${error.stack}`, 'ERROR');
+            
+            // Volver al menú principal
+            showMenu(client);
+          }
+        });
+        
+        return true;
+      };
+      
+      // Mostrar ayuda inicial
+      mostrarAyudaStock();
+      
+      // Iniciar la interacción con el usuario
+      const solicitarDatosStock = () => {
+        rl.question('\nIngrese código del artículo (o \'ayuda\' para ver ejemplos): ', (codigo) => {
+          // Mostrar ayuda si el usuario lo solicita
+          if (codigo.toLowerCase() === 'ayuda') {
+            mostrarAyudaStock();
+            return solicitarDatosStock();
+          }
+          
+          // Permitir salir
+          if (codigo.toLowerCase() === 'salir') {
+            console.log('\nVolviendo al menú principal...\n');
+            showMenu(client);
+            return;
+          }
+          
+          // Validar código
+          if (!codigo || codigo.trim() === '') {
+            console.log('\n\x1b[33m⚠ Por favor ingrese un código de artículo válido.\x1b[0m');
+            return solicitarDatosStock();
+          }
+          
+          // Solicitar el nuevo stock
+          rl.question('Ingrese el nuevo stock (número entero no negativo): ', (stockStr) => {
+            // Procesar la actualización
+            if (!procesarActualizacionStock(codigo, stockStr)) {
+              // Si hubo un error de validación, volver a solicitar los datos
+              return solicitarDatosStock();
+            }
+          });
+        });
+      };
+      
+      // Iniciar el proceso
+      solicitarDatosStock();
       break;
       
     default:
@@ -1119,6 +1456,31 @@ function handleResponse(err, result, operation = '') {
     } else {
       console.log(`\n\x1b[33mℹ ${respuesta.mensaje || 'No se encontraron proveedores'}\x1b[0m`);
       log(respuesta.mensaje || 'No se encontraron proveedores', 'info');
+    }
+  }
+  // Manejar respuesta de actualizar stock
+  else if (operation === 'actualizarStock') {
+    if (respuesta.exitoso && respuesta.datos) {
+      const articulo = respuesta.datos;
+      console.log('\n\x1b[32m✓ STOCK ACTUALIZADO EXITOSAMENTE\x1b[0m');
+      console.log('\n\x1b[36m=== DETALLES DEL ARTÍCULO ===\x1b[0m');
+      console.log(`  Código: ${articulo.codigo || 'No disponible'}`);
+      console.log(`  Nombre: ${articulo.nombre || 'No disponible'}`);
+      console.log(`  Stock actual: \x1b[32m${articulo.stockActual || 'No disponible'}\x1b[0m`);
+      console.log(`  Stock mínimo: ${articulo.stockMinimo || 'No definido'}`);
+      
+      // Verificar alertas de stock
+      if (articulo.stockMinimo && articulo.stockActual < articulo.stockMinimo) {
+        console.log('\n\x1b[33m⚠ ALERTA: Stock por debajo del mínimo requerido\x1b[0m');
+      } else if (articulo.stockMinimo && articulo.stockActual <= articulo.stockMinimo * 1.2) {
+        console.log('\n\x1b[33m⚠ ADVERTENCIA: Stock cerca del mínimo\x1b[0m');
+      }
+      
+      // Registrar en el log
+      log(`Stock actualizado para ${articulo.codigo}: ${articulo.stockActual} unidades`, 'info');
+    } else {
+      console.log(`\n\x1b[33mℹ ${respuesta.mensaje || 'Stock no pudo ser actualizado'}\x1b[0m`);
+      log(respuesta.mensaje || 'Stock no pudo ser actualizado', 'warn');
     }
   }
   // Para otras operaciones, mostrar la respuesta completa
