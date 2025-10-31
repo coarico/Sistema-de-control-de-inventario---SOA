@@ -1,0 +1,15 @@
+D:\SEMESTRE\Semestre Octu25 - Marzo 26\Apli-Distribuidas\PARCIAL 1\TALLER 1\INVENTARIO\src\main\java\com\ferreteria\inventario\model\Articulo.java
+D:\SEMESTRE\Semestre Octu25 - Marzo 26\Apli-Distribuidas\PARCIAL 1\TALLER 1\INVENTARIO\src\main\java\com\ferreteria\inventario\exception\ValidationException.java
+D:\SEMESTRE\Semestre Octu25 - Marzo 26\Apli-Distribuidas\PARCIAL 1\TALLER 1\INVENTARIO\src\main\java\com\ferreteria\inventario\dto\ArticuloDTO.java
+D:\SEMESTRE\Semestre Octu25 - Marzo 26\Apli-Distribuidas\PARCIAL 1\TALLER 1\INVENTARIO\src\main\java\com\ferreteria\inventario\exception\InventarioException.java
+D:\SEMESTRE\Semestre Octu25 - Marzo 26\Apli-Distribuidas\PARCIAL 1\TALLER 1\INVENTARIO\src\main\java\com\ferreteria\inventario\exception\ArticuloNotFoundException.java
+D:\SEMESTRE\Semestre Octu25 - Marzo 26\Apli-Distribuidas\PARCIAL 1\TALLER 1\INVENTARIO\src\main\java\com\ferreteria\inventario\ws\InventarioWebService.java
+D:\SEMESTRE\Semestre Octu25 - Marzo 26\Apli-Distribuidas\PARCIAL 1\TALLER 1\INVENTARIO\src\main\java\com\ferreteria\inventario\dto\RespuestaOperacion.java
+D:\SEMESTRE\Semestre Octu25 - Marzo 26\Apli-Distribuidas\PARCIAL 1\TALLER 1\INVENTARIO\src\main\java\com\ferreteria\inventario\model\Categoria.java
+D:\SEMESTRE\Semestre Octu25 - Marzo 26\Apli-Distribuidas\PARCIAL 1\TALLER 1\INVENTARIO\src\main\java\com\ferreteria\inventario\model\Proveedor.java
+D:\SEMESTRE\Semestre Octu25 - Marzo 26\Apli-Distribuidas\PARCIAL 1\TALLER 1\INVENTARIO\src\main\java\com\ferreteria\inventario\dao\ArticuloDAO.java
+D:\SEMESTRE\Semestre Octu25 - Marzo 26\Apli-Distribuidas\PARCIAL 1\TALLER 1\INVENTARIO\src\main\java\com\ferreteria\inventario\service\ArticuloValidator.java
+D:\SEMESTRE\Semestre Octu25 - Marzo 26\Apli-Distribuidas\PARCIAL 1\TALLER 1\INVENTARIO\src\main\java\com\ferreteria\inventario\util\ArticuloMapper.java
+D:\SEMESTRE\Semestre Octu25 - Marzo 26\Apli-Distribuidas\PARCIAL 1\TALLER 1\INVENTARIO\src\main\java\com\ferreteria\inventario\InventarioServer.java
+D:\SEMESTRE\Semestre Octu25 - Marzo 26\Apli-Distribuidas\PARCIAL 1\TALLER 1\INVENTARIO\src\main\java\com\ferreteria\inventario\config\DatabaseConfig.java
+D:\SEMESTRE\Semestre Octu25 - Marzo 26\Apli-Distribuidas\PARCIAL 1\TALLER 1\INVENTARIO\src\main\java\com\ferreteria\inventario\service\ArticuloService.java

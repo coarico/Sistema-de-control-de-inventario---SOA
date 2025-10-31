@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<endpoints xmlns="http://java.sun.com/xml/ns/jax-ws/ri/runtime" version="2.0">
+    
+    <!-- Configuración del endpoint SOAP para el servicio de inventario -->
+    <endpoint
+        name="InventarioWebService"
+        implementation="com.ferreteria.inventario.ws.InventarioWebService"
+        url-pattern="/InventarioService"/>
+        
+</endpoints>
