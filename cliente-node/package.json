@@ -1,46 +1,19 @@
 {
-  "name": "sistema-inventario-cliente",
-  "version": "2.0.0",
-  "description": "Cliente SOAP para Sistema de Gestión de Inventario - Arquitectura SOA",
-  "main": "main.js",
-  "bin": {
-    "inventario-cliente": "./main.js"
-  },
+  "name": "cliente-node-inventario",
+  "version": "0.1.0",
+  "description": "Cliente rápido para probar el servicio SOAP Inventario",
+  "main": "index.js",
   "scripts": {
-    "start": "node main.js",
-    "dev": "node main.js",
-    "legacy": "node index.js",
-    "test": "echo \"Tests no implementados\" && exit 1",
-    "lint": "echo \"Linting no configurado\" && exit 0"
+    "start": "node index.js",
+    "dev": "node index.js"
   },
-  "keywords": [
-    "inventario",
-    "soap",
-    "cliente",
-    "soa",
-    "ferreteria",
-    "gestion"
-  ],
-  "author": {
-    "name": "Sistema de Inventario",
-    "email": "sistema@inventario.com"
-  },
+  "author": "auto-generated",
   "license": "MIT",
-  "engines": {
-    "node": ">=14.0.0"
-  },
   "dependencies": {
+    "mysql2": "^3.15.3",
     "soap": "^0.42.0"
   },
   "devDependencies": {
     "@ljharb/tsconfig": "^0.3.2"
-  },
-  "repository": {
-    "type": "git",
-    "url": "local"
-  },
-  "bugs": {
-    "url": "mailto:sistema@inventario.com"
-  },
-  "homepage": "Sistema de Gestión de Inventario"
+  }
 }

@@ -1,81 +1,37 @@
-# Sistema de Gestión de Inventario - Cliente SOAP v2.0.0
+# Cliente rápido para el servicio SOAP Inventario
 
-Cliente Node.js restructurado para interactuar con el servicio SOAP de gestión de inventario.
+Este cliente pequeño en Node.js permite probar las operaciones del servicio SOAP expuesto por el backend Java.
 
-## 🏗️ Arquitectura Modular
-
-```
-cliente-node/
-├── main.js                 # Aplicación principal restructurada (v2.0.0)
-├── index.js               # Aplicación legacy (v1.0.0 - retrocompatibilidad)
-├── package.json           # Configuración del proyecto
-├── README.md             # Documentación
-├── config/               # Configuración centralizada
-│   ├── app.js           # Configuración principal
-│   └── credentials.js   # Gestión de credenciales
-├── services/            # Servicios de la aplicación
-│   ├── auth.js         # Servicio de autenticación
-│   └── soap.js         # Cliente SOAP con reintentos
-├── controllers/         # Lógica de negocio
-│   ├── menu.js         # Controlador del menú
-│   └── product.js      # Controlador de productos
-├── utils/              # Utilidades compartidas
-│   ├── logger.js       # Sistema de logging
-│   ├── ui.js          # Interfaz de usuario mejorada
-│   └── validation.js  # Validaciones robustas
-└── logs/               # Archivos de log
-    └── cliente.log     # Log detallado
-```
-
-## 🚀 Instalación y Uso
-
-**Requisitos:**
+Requisitos:
 - Node.js 14+ y npm
-- Servidor SOAP ejecutándose
 
-**Instalación:**
+Instalación:
 
 ```powershell
 cd cliente-node
 npm install
 ```
 
-## 💻 Uso
+Ejemplos de uso:
 
-### Ejecutar la aplicación mejorada (v2.0.0):
+Verificar estado del servicio:
+
 ```powershell
-npm start
-# o
-node main.js
+node index.js --wsdl http://localhost:8080/inventario-sistema-1.0-SNAPSHOT/InventarioService?wsdl --op verificarEstado
 ```
 
-### Ejecutar la versión legacy (v1.0.0):
+Consultar artículo por código:
+
 ```powershell
-npm run legacy
-# o
-node index.js
+node index.js --wsdl http://localhost:8080/inventario-sistema-1.0-SNAPSHOT/InventarioService?wsdl --op consultarArticulo --codigo ART123
 ```
 
-## 🔐 Autenticación
+Insertar artículo (ejemplo):
 
-El sistema incluye usuarios predefinidos:
+```powershell
+node index.js --wsdl http://localhost:8080/inventario-sistema-1.0-SNAPSHOT/InventarioService?wsdl --op insertarArticulo --codigoArticulo CLI-001 --nombre "Martillo CLI"
+```
 
-| Usuario    | Contraseña        | Rol       | Permisos                          |
-|------------|-------------------|-----------|-----------------------------------|
-| admin      | FerretAdmin2024$  | ADMIN     | Acceso completo                   |
-| operador   | StockManager#789  | OPERADOR  | Gestión de inventario y consultas |
-| consulta   | ReadOnly@456      | CONSULTA  | Solo lectura                      |
-
-## 📋 Funcionalidades
-
-### ✅ Implementadas
-- 🔐 Autenticación con múltiples usuarios y roles
-- 📊 Consulta de productos por código
-- 📦 Actualización de inventario
-- 📝 Listado de categorías y proveedores
-- 🎨 Interfaz limpia y profesional (sin información técnica)
-
-### Notas importantes:
-- Asegúrate de que el servidor SOAP esté ejecutándose
-- La aplicación v2.0.0 oculta información técnica para mayor claridad
-- Los logs detallados se guardan en `logs/cliente.log`
+Notas:
+- Asegúrate de que el servidor Java esté levantado y el endpoint `InventarioService` esté accesible. El `sun-jaxws.xml` define el url-pattern `/InventarioService`.
+- Si tu servidor está desplegado en un contexto diferente o puerto, ajusta la URL del WSDL.
